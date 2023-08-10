@@ -1,7 +1,7 @@
 body {
   background-color: #E2F2FF;
 }
-h1 {
+.main h1 {
   font-size: 80px;
   font-style: oblique;
   height: 600px;
