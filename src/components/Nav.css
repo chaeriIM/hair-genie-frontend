@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
+  margin: 0 80px;
 }
 .logo {
   width: 45px;
   height: 45px;
-  margin-left: 45px;
   margin-top: 30px;
   cursor: pointer;
 }
@@ -24,9 +24,6 @@
 }
 .navbarMenu:hover {
   color: #77AFE6;
-}
-.navbarMenu:last-child {
-  margin-right: 45px;
 }
 .navbarMenu.btn {
   width: 130px;
