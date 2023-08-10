@@ -1,8 +1,14 @@
 import React from 'react'
+import Nav from '../../components/Nav'
+import './HairSynthesisPage.css'
 
 const HairSynthesisPage = () => {
   return (
-    <div>HairSynthesisPage</div>
+    <div className='hairsynthesis'>
+      <Nav />
+      <p>Genie Time</p>
+      
+    </div>
   )
 }
 
