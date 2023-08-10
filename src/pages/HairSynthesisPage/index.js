@@ -7,7 +7,7 @@ const HairSynthesisPage = () => {
     <div className='hairsynthesis'>
       <Nav />
       <p>Genie Time</p>
-      
+
     </div>
   )
 }

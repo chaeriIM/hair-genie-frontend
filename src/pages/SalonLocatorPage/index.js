@@ -1,8 +1,13 @@
 import React from 'react'
+import Nav from '../../components/Nav'
+import './SalonLocatorPage.css'
 
 const SalonLocatorPage = () => {
   return (
-    <div>SalonLocatorPage</div>
+    <div className='salonlocator'>
+      <Nav />
+      <p>주변 미용실 찾기</p>
+    </div>
   )
 }
 
