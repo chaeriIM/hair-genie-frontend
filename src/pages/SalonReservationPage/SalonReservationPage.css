@@ -1,3 +1,7 @@
+.salonreservation {
+    background-color: #ffffff;
+}
+
 .salonreservation p {
     font-size: 50px;
     margin: 50px 80px;
@@ -12,4 +16,57 @@
     /* 기본 구분선 스타일 제거 */
     border-top: 2px solid #ccc;
     /* 위쪽 테두리 스타일로 구분선 표시 */
-  }
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    /* 중앙 정렬로 수정 */
+    align-items: center;
+    /* 수직 정렬 추가 */
+    margin-top: 20px;
+}
+
+.step {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.step.active {
+    color: #9fc3d7;
+    /* 활성 상태일 때의 색상 */
+}
+
+.step-circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    /* 원의 너비 */
+    height: 30px;
+    /* 원의 높이 */
+    background-color: #ccc;
+    /* 비활성 상태일 때의 배경색 (회색) */
+    color: #000;
+    /* 비활성 상태일 때의 숫자 색상 (검정색) */
+    border-radius: 50%;
+    /* 둥근 원 형태 */
+    margin-right: 10px;
+    /* 원과 텍스트 사이 간격 */
+    font-weight: bold;
+}
+
+.step.active .step-circle {
+    background-color: #9fc3d7;
+    /* 활성 상태일 때의 배경색 (파란색) */
+    color: #5477aa;
+    /* 활성 상태일 때의 숫자 색상 (진파랑색) */
+}
+
+.step-divider {
+    margin: 0 12px;
+    display: inline-block;
+    color: #000000;
+    font-weight: bold;
+}
