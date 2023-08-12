@@ -1,9 +1,33 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import SalonSelection from './SalonSelection';
+import DateSelection from './DateSelection';
+import ServiceMenuSelection from './ServiceMenuSelection';
 import './SalonReservationPage.css';
 
 const SalonReservationPage = () => {
-  const [step, setStep] = useState(1); // 현재 단계를 관리할 상태 변수
+  const [step, setStep] = useState(1);
+  const [selectedSalon, setSelectedSalon] = useState(null);
+
+  // 선택한 미용실을 처리하는 함수
+  const handleSelectSalon = (salonName) => {
+    setSelectedSalon(salonName);
+    setStep(2);
+  };
+
+  // 각 단계에 따라 다른 컴포넌트를 반환
+  const renderStepContent = () => {
+    switch (step) {
+      case 1:
+        return <SalonSelection onSelectSalon={handleSelectSalon} currentStep={step} setStep={setStep} />;
+      case 2:
+        return <DateSelection selectedSalon={selectedSalon} />;
+      case 3:
+        return <ServiceMenuSelection />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className='salonreservation'>
@@ -11,7 +35,6 @@ const SalonReservationPage = () => {
       <p>미용실 예약</p>
       <hr className='separator' />
 
-      {/* 상단 바에 단계 표시 */}
       <div className='step-indicator'>
         <div className={`step ${step === 1 ? 'active' : ''}`} onClick={() => setStep(1)}>
           <div className='step-circle'>1</div>
@@ -28,9 +51,11 @@ const SalonReservationPage = () => {
           시술 메뉴 선택
         </div>
       </div>
+
+      {/* 각 단계에 따라 다른 컴포넌트 출력 */}
+      {renderStepContent()}
     </div>
   );
 }
 
 export default SalonReservationPage;
-

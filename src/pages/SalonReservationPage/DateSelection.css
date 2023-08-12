@@ -1,0 +1,13 @@
+.dateselection {
+    display: flex;
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    height: 100vh;
+    /* 화면의 전체 높이만큼 영역을 차지 */
+}
+
+.dateselection p {
+    font-size: 30px;
+}
