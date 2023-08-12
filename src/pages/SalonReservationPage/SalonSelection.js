@@ -18,9 +18,9 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
 
     return (
         <div className='salon-selection'>
-            {salonData.map(salon => (
+            {salonData.map((salon, index) => (
                 <React.Fragment key={salon.id}>
-                    <div className='distance-label'>거리 순</div>
+                    {index === 0 && <div className='distance-label'>거리 순</div>}
                     <div className='salon-container'>
                         <div className='salon-box'>
                             <div className='salon-name'>{salon.name}</div>
