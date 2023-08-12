@@ -15,13 +15,12 @@ const SalonReservationPage = () => {
     setStep(2);
   };
 
-  // 각 단계에 따라 다른 컴포넌트를 반환
   const renderStepContent = () => {
     switch (step) {
       case 1:
-        return <SalonSelection onSelectSalon={handleSelectSalon} currentStep={step} setStep={setStep} />;
+        return <SalonSelection onSelectSalon={handleSelectSalon} currentStep={step} setStep={setStep} />
       case 2:
-        return <DateSelection selectedSalon={selectedSalon} />;
+        return <DateSelection selectedSalon={selectedSalon} setStep={setStep} />;
       case 3:
         return <ServiceMenuSelection />;
       default:
