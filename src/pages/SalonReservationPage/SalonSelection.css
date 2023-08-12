@@ -3,11 +3,8 @@
     font-weight: bold;
     position: absolute;
     top: 350px;
-    /* Adjust the top value */
     left: 186px;
-    /* Adjust the left value */
 }
-
 
 .salon-selection {
     display: flex;
@@ -27,9 +24,7 @@
 .salon-box {
     display: flex;
     align-items: center;
-    /* Add this line */
     justify-content: space-between;
-    /* Add this line */
     background-color: #dddbdb;
     padding: 20px;
     margin-right: 20px;
