@@ -1,10 +1,10 @@
 import React from 'react';
+import './DateSelection.css';
 
 const DateSelection = ({ selectedSalon }) => {
     return (
-        <div>
-            <p>날짜 선택</p>
-            <p>선택한 미용실: {selectedSalon}</p>
+        <div className="selected-salon-box">
+            <p className="selected-salon-text">{selectedSalon}</p>
         </div>
     );
 };

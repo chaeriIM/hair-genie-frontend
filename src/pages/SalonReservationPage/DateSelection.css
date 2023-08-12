@@ -1,13 +1,16 @@
-.dateselection {
+.selected-salon-box {
+    background-color: #dddddd;
+    padding: 10px;
     display: flex;
-    justify-content: center;
-    /* 가로 중앙 정렬 */
     align-items: center;
-    /* 세로 중앙 정렬 */
-    height: 100vh;
-    /* 화면의 전체 높이만큼 영역을 차지 */
+    justify-content: flex-start;
+    width: 1100px;
+    height: 60px;
+    margin: auto;
+    margin-top: 4px;
 }
 
-.dateselection p {
-    font-size: 30px;
+.selected-salon-text {
+    font-size: 40px;
+    margin-left: 20px;
 }
