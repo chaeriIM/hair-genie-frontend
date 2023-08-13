@@ -1,17 +1,6 @@
-.salonreservation {
-    background-color: #ffffff;
-}
-
 .salonreservation p {
-    font-size: 55px;
-    margin: 50px 80px;
-}
-
-.separator {
-    margin: 10px auto;
-    width: 90%;
-    border: none;
-    border-top: 2px solid #ccc;
+  font-size: 50px;
+  margin: 50px 80px 10px;
 }
 
 .step-indicator {

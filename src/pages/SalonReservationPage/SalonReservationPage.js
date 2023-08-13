@@ -47,7 +47,7 @@ const SalonReservationPage = () => {
     <div className='salonreservation'>
       <Nav />
       <p>미용실 예약</p>
-      <hr className='separator' />
+      <hr />
       <div className='step-indicator'>
         <div className={`step ${step === 1 ? 'active' : ''}`} onClick={() => setStep(1)}>
           <div className='step-circle'>1</div>
