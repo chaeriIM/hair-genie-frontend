@@ -3,15 +3,14 @@ import moment from 'moment';
 import CustomCalendar from '../../components/Calendar';
 import './DateSelection.css';
 
-const DateSelection = ({ selectedSalon, setStep }) => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedTime, setSelectedTime] = useState(null);
-
+const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTime }) => {
+    const [selectedDateLocal, setSelectedDateLocal] = useState(new Date());
+    const [selectedTimeLocal, setSelectedTimeLocal] = useState(null);
     const [previousSelectedTime, setPreviousSelectedTime] = useState(null);
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
-        setSelectedTime(null); // 날짜 변경 시 선택한 시간 초기화
+        setSelectedDateLocal(date);
+        setSelectedTimeLocal(null); // 날짜 변경 시 선택한 시간 초기화
     };
 
     const times = Array(11)
@@ -22,7 +21,7 @@ const DateSelection = ({ selectedSalon, setStep }) => {
 
     const filterPassedTime = (time) => {
         const currentDate = new Date();
-        const selectedDateTime = new Date(selectedDate);
+        const selectedDateTime = new Date(selectedDateLocal);
         const [hours, minutes] = time.split(':');
         selectedDateTime.setHours(parseInt(hours));
         selectedDateTime.setMinutes(parseInt(minutes));
@@ -32,15 +31,17 @@ const DateSelection = ({ selectedSalon, setStep }) => {
 
     const handleSelectTime = (time) => {
         if (filterPassedTime(time)) {
-            setSelectedTime(time === selectedTime ? null : time);
-            if (selectedTime) {
-                setPreviousSelectedTime(selectedTime);
+            setSelectedTimeLocal(time === selectedTimeLocal ? null : time);
+            if (selectedTimeLocal) {
+                setPreviousSelectedTime(selectedTimeLocal);
             }
         }
     };
 
     const handleNextClick = () => {
-        if (selectedTime) {
+        if (selectedTimeLocal) {
+            setSelectedDate(selectedDateLocal);
+            setSelectedTime(selectedTimeLocal);
             setStep(3);
         }
     };
@@ -49,13 +50,15 @@ const DateSelection = ({ selectedSalon, setStep }) => {
         <div className="date-selection-container">
             <div className="selected-salon-box">
                 <p className="selected-salon-text">{selectedSalon}</p>
-                <div className={`selected-date ${selectedTime || previousSelectedTime ? 'time-selected' : ''}`}>
-                    {moment(selectedDate).format("MM월 DD일")}
+                <div className={`selected-date ${selectedTimeLocal ? 'time-selected-date' : ''}`}>
+                    {moment(selectedDateLocal).format("MM월 DD일")}
                 </div>
-                <div className="selected-time">{selectedTime}</div>
+                {selectedTimeLocal || previousSelectedTime ? (
+                    <div className="selected-time">{selectedTimeLocal}</div>
+                ) : null}
             </div>
             <div className="calendar">
-                <CustomCalendar selectedDate={selectedDate} handleDateChange={handleDateChange} />
+                <CustomCalendar selectedDate={selectedDateLocal} handleDateChange={handleDateChange} />
             </div>
             <div className="time-options">
                 <div className="time-buttons">
@@ -63,7 +66,7 @@ const DateSelection = ({ selectedSalon, setStep }) => {
                         <button
                             key={time}
                             onClick={() => handleSelectTime(time)}
-                            className={selectedTime === time ? 'selected' : ''}
+                            className={selectedTimeLocal === time ? 'selected' : ''}
                             disabled={!filterPassedTime(time)}
                         >
                             {time}
@@ -73,13 +76,13 @@ const DateSelection = ({ selectedSalon, setStep }) => {
                 <button
                     className="next-button"
                     onClick={handleNextClick}
-                    disabled={!selectedTime}
+                    disabled={!selectedTimeLocal}
                 >
                     다음
                 </button>
             </div>
         </div>
     );
-};
+}
 
 export default DateSelection;
