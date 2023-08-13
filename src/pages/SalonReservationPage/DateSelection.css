@@ -1,0 +1,113 @@
+.selected-salon-box {
+    background-color: #e3e3e3;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 1100px;
+    height: 60px;
+    margin: auto;
+    margin-top: 4px;
+    position: absolute;
+    top: 340px;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: space-between;
+}
+
+
+.selected-salon-box .selected-salon-text {
+    font-size: 40px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+/* .calendar .calendar-header {
+    font-size: 30px;
+    margin-left: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+} */
+
+.calendar {
+    margin-top: 140px;
+    margin-left: 210px;
+}
+
+.selected-date {
+    font-size: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 700px;
+    white-space: nowrap;
+    transition: margin-left 0.3s ease;
+}
+
+.time-selected-date {
+    font-size: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 620px;
+    transition: margin-left 0.3s ease, margin-top 0.3s ease;
+}
+
+.selected-time {
+    font-size: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    overflow: hidden;
+    transition: margin-left 0.3s ease, margin-right 0.3s ease;
+}
+
+.date-selection-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.time-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 150px;
+    margin-left: 80px;
+    margin-right: 150px;
+    width: 5000px;
+}
+
+.time-options button {
+    width: 152px;
+    padding: 8px;
+    font-size: 30px;
+    text-align: center;
+    background-color: #e3e3e3;
+    color: black;
+    border: none;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.time-options button:hover,
+.time-options button.selected {
+    background-color: #fc8b8b;
+    color: white;
+}
+
+.time-options button:disabled {
+    background-color: #f0f0f0;
+    color: #c7c7c7;
+    cursor: auto;
+}
+
+.next-button {
+    margin-top: 50px;
+    margin-left: 526px;
+    padding: 10px 20px;
+    font-size: 24px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

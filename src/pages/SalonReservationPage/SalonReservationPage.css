@@ -1,0 +1,57 @@
+.salonreservation {
+    background-color: #ffffff;
+}
+
+.salonreservation p {
+    font-size: 55px;
+    margin: 50px 80px;
+}
+
+.separator {
+    margin: 10px auto;
+    width: 90%;
+    border: none;
+    border-top: 2px solid #ccc;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.step {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.step.active {
+    color: #9fc3d7;
+}
+
+.step-circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: #e3e3e3;
+    color: #000;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.step.active .step-circle {
+    background-color: #9fc3d7;
+    color: #5477aa;
+}
+
+.step-divider {
+    margin: 0 12px;
+    display: inline-block;
+    color: #000000;
+    font-weight: bold;
+}
