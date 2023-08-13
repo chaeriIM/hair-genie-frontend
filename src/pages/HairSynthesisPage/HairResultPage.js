@@ -1,15 +1,13 @@
 import React from 'react'
 import Nav from '../../components/Nav'
-import './HairSynthesisPage.css'
-import ImageUpload from '../../components/ImageUpload'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-const HairSynthesisPage = () => {
+const HairResultPage = () => {
 
   const navigate = useNavigate();
 
   const navigateToResult = () => {
-    navigate("/hairresult");
+    navigate("/hairsynthesis");
   };
 
   return (
@@ -17,14 +15,20 @@ const HairSynthesisPage = () => {
       <Nav />
       <p>지니 타임</p>
       <hr />
-      <ImageUpload />
+
       <div className='container'>
+
+        <div className='result-image'>
+          결과물
+        </div>
+
         <button className='result-btn' onClick={navigateToResult}>
-          합성
+          이전
         </button>
+        
       </div>
     </div>
   )
 }
 
-export default HairSynthesisPage
+export default HairResultPage

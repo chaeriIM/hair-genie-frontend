@@ -1,0 +1,11 @@
+.hairsynthesis p {
+  font-size: 50px;
+  margin: 50px 80px 10px;
+}
+
+.hairsynthesis hr {
+  background-color: #a3a3a3;
+  height: 1px;
+  border: 0;
+  margin: 20px 80px;
+}

@@ -7,6 +7,8 @@ import SalonLocatorPage from './pages/SalonLocatorPage';
 import SalonReservationPage from './pages/SalonReservationPage';
 import MyPage from './pages/MyPage';
 import LoginPage from './pages/LoginPage'
+import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
+import HairResultPage from './pages/HairSynthesisPage/HairResultPage';
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="salonreservation" element={<SalonReservationPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="faceresult" element={<FaceResultPage />} />
+        <Route path="hairresult" element={<HairResultPage />} />
       </Routes>
     </div>
   );

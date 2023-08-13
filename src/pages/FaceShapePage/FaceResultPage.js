@@ -1,15 +1,14 @@
 import React from 'react'
 import Nav from '../../components/Nav'
-import './FaceShapePage.css'
-import ImageUpload from '../../components/ImageUpload'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import FaceShape from '../../components/FaceShape';
 
-const FaceShapePage = () => {
+const FaceResultPage = () => {
 
   const navigate = useNavigate();
 
   const navigateToResult = () => {
-    navigate("/faceresult");
+    navigate("/faceshape");
   };
 
   return (
@@ -17,14 +16,21 @@ const FaceShapePage = () => {
       <Nav />
       <p>얼굴형 분석</p>
       <hr />
-      <ImageUpload />
+
       <div className='container'>
+
+        {/* <div className='result-image'>
+          결과물
+        </div>
+        <p>OO형</p> */}
+        <FaceShape />
         <button className='result-btn' onClick={navigateToResult}>
-          분석
+          이전
         </button>
+
       </div>
     </div>
   )
 }
 
-export default FaceShapePage
+export default FaceResultPage
