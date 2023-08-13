@@ -1,39 +1,39 @@
 .wrapper {
-  display: flex;
-  margin: 0 80px;
-}
-.logo {
-  width: 45px;
-  height: 45px;
-  margin-top: 30px;
-  cursor: pointer;
-}
-.navbar {
-  width: 100%;
-  padding: 15px 0px;
-  text-align: right;
-  margin-top: 30px;
-}
-.navbarMenu {
-  color: #1A1718;
-  margin: 10px;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 14px;
-  transition: .4s;
-}
-.navbarMenu:hover {
-  color: #77AFE6;
-}
-.navbarMenu.btn {
-  width: 130px;
-  padding: 8px 15px;
-  border: .9px solid #1A1718;
-  border-radius: 60px;
-  transition: .4s;
-}
-.navbarMenu.btn:hover {
-  background-color: #b4d1ed;
-  color: white;
-  border: .9px solid #b4d1ed;
-}
+    display: flex;
+    margin: 0 80px;
+  }
+  .logo {
+    width: 45px;
+    height: 45px;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+  .navbar {
+    width: 100%;
+    padding: 15px 0px;
+    text-align: right;
+    margin-top: 30px;
+  }
+  .navbarMenu {
+    color: #1A1718;
+    margin: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .4s;
+  }
+  .navbarMenu:hover {
+    color: #77AFE6;
+  }
+  .navbarMenu.btn {
+    width: 130px;
+    padding: 8px 15px;
+    border: .9px solid #1A1718;
+    border-radius: 60px;
+    transition: .4s;
+  }
+  .navbarMenu.btn:hover {
+    background-color: #b4d1ed;
+    color: white;
+    border: .9px solid #b4d1ed;
+  }

@@ -4,7 +4,7 @@ import MainPage from './pages/MainPage';
 import FaceShapePage from './pages/FaceShapePage';
 import HairSynthesisPage from './pages/HairSynthesisPage';
 import SalonLocatorPage from './pages/SalonLocatorPage';
-import SalonReservationPage from './pages/SalonReservationPage';
+import SalonReservationPage from './pages/SalonReservationPage/SalonReservationPage';
 import MyPage from './pages/MyPage';
 import LoginPage from './pages/LoginPage'
 import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
