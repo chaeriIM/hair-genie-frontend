@@ -2,9 +2,11 @@
     width: 350px;
     max-width: 100%;
     background: white;
-    border: 1px solid #a0a096;
+    border: 2px solid #a0a096;
+    border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
+    overflow: hidden; 
 }
 
 .react-calendar--doubleView {
@@ -111,12 +113,8 @@
 }
 
 .react-calendar__tile--now {
-    background: #ffff76;
-}
-
-.react-calendar__tile--now:enabled:hover,
-.react-calendar__tile--now:enabled:focus {
-    background: #ffffa9;
+    background: #ef5350;
+    color: #fafafa;
 }
 
 .react-calendar__tile--hasActive {
@@ -143,3 +141,29 @@
 }
 
 /*추가한 내용*/
+.react-calendar__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    margin-bottom: 1em;
+}
+
+.react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    cursor: pointer;
+    display: none;
+}
+
+.react-calendar__navigation button.react-calendar__navigation__label {
+    display: block;
+    font-size: 1em;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

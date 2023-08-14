@@ -16,15 +16,24 @@ const CustomCalendar = ({ selectedDate, handleDateChange }) => {
         return selectedYear < currentYear || (selectedYear === currentYear && selectedMonth < currentMonth);
     };
 
+    // 요일 순서 변경을 위한 설정
+    const locale = 'ko-KR';
+    const weekStartDay = 0;
+
     return (
         <div>
             <Calendar
                 onChange={handleDateChange}
                 value={selectedDate}
                 tileDisabled={tileDisabled}
+                locale={locale}
+                calendarType="US" // 요일 순서 일~토로 변경하기 위해서
+                calendarStartDay={weekStartDay}
             />
         </div>
     );
+
+
 }
 
 export default CustomCalendar;
