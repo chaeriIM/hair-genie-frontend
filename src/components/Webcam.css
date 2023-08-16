@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.shoot-btn {
+  width: 130px;
+  padding: 8px 15px;
+  border: .9px solid #474747;
+  border-radius: 60px;
+  transition: .4s;
+  cursor: pointer;
+  background-color: transparent;
+  color: #474747;
+  margin: 20px 0;
+}
+.shoot-btn:hover {
+  background-color: #b4d1ed;
+  color: white;
+  border: .9px solid #b4d1ed;
+}

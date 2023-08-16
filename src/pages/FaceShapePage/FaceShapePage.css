@@ -39,3 +39,27 @@
   margin: 20px 0;
 }
 
+.select-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.select-btn {
+  width: 300px;
+  height: 300px;
+  padding: 8px 15px;
+  border: 3px dashed #ccc;
+  border-radius: 10px;
+  transition: .4s;
+  cursor: pointer;
+  background-color: transparent;
+  color: #474747;
+  margin: 60px;
+  font-size: 28px;
+  color: #779aba;
+}
+.select-btn:hover {
+  background-color: #b4d1ed;
+  color: white;
+  border: 3px dashed #f3f3f3;
+}
