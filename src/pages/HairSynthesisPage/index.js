@@ -12,17 +12,21 @@ const HairSynthesisPage = () => {
     navigate("/hairresult");
   };
 
+  const handleImageUpload = () => {
+    navigateToResult();
+  }
+
   return (
     <div className='hairsynthesis'>
       <Nav />
       <p>지니 타임</p>
       <hr />
-      <ImageUpload />
-      <div className='container'>
+      <ImageUpload onImageUploaded={handleImageUpload} />
+      {/* <div className='container'>
         <button className='result-btn' onClick={navigateToResult}>
           합성
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

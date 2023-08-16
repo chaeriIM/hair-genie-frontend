@@ -11,12 +11,19 @@
 
 .upload-label {
   display: inline-block;
-  border: 2px dashed #ccc;
+  border: 3px dashed #ccc;
   width: 350px;
   height: 350px;
   padding: 20px;
   margin: 20px 0;
   position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-label:hover {
+  border-color: #a5cbe1;
+  background-color: #f3f3f3;
 }
 
 .image-container {
@@ -32,10 +39,14 @@
 }
 
 .placeholder {
-  font-size: 16px;
+  font-size: 19px;
   color: #888;
   top: 50%;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
+}
+
+.imageupload input {
+  display: none;
 }

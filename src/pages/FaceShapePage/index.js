@@ -12,17 +12,21 @@ const FaceShapePage = () => {
     navigate("/faceresult");
   };
 
+  const handleImageUpload = () => {
+    navigateToResult();
+  }
+
   return (
     <div className='faceshape'>
       <Nav />
       <p>얼굴형 분석</p>
       <hr />
-      <ImageUpload />
-      <div className='container'>
+      <ImageUpload onImageUploaded={handleImageUpload} />
+      {/* <div className='container'>
         <button className='result-btn' onClick={navigateToResult}>
           분석
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }
