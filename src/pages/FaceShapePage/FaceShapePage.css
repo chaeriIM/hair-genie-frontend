@@ -10,9 +10,43 @@
   align-items: center;
   justify-content: center;
 }
-.container p {
+.container h5 {
   font-size: 20px;
   margin: 10px 0;
+}
+.description {
+  font-size: 16px;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.description span {
+  font-size: 19px;
+}
+.recommendation {
+  margin: 20px 80px;
+  width: 380px;
+}
+.decommendation {
+  margin: 20px 80px;
+  width: 380px;
+}
+.image-btn {
+  width: 250px;
+  height: 40px;
+  padding: 8px 15px;
+  border: .9px dashed #474747;
+  border-radius: 30px;
+  transition: .4s;
+  cursor: pointer;
+  background-color: transparent;
+  color: #474747;
+}
+.image-btn:hover {
+  background-color: #dcdcdc;
+  color: white;
+  border: .9px solid #dcdcdc;
 }
 .result-btn {
   width: 130px;
@@ -32,17 +66,27 @@
 }
 
 .result-image {
-  background-color: antiquewhite;
   width: 350px;
   height: 350px;
   padding: 20px;
   margin: 20px 0;
+  border: 3px dashed #ccc;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.result-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .select-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 40px;
 }
 .select-btn {
   width: 300px;
@@ -54,7 +98,7 @@
   cursor: pointer;
   background-color: transparent;
   color: #474747;
-  margin: 60px;
+  margin: 50px;
   font-size: 28px;
   color: #779aba;
 }

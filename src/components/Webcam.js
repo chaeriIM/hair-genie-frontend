@@ -7,8 +7,9 @@ const WebcamCapture = ({ onImageUploaded }) => {
   const [capturedImage, setCapturedImage] = useState(null);
 
   const capture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setCapturedImage(imageSrc);
+    const imageUrl = webcamRef.current.getScreenshot();
+    setCapturedImage(imageUrl);
+    localStorage.setItem('uploadedImage', imageUrl); //이미지 URL 저장
   };
 
   const navigate = () => {
