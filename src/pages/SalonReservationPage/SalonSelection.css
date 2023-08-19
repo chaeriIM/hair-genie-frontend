@@ -1,25 +1,24 @@
-.salon-selection {
+.salon-selection-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin: 26px 80px;
-    position: relative;
+    align-items: center;
+    margin: 10px 0;
+    width: 100%;
 }
 
-.distance-label {
+/* .distance-label {
     display: flex;
     font-size: 15px;
     position: absolute;
     transform: translateY(-50%);
     left: 19%;
-}
+} */
 
 .salon-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+    margin-bottom: 10px;
     width: 100%;
+    justify-content: center;
 }
 
 .salon-box {
@@ -28,6 +27,7 @@
     justify-content: space-between;
     background-color: #e3e3e3;
     padding: 20px;
+    min-width: 560px;
     width: 60%;
     height: 34px;
     margin-top: 10px;
