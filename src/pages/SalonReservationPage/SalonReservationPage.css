@@ -1,6 +1,6 @@
-.salonreservation p {
-  font-size: 50px;
-  margin: 50px 80px 10px;
+.reservation-title {
+    font-size: 50px;
+    margin: 50px 80px 10px;
 }
 
 .step-indicator {
@@ -12,20 +12,21 @@
 
 .step {
     text-align: center;
-    padding: 10px;
-    font-weight: bold;
+    margin: 10px;
+    font-size: 15px;
 }
 
 .step.active {
     color: #9fc3d7;
+    font-weight: bold;
 }
 
 .step-circle {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background-color: #e3e3e3;
     color: #000;
     border-radius: 50%;
@@ -43,4 +44,7 @@
     display: inline-block;
     color: #000000;
     font-weight: bold;
+}
+
+.salonreservation {
 }

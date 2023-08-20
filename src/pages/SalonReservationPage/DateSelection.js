@@ -31,8 +31,10 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
 
     const handleSelectTime = (time) => {
         if (filterPassedTime(time)) {
-            setSelectedTimeLocal(time === selectedTimeLocal ? null : time);
-            if (selectedTimeLocal) {
+            if (selectedTimeLocal === time) {
+                setSelectedTimeLocal(null);
+            } else {
+                setSelectedTimeLocal(time);
                 setPreviousSelectedTime(selectedTimeLocal);
             }
         }
@@ -49,37 +51,39 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
     return (
         <div className="date-selection-container">
             <div className="selected-salon-box">
-                <p className="selected-salon-text">{selectedSalon}</p>
+                <p className="salon-name">{selectedSalon}</p>
                 <div className={`selected-date ${selectedTimeLocal ? 'time-selected-date' : ''}`}>
                     {moment(selectedDateLocal).format("MM월 DD일")}
                 </div>
-                {selectedTimeLocal || previousSelectedTime ? (
+                {(selectedTimeLocal || previousSelectedTime) && (
                     <div className="selected-time">{selectedTimeLocal}</div>
-                ) : null}
+                )}
             </div>
-            <div className="calendar">
-                <CustomCalendar selectedDate={selectedDateLocal} handleDateChange={handleDateChange} />
-            </div>
-            <div className="time-options">
-                <div className="time-buttons">
-                    {times.map((time) => (
-                        <button
-                            key={time}
-                            onClick={() => handleSelectTime(time)}
-                            className={selectedTimeLocal === time ? 'selected' : ''}
-                            disabled={!filterPassedTime(time)}
-                        >
-                            {time}
-                        </button>
-                    ))}
+            <div className="options-container">
+                <div className="calendar">
+                    <CustomCalendar selectedDate={selectedDateLocal} handleDateChange={handleDateChange} />
                 </div>
-                <button
-                    className="next-button"
-                    onClick={handleNextClick}
-                    disabled={!selectedTimeLocal}
-                >
-                    다음
-                </button>
+                <div className="time-options">
+                    <div className="time-buttons">
+                        {times.map((time) => (
+                            <button
+                                key={time}
+                                onClick={() => handleSelectTime(time)}
+                                className={selectedTimeLocal === time ? 'selected' : ''}
+                                disabled={!filterPassedTime(time)}
+                            >
+                                {time}
+                            </button>
+                        ))}
+                    </div>
+                    <button
+                        className="next-button"
+                        onClick={handleNextClick}
+                        disabled={!selectedTimeLocal}
+                    >
+                        다음
+                    </button>
+                </div>
             </div>
         </div>
     );
