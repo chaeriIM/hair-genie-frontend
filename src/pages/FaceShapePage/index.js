@@ -1,15 +1,18 @@
 import React from 'react'
 import Nav from '../../components/Nav'
 import './FaceShapePage.css'
-import ImageUpload from '../../components/ImageUpload'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const FaceShapePage = () => {
 
   const navigate = useNavigate();
 
-  const navigateToResult = () => {
-    navigate("/faceresult");
+  const navigateToWebcam = () => {
+    navigate("/face-webcampage");
+  };
+
+  const navigateToImageUpload = () => {
+    navigate("/face-uploadpage");
   };
 
   return (
@@ -17,10 +20,13 @@ const FaceShapePage = () => {
       <Nav />
       <p>얼굴형 분석</p>
       <hr />
-      <ImageUpload />
-      <div className='container'>
-        <button className='result-btn' onClick={navigateToResult}>
-          분석
+
+      <div className='select-container'>
+        <button className='select-btn' onClick={navigateToWebcam}>
+          카메라
+        </button>
+        <button className='select-btn' onClick={navigateToImageUpload}>
+          사진
         </button>
       </div>
     </div>
