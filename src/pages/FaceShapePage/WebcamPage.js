@@ -1,7 +1,8 @@
-import React from 'react'
-import Webcam from '../../components/Webcam'
-import Nav from '../../components/Nav'
+import React from 'react';
+import Webcam from '../../components/Webcam';
+import Nav from '../../components/Nav';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
 
 const WebcamPage = () => {
 
@@ -14,7 +15,7 @@ const WebcamPage = () => {
   return (
     <div className='faceshape'>
       <Nav />
-      <p>얼굴형 분석</p>
+      <p className='main-title'>얼굴형 분석</p>
       <hr />
 
       <Webcam onImageUploaded={navigateToResult}/>

@@ -1,6 +1,7 @@
-import React from 'react'
-import Nav from '../../components/Nav'
+import React from 'react';
+import Nav from '../../components/Nav';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
 
 const HairResultPage = () => {
 
@@ -13,7 +14,7 @@ const HairResultPage = () => {
   return (
     <div className='hairsynthesis'>
       <Nav />
-      <p>지니 타임</p>
+      <p className='main-title'>지니 타임</p>
       <hr />
 
       <div className='container'>

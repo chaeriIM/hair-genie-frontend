@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Nav from '../../components/Nav'
+import React, { useEffect, useState } from 'react';
+import Nav from '../../components/Nav';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
 
 const FaceResultPage = () => {
 
@@ -231,7 +232,7 @@ const FaceResultPage = () => {
   return (
     <div className='faceshape'>
       <Nav />
-      <p>얼굴형 분석</p>
+      <p className='main-title'>얼굴형 분석</p>
       <hr />
 
       <div className='container'>

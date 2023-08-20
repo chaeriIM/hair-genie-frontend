@@ -1,7 +1,8 @@
-import React from 'react'
-import Nav from '../../components/Nav'
-import './HairSynthesisPage.css'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import Nav from '../../components/Nav';
+import './HairSynthesisPage.css';
+import { useNavigate } from 'react-router-dom';
+import '../../App.css';
 
 const HairSynthesisPage = () => {
 
@@ -18,7 +19,7 @@ const HairSynthesisPage = () => {
   return (
     <div className='faceshape'>
       <Nav />
-      <p>지니 타임</p>
+      <p className='main-title'>지니 타임</p>
       <hr />
 
       <div className='select-container'>

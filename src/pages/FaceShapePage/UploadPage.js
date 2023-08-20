@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import ImageUpload from '../../components/ImageUpload';
 import './FaceShapePage.css';
+import '../../App.css';
 
 const UploadPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const UploadPage = () => {
   return (
     <div className='faceshape'>
       <Nav />
-      <p>얼굴형 분석</p>
+      <p className='main-title'>얼굴형 분석</p>
       <hr />
       <ImageUpload onImageUploaded={navigateToResult} />
       {/* <div className='container'>

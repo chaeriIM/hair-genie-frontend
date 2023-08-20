@@ -10,3 +10,8 @@ hr {
   border: 0;
   margin: 20px 80px;
 }
+
+.main-title {
+  font-size: 50px;
+  margin: 30px 80px 10px;
+}

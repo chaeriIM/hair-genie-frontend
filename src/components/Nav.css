@@ -21,7 +21,6 @@
   margin-top: 30px;
   margin-bottom: 15px;
   margin-left: 20px;
-  margin-right: 20px;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
@@ -31,7 +30,7 @@
 .navbarMenu {
   min-width: 80px;
   color: #1A1718;
-  margin: 10px;
+  margin: 5px;
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
@@ -45,7 +44,7 @@
 .navbarMenu.btn {
   display: flex;
   width: 50px;
-  padding: 8px 15px;
+  padding: 8px 10px;
   border: .9px solid #1A1718;
   border-radius: 60px;
   transition: .4s;
