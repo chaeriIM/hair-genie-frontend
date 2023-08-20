@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Webcam from '../../components/Webcam';
+import '../../App.css';
 
 const WebcamPage = () => {
 
@@ -14,7 +15,7 @@ const WebcamPage = () => {
   return (
     <div className='hairsynthesis'>
       <Nav />
-      <p>지니 타임</p>
+      <p className='main-title'>지니 타임</p>
       <hr />
 
       <Webcam onImageUploaded={navigateToResult}/>

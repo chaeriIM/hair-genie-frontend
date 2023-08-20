@@ -1,12 +1,13 @@
-import React from 'react'
-import Nav from '../../components/Nav'
-import './SalonLocatorPage.css'
+import React from 'react';
+import Nav from '../../components/Nav';
+import './SalonLocatorPage.css';
+import '../../App.css';
 
 const SalonLocatorPage = () => {
   return (
     <div className='salonlocator'>
       <Nav />
-      <p>주변 미용실 찾기</p>
+      <p className='main-title'>주변 미용실 찾기</p>
       <hr />
     </div>
   )

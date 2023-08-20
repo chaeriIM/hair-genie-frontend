@@ -4,6 +4,7 @@ import SalonSelection from './SalonSelection';
 import DateSelection from './DateSelection';
 import ServiceMenuSelection from './ServiceMenuSelection';
 import './SalonReservationPage.css';
+import '../../App.css';
 
 const SalonReservationPage = () => {
   const [step, setStep] = useState(1);
@@ -46,7 +47,7 @@ const SalonReservationPage = () => {
   return (
     <div className='salonreservation'>
       <Nav />
-      <p className='reservation-title'>미용실 예약</p>
+      <p className='main-title'>미용실 예약</p>
       <hr />
       <div className='step-indicator'>
         <div className={`step ${step === 1 ? 'active' : ''}`} onClick={() => setStep(1)}>

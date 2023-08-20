@@ -1,7 +1,8 @@
-import React from 'react'
-import Nav from '../../components/Nav'
-import './FaceShapePage.css'
+import React from 'react';
+import Nav from '../../components/Nav';
+import './FaceShapePage.css';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
 
 const FaceShapePage = () => {
 
@@ -18,7 +19,7 @@ const FaceShapePage = () => {
   return (
     <div className='faceshape'>
       <Nav />
-      <p>얼굴형 분석</p>
+      <p className='main-title'>얼굴형 분석</p>
       <hr />
 
       <div className='select-container'>
