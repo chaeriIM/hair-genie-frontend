@@ -1,12 +1,13 @@
 .react-calendar {
-    width: 300px;
+    width: 280px;
     max-width: 100%;
     background: white;
     border: 3px solid #d7d7d6;
     border-radius: 30px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
-    overflow: hidden; 
+    overflow: hidden;
+    padding: 10px;
 }
 
 .react-calendar--doubleView {
@@ -42,7 +43,7 @@
     cursor: pointer;
 }
 
-.react-calendar__navigation {
+/* .react-calendar__navigation {
     display: flex;
     height: 44px;
     margin-bottom: 1em;
@@ -51,7 +52,7 @@
 .react-calendar__navigation button {
     min-width: 44px;
     background: none;
-}
+} */
 
 .react-calendar__navigation button:disabled {
     background-color: #f0f0f0;
@@ -82,7 +83,7 @@
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
+    color: #8a8a8a;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -141,12 +142,17 @@
 }
 
 /*추가한 내용*/
+/* 요일 밑에 점이 찍히지 않도록 설정 */
+abbr[title] {
+    text-decoration: none;
+}
+
 .react-calendar__navigation {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 44px;
-    margin-bottom: 1em;
+    width: 40px;
 }
 
 .react-calendar__navigation button {
@@ -166,4 +172,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: red;
 }

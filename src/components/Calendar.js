@@ -1,5 +1,6 @@
 import React from 'react';
 import Calendar from 'react-calendar';
+import moment from 'moment';
 import './Calendar.css';
 
 const CustomCalendar = ({ selectedDate, handleDateChange }) => {
@@ -20,6 +21,12 @@ const CustomCalendar = ({ selectedDate, handleDateChange }) => {
     const locale = 'ko-KR';
     const weekStartDay = 0;
 
+    // 상단 버튼에 달만 표시
+    const navigationLabel = () => {
+        const month = selectedDate.getMonth() + 1;
+        return `${month}월`;
+    };
+
     return (
         <div>
             <Calendar
@@ -29,6 +36,9 @@ const CustomCalendar = ({ selectedDate, handleDateChange }) => {
                 locale={locale}
                 calendarType="US" // 요일 순서 일~토로 변경하기 위해서
                 calendarStartDay={weekStartDay}
+                formatDay={(locale, date) => moment(date).format("D")} // 달력에서 '일' 생략
+                navigationLabel={navigationLabel} // 상단 버튼 수정하기
+
             />
         </div>
     );
