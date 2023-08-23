@@ -142,7 +142,7 @@ const Kakaomap = () => {
                 //     infowindow.close();
                 // });
 
-                itemEl.onclick =  function () {
+                itemEl.onmouseover =  function () {
                     displayInfowindow(marker, title, address, phone, url);
                 };
 

@@ -6,13 +6,15 @@ import HairSynthesisPage from './pages/HairSynthesisPage';
 import SalonLocatorPage from './pages/SalonLocatorPage';
 import SalonReservationPage from './pages/SalonReservationPage/SalonReservationPage';
 import MyPage from './pages/MyPage';
-import LoginPage from './pages/LoginPage'
+import LoginPage from './pages/LoginPage';
+import JoinPage from './pages/JoinPage';
 import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
 import HairResultPage from './pages/HairSynthesisPage/HairResultPage';
 import FaceUploadPage from './pages/FaceShapePage/UploadPage';
 import FaceWebcamPage from './pages/FaceShapePage/WebcamPage';
 import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
+import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 
 
 function App() {
@@ -26,12 +28,14 @@ function App() {
         <Route path="salonreservation" element={<SalonReservationPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="join" element={<JoinPage />} />
         <Route path="faceresult" element={<FaceResultPage />} />
         <Route path="face-uploadpage" element={<FaceUploadPage />} />
         <Route path="face-webcampage" element={<FaceWebcamPage />} />
         <Route path="hairresult" element={<HairResultPage />} />
         <Route path="hair-uploadpage" element={<HairUploadPage />} />
         <Route path="hair-webcampage" element={<HairWebcamPage />} />
+        <Route path="findidpw" element={<FindIdPwPage />} />
       </Routes>
     </div>
   );
