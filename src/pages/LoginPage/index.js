@@ -1,6 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 const LoginPage = () => {
+  const handleJoinClick = () => {
+    window.location.href = "join";
+  };
+
   return (
     <div>
       <div className='wrapper'>
@@ -11,9 +15,10 @@ const LoginPage = () => {
           className='logo'
         />
       </div>
+      <button onClick={handleJoinClick}>회원가입</button> {/* 회원가입가는 길이 없어서 임시로 만듬 */}
+      LoginPage
+    </div>
+  );
+};
 
-      LoginPage</div>
-  )
-}
-
-export default LoginPage
+export default LoginPage;

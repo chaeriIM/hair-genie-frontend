@@ -6,6 +6,7 @@ import HairSynthesisPage from './pages/HairSynthesisPage';
 import SalonLocatorPage from './pages/SalonLocatorPage';
 import SalonReservationPage from './pages/SalonReservationPage/SalonReservationPage';
 import MyPage from './pages/MyPage';
+import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage'
 import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
 import HairResultPage from './pages/HairSynthesisPage/HairResultPage';
@@ -25,6 +26,7 @@ function App() {
         <Route path="salonlocator" element={<SalonLocatorPage />} />
         <Route path="salonreservation" element={<SalonReservationPage />} />
         <Route path="mypage" element={<MyPage />} />
+        <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="faceresult" element={<FaceResultPage />} />
         <Route path="face-uploadpage" element={<FaceUploadPage />} />
