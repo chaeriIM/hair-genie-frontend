@@ -18,7 +18,7 @@ const Nav = () => {
         <Link className='navbarMenu' to={'/salonlocator'}>미용실 찾기</Link>
         <Link className='navbarMenu' to={'/salonreservation'}>미용실 예약</Link>
         <Link className='navbarMenu' to={'/mypage'}>마이페이지</Link>
-        <Link className='navbarMenu btn' to={'/login'}>로그인/회원가입</Link>
+        <Link className='navbarMenu btn' to={'/login'}>로그인</Link>
       </div>
     </div>
   )

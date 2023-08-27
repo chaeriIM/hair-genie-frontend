@@ -19,6 +19,7 @@ import FaceUploadPage from './pages/FaceShapePage/UploadPage';
 import FaceWebcamPage from './pages/FaceShapePage/WebcamPage';
 import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
+import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 
 
 function App() {
@@ -38,12 +39,14 @@ function App() {
         <Route path="withdrawal" element={<Withdrawal />} />
         <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="join" element={<JoinPage />} />
         <Route path="faceresult" element={<FaceResultPage />} />
         <Route path="face-uploadpage" element={<FaceUploadPage />} />
         <Route path="face-webcampage" element={<FaceWebcamPage />} />
         <Route path="hairresult" element={<HairResultPage />} />
         <Route path="hair-uploadpage" element={<HairUploadPage />} />
         <Route path="hair-webcampage" element={<HairWebcamPage />} />
+        <Route path="findidpw" element={<FindIdPwPage />} />
       </Routes>
     </div>
   );
