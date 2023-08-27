@@ -1,0 +1,131 @@
+.mypage {
+    background-color: #ffffff;
+}
+
+.mypage-container {
+    display: flex;
+    padding: 15px;
+    margin: 40px 0;
+    box-sizing: border-box;
+    width: 60%;
+    min-width: 600px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mypage-profile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: auto;
+}
+
+.profile-section,
+.button-section {
+    background-color: #f0f0f0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.mypage-profile-image {
+    position: relative;
+    text-align: center;
+    cursor: auto;
+    margin-right: 10px;
+}
+
+.mypage-profile-image img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* .mypage-empty-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+
+.mypage-empty-profile {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+} */
+
+.user-name {
+    font-size: 17px;
+}
+
+.button-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #e0e0e0;
+}
+
+.button span {
+    font-size: 16px;
+}
+
+.button-icon {
+    font-size: 18px;
+}
+
+.leave-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: gray;
+}
+
+.leave-button:hover {
+    color: #5477aa;
+}
+
+.leave-button-text {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.leave-button-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.withdrawal-description {
+    font-size: 17px;
+    width: 500px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+}
