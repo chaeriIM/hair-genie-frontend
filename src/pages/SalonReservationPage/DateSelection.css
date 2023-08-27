@@ -8,7 +8,7 @@
 
 .selected-salon-box {
     display: flex;
-    background-color: #e3e3e3;
+    background-color: #ffffff;
     padding: 15px;
     width: 60%;
     min-width: 560px;
@@ -19,34 +19,38 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border: 1px solid #ccc;
 }
 
 .selected-date {
     display: flex;
-    font-size: 24px;
+    font-size: 22px;
     margin-left: auto;
     margin-right: 10px;
     white-space: nowrap;
+    color: #1f1f1f;
 }
 
 .time-selected-date {
     display: flex;
-    font-size: 24px;
+    font-size: 22px;
     margin-left: auto;
     margin-right: 10px;
+    color: #1f1f1f;
 }
 
 .selected-time {
     display: flex;
-    font-size: 24px;
+    font-size: 22px;
     margin-right: 10px;
     overflow: hidden;
+    color: #1f1f1f;
 }
 
 .options-container {
     display: flex;
     padding: 15px;
-    margin: 40px 0;
+    margin: 25px 0;
     box-sizing: border-box;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -74,17 +78,17 @@
     height: 40px;
     font-size: 22px;
     text-align: center;
-    background-color: #e3e3e3;
-    color: black;
-    border: none;
-    margin: 10px 10px;
+    background-color: #fff;
+    color: #1f1f1f;
+    border: 1px solid #ccc;
+    margin: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .time-options button:hover,
 .time-options button.selected {
-    background-color: #fc8b8b;
+    background-color: #ffa9a9;
     color: white;
 }
 

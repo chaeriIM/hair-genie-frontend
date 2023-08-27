@@ -1,9 +1,17 @@
+.salon-body-container {
+    display: flex;
+    box-sizing: border-box;
+    width: 58%;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
 .salon-selection-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 /* .distance-label {
@@ -14,40 +22,47 @@
     left: 19%;
 } */
 
-.salon-container {
-    display: flex;
-    margin-bottom: 10px;
-    width: 100%;
-    justify-content: center;
-}
-
 .salon-box {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #e3e3e3;
-    padding: 20px;
-    min-width: 560px;
-    width: 60%;
-    height: 34px;
-    margin-top: 10px;
+    background-color: #ffffff;
+    padding: 15px;
+    width: 180px;
+    height: 190px;
     position: relative;
+    border: 1px solid #ccc;
+    border-top: 4px solid #7d9fd2;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-between;
 }
 
 .salon-name {
-    font-size: 24px;
-    margin-right: 10px;
+    font-size: 22px;
+    color: #1f1f1f;
+}
+
+.salon-location {
+    font-size: 14px;
+    color: #7a7a7a;
+    margin-top: 2px;
 }
 
 .reservation-button {
-    background-color: #7b8381;
-    color: #fff;
-    padding: 8px 16px;
+    background-color: #fff;
+    color: #1f1f1f;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    height: 35px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 154px;
 }
 
 .reservation-button:hover {
-    background-color: #fc8b8b;
+    background-color: #ffa9a9;
     color: white;
 }
