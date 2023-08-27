@@ -1,7 +1,13 @@
+.join-title {
+    font-size: 40px;
+    margin: 30px 0 40px 0;
+    color: #1f1f1f;
+    font-weight: 650;
+}
+
 .profile-image {
     position: relative;
     text-align: center;
-    margin-bottom: 20px;
     cursor: pointer;
 }
 
@@ -36,14 +42,14 @@
 }
 
 .info-container {
-    margin-top: 20px;
+    margin: 20px 0 0 0;
     width: 30%;
     min-width: 500px;
 }
 
 .info-input-container {
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .info-row {
@@ -53,60 +59,25 @@
     flex-direction: column;
 }
 
-.info-row label {
-    min-width: 100px;
-    margin-right: 10px;
-    font-size: 15px;
-}
-
 .info-row input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
+    width: 350px;
+    height: 40px;
+    padding-left: 10px;
     border-radius: 5px;
+    border: 1.5px solid #e8e8e8;
+    outline: none;
+    color: #1f1f1f;
+    transition: 0.3s;
 }
 
 .info-row input:focus {
-    border-color: #007bff;
+    border-color: #82b0ff;
     outline: none;
 }
 
-.join-button button:disabled,
-.join-button button:disabled:hover {
-    background-color: #ccc;
-    color: #888;
-    border-color: #ccc;
-    cursor: auto;
-}
-
-.join-button {
-    text-align: center;
-}
-
-.join-button button {
-    width: 130px;
-    padding: 8px 15px;
-    border: .9px solid #474747;
-    border-radius: 60px;
-    transition: .4s;
-    cursor: pointer;
-    background-color: transparent;
-    color: #474747;
-    margin: 20px 0;
-}
-
-.join-button button:hover {
-    background-color: #b4d1ed;
-    color: white;
-    border: .9px solid #b4d1ed;
-}
-
-.error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 8px;
-    margin-bottom: 0;
-    margin-left: 110px;
+.info-row input::placeholder {
+    color: #a6a6a6;
+    padding-left: 5px;
 }
 
 .Personal-information-agreement {
@@ -117,6 +88,40 @@
 }
 
 .checkbox-agreement-message {
-    font: 16px;
-    margin-right: 5px;
+    color: #1f1f1f;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+}
+
+.join-button button:disabled,
+.join-button button:disabled:hover {
+    background-color: #f0f0f0;
+    color: #c7c7c7;
+    cursor: auto;
+}
+
+.join-button {
+    text-align: center;
+}
+
+.join-button button {
+    width: 360px;
+    height: 40px;
+    margin: 15px 0 30px 0;
+    cursor: pointer;
+    background-color: #b4d1ff;
+    border: none;
+    border-radius: 5px;
+    transition: 0.4s;
+    color: #f6f6f6;
+}
+
+.join-button button:hover {
+    background-color: #c1d5f8;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: 8px 0 0 70px;
 }

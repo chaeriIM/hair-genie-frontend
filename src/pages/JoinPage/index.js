@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Nav from '../../components/Nav';
 import './JoinPage.css';
 import '../../App.css';
 import Popup from '../../components/Popup';
@@ -179,10 +178,8 @@ const JoinPage = () => {
 
   return (
     <div>
-      <Nav />
-      <p className='main-title'>회원 가입</p>
-      <hr />
       <div className='body-container'>
+        <p className='join-title'>회원 가입</p>
         <div className='profile-image' onClick={handleProfileImageClick}>
           <div className='profile-image-container'>
             {profileImage && (
@@ -205,10 +202,9 @@ const JoinPage = () => {
         <div className='info-container'>
           <div className={`info-row ${idValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>아이디</label>
               <input
                 type='text'
-                placeholder='아이디를 입력하세요.'
+                placeholder='아이디'
                 value={userId}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -227,10 +223,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>비밀번호</label>
               <input
                 type='password'
-                placeholder='비밀번호를 입력하세요.'
+                placeholder='비밀번호'
                 value={password}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -249,10 +244,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${passwordConfirmValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>비밀번호 확인</label>
               <input
                 type='password'
-                placeholder='비밀번호를 다시 입력하세요.'
+                placeholder='비밀번호'
                 value={passwordConfirm}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -275,10 +269,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${nameValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>이름</label>
               <input
                 type='text'
-                placeholder='이름을 입력하세요.'
+                placeholder='이름'
                 value={name}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -297,10 +290,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${nicknameValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>별명</label>
               <input
                 type='text'
-                placeholder='별명을 입력하세요.'
+                placeholder='별명'
                 value={nickname}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -319,10 +311,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${phoneNumberValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>전화번호</label>
               <input
                 type='tel'
-                placeholder='전화번호를 입력하세요.'
+                placeholder='전화번호'
                 value={phoneNumber}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -340,10 +331,9 @@ const JoinPage = () => {
           </div>
           <div className={`info-row ${emailValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <label>이메일</label>
               <input
                 type='email'
-                placeholder='이메일을 입력하세요.'
+                placeholder='이메일'
                 value={email}
                 onChange={(e) => {
                   const inputValue = e.target.value;
@@ -357,7 +347,6 @@ const JoinPage = () => {
             )}
           </div>
           <div className='Personal-information-agreement'>
-            <p className='checkbox-agreement-message'>개인 정보 제공에 동의합니다.</p>
             <div className='Personal-information-checkbox'>
               <input
                 type='checkbox'
@@ -365,6 +354,7 @@ const JoinPage = () => {
                 onChange={handleConsentToggle}
               />
             </div>
+            <p className='checkbox-agreement-message'>개인 정보 제공에 동의합니다.</p>
           </div>
           <div className='join-button'>
             <button onClick={handleJoinClick} disabled={!areAllFieldsFilled || !consentAgreed}>가입하기</button>
