@@ -6,11 +6,13 @@ import './MyPage.css';
 import '../../App.css';
 
 const MyPage = () => {
+  const name = "UserName";
+
   const navigate = useNavigate();
   const [logoutPopupOpen, setLogoutPopupOpen] = useState(false);
   const [logoutCompletePopupOpen, setLogoutCompletePopupOpen] = useState(false);
 
-  const profileImageUrl = null; // 프로필 이미지가 없는 상황
+  const profileImageUrl = null;
 
   const handleButtonClick = (path) => {
     navigate(path);
@@ -48,7 +50,7 @@ const MyPage = () => {
                 )}
               </div>
               <div className='user-name'>
-                사용자 이름
+                {name}
               </div>
             </div>
           </div>

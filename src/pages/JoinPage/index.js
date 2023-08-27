@@ -146,7 +146,7 @@ const JoinPage = () => {
     return nameRegex.test(name);
   };
   const isValidNickname = (nickname) => {
-    const nicknameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/;
+    const nicknameRegex = /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/;
     return nicknameRegex.test(nickname);
   };
   const isValidEmail = (email) => {
