@@ -11,7 +11,8 @@ const LoginPage = () => {
         onClick={() => (window.location.href = "/")}
         className="login-logo"
       />
-      <p onClick={() => (window.location.href = "/")}>LOGIN</p>
+      {/* <p onClick={() => (window.location.href = "/")}>LOGIN</p> */}
+      <p>LOGIN</p>
       <div className="login-form">
         <input type='text' placeholder="아이디" />
         <input type='password' placeholder="비밀번호" />
