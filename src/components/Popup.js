@@ -5,9 +5,6 @@ import './Popup.css'
 const Popup = ({ message, onConfirm, onCancel, isOpen, isCompleted }) => {
     const handleConfirm = () => {
         onConfirm();
-        setTimeout(() => {
-            window.location.href = "/";
-        }, 2000);
     };
 
     return (
