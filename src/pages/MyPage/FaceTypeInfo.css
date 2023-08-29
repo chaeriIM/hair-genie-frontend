@@ -1,0 +1,56 @@
+.FT-title {
+    font-size: 24px;
+    color: #1f1f1f;
+    margin: 20px 0 0 0;
+    text-decoration: #ffc1075a;
+    text-decoration-thickness: 6px;
+    text-underline-offset: -1.5px;
+    text-decoration-line: underline;
+    text-decoration-skip-ink: none;
+}
+
+.FT-button-container {
+    margin-top: 22px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 550px;
+    justify-content: center;
+}
+
+.MFT-button {
+    padding: 10px 20px;
+    font-size: 17px;
+    background-color: #2979ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.MFT-button:hover {
+    background-color: #0056b3;
+}
+
+.FT-link {
+    margin: 26px 0 0 0;
+    font-size: 16px;
+    color: #8b8b8b;
+}
+
+.FT-link:hover {
+    color: #82b1ff;
+}
+
+.FT-image-btn {
+    margin: 5px 0 0 0;
+}
+
+.MFT-description{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

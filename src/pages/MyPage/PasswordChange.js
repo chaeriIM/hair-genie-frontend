@@ -71,10 +71,9 @@ const PasswordChange = () => {
                 <div className='info-container'>
                     <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>기존 비밀번호</label>
                             <input
                                 type='password'
-                                placeholder='기존 비밀번호를 입력하세요.'
+                                placeholder='기존 비밀번호'
                                 value={currentPassword}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -85,10 +84,9 @@ const PasswordChange = () => {
                     </div>
                     <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>새 비밀번호</label>
                             <input
                                 type='password'
-                                placeholder='비밀번호를 입력하세요.'
+                                placeholder='새 비밀번호'
                                 value={password}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -113,10 +111,9 @@ const PasswordChange = () => {
                     </div>
                     <div className={`info-row ${passwordConfirmValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>비밀번호 확인</label>
                             <input
                                 type='password'
-                                placeholder='비밀번호를 다시 입력하세요.'
+                                placeholder='비밀번호 확인'
                                 value={passwordConfirm}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -128,9 +125,9 @@ const PasswordChange = () => {
                         {passwordConfirmValidationStatus === 'error' && (
                             <p className='error-message'>비밀번호가 일치하지 않습니다.</p>
                         )}
-                        <div className='save-button'>
-                            <button onClick={handleSaveClick} disabled={!areAllFieldsFilled || !isPasswordChanged}>저장하기</button>
-                        </div>
+                    </div>
+                    <div className='save-button'>
+                        <button onClick={handleSaveClick} disabled={!areAllFieldsFilled || !isPasswordChanged}>저장하기</button>
                     </div>
                 </div>
             </div>

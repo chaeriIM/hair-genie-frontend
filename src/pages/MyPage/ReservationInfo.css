@@ -1,0 +1,74 @@
+.my-reservation-container {
+    display: flex;
+    width: 60%;
+    min-width: 600px;
+    margin: 0 0 10px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.my-reservation-box {
+    display: flex;
+    background-color: #ffffff;
+    padding: 15px;
+    width: 600px;
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-top: 4px solid #82b1ff;
+    flex-direction: column;
+}
+
+.cancelled {
+    border-top: 4px solid #ccc;
+}
+
+.cancelled
+.my-salon-name {
+    color: #ccc;
+}
+.my-salon-name {
+    font-size: 18px;
+    font-weight: bold;
+    color:#2979ff;
+    margin: 0 0 0 0;
+}
+
+.my-reservation-date {
+    display: inline-block;
+    transition: color 0.3s ease;
+    color: #666;
+    align-items: baseline;
+    font-size: 14px;
+    margin: 2px 0 0 0;
+}
+
+.date-separator {
+    color: #ecf0f2;
+    margin: 0 2px;
+}
+
+.mypage-separator {
+    margin: 10px 0;
+    background-color: #ecf0f2;
+    min-width: 580px;
+    width: 62%;
+}
+
+.my-reservation-service {
+    font-size: 16px;
+    margin: 0;
+    text-decoration: none;
+    color: #1f1f1f;
+}
+
+.my-reservation-service:hover {
+    text-decoration: #ffc1075a;
+    text-decoration-thickness: 4px;
+    text-underline-offset: -1.5px;
+    text-decoration-line: underline;
+    text-decoration-skip-ink: none;
+    cursor: pointer;
+}

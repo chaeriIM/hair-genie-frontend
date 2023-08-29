@@ -147,7 +147,6 @@ const MemberInfoEdit = () => {
                 <div className='info-container'>
                     <div className='info-row'>
                         <div className="info-input-container">
-                            <label>아이디</label>
                             <input
                                 type='text'
                                 value={userId}
@@ -157,14 +156,7 @@ const MemberInfoEdit = () => {
                         </div>
                     </div>
                     <div className='info-row'>
-                        <div className='info-input-container'>
-                            <label>비밀번호 변경</label>
-                            <div className='password-change-button' onClick={() => navigate('/password-change')}>비밀번호 변경</div>
-                        </div>
-                    </div>
-                    <div className='info-row'>
                         <div className="info-input-container">
-                            <label>이름</label>
                             <input
                                 type='text'
                                 value={name}
@@ -175,10 +167,9 @@ const MemberInfoEdit = () => {
                     </div>
                     <div className={`info-row ${nicknameValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>별명</label>
                             <input
                                 type='text'
-                                placeholder='별명을 입력하세요.'
+                                placeholder='별명'
                                 value={nickname}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -194,10 +185,9 @@ const MemberInfoEdit = () => {
                     </div>
                     <div className={`info-row ${phoneNumberValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>전화번호</label>
                             <input
                                 type='tel'
-                                placeholder='전화번호를 입력하세요.'
+                                placeholder='전화번호'
                                 value={phoneNumber}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -214,10 +204,9 @@ const MemberInfoEdit = () => {
                     </div>
                     <div className={`info-row ${emailValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>이메일</label>
                             <input
                                 type='email'
-                                placeholder='이메일을 입력하세요.'
+                                placeholder='이메일'
                                 value={email}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;

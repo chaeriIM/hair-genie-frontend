@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Nav from '../../components/Nav';
 import Popup from '../../components/Popup';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
@@ -35,15 +34,12 @@ const Withdrawal = () => {
 
     return (
         <div>
-            <Nav />
-            <p className='main-title'>회원 탈퇴</p>
-            <hr />
-            <div className='body-container'>
+            <div className='withdrawal'>
+                <p className='withdrawal-title'>회원 탈퇴</p>
                 <div className='info-container'>
                     <p className='withdrawal-description'>회원 탈퇴를 위해 비밀번호를 다시 한 번 입력해주세요.</p>
                     <div className='info-row'>
                         <div className="info-input-container">
-                            <label>아이디</label>
                             <input
                                 type='text'
                                 value={userId}
@@ -54,10 +50,9 @@ const Withdrawal = () => {
                     </div>
                     <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>비밀번호</label>
                             <input
                                 type='password'
-                                placeholder='비밀번호를 입력하세요.'
+                                placeholder='비밀번호'
                                 value={password}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;

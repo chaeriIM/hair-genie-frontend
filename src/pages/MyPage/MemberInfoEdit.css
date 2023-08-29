@@ -1,46 +1,36 @@
-.password-change-button {
-    display: flex;
-    width: 90px;
-    padding: 2px;
-    border: .9px solid #474747;
-    border-radius: 2px;
-    transition: .4s;
-    cursor: pointer;
+.save-button button:disabled,
+.save-button button:disabled:hover,
+.withdrawal-button button:disabled,
+.withdrawal-button button:disabled:hover {
     background-color: #f0f0f0;
-    color: black;
-    justify-content: center;
-    font-size: 14px;
+    color: #c7c7c7;
+    cursor: auto;
 }
 
-.save-button,
-.withdrawal-button {
+.join-button {
     text-align: center;
 }
 
 .save-button button,
 .withdrawal-button button {
-    width: 130px;
-    padding: 8px 15px;
-    border: .9px solid #474747;
-    border-radius: 60px;
-    transition: .4s;
+    width: 360px;
+    height: 40px;
+    margin: 0 0 10px 0;
     cursor: pointer;
-    background-color: transparent;
-    color: #474747;
-    margin: 20px 0;
+    background-color: #b4d1ff;
+    border: none;
+    border-radius: 5px;
+    transition: 0.4s;
+    color: #f6f6f6;
 }
 
 .save-button button:hover,
 .withdrawal-button button:hover {
-    background-color: #b4d1ed;
-    color: white;
-    border: .9px solid #b4d1ed;
+    background-color: #c1d5f8;
 }
 
-.save-button button:disabled,
-.save-button button:disabled:hover {
-    background-color: #ccc;
-    color: #888;
-    border-color: #ccc;
-    cursor: auto;
+
+.save-button,
+.withdrawal-button {
+    text-align: center;
 }

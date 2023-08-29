@@ -6,7 +6,7 @@ import './MyPage.css';
 import '../../App.css';
 
 const MyPage = () => {
-  const name = "UserName";
+  const Nickname = "Nickname";
 
   const navigate = useNavigate();
   const [logoutPopupOpen, setLogoutPopupOpen] = useState(false);
@@ -49,33 +49,23 @@ const MyPage = () => {
                   </div>
                 )}
               </div>
-              <div className='user-name'>
-                {name}
-              </div>
+              <div className='nickname'> {Nickname} </div>
             </div>
           </div>
-          <div className='button-section'>
-            <div className='button' onClick={() => handleButtonClick('/member-info-edit')}>
-              <span>회원 정보 수정</span>
-              <div className='button-icon'>&gt;</div>
+          <div className='mypage-button-section'>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/member-info-edit')}>회원 정보 수정  &gt;</div>
+              <div className='bottom-button' onClick={() => handleButtonClick('/password-change')}>비밀번호 변경  &gt;</div>
+              <div className='bottom-button' onClick={handleLogoutClick}>로그아웃  &gt;</div>
             </div>
-            <div className='button' onClick={() => handleButtonClick('/face-type-info')}>
-              <span>나의 얼굴형 타입</span>
-              <div className='button-icon'>&gt;</div>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/face-type-info')}>나의 얼굴형 타입  &gt;</div>
             </div>
-            <div className='button' onClick={() => handleButtonClick('/reservation-info')}>
-              <span>미용실 예약 정보</span>
-              <div className='button-icon'>&gt;</div>
-            </div>
-            <div className='button' onClick={handleLogoutClick}>
-              <span>로그아웃</span>
-              <div className='button-icon'>&gt;</div>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/reservation-info')}>미용실 예약 정보  &gt;</div>
             </div>
           </div>
-          <div className='leave-button' onClick={() => handleButtonClick('/withdrawal')}>
-            <span className='leave-button-text'>회원 탈퇴</span>
-            <span className='leave-button-icon'>&gt;</span>
-          </div>
+          <div className='bottom-button' onClick={() => handleButtonClick('/withdrawal')}>회원 탈퇴  &gt;</div>
         </div>
       </div>
       <Popup

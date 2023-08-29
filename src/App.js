@@ -9,7 +9,9 @@ import MyPage from './pages/MyPage/index.js';
 import MemberInfoEdit from './pages/MyPage/MemberInfoEdit';
 import PasswordChange from './pages/MyPage/PasswordChange';
 import FaceTypeInfo from './pages/MyPage/FaceTypeInfo';
+import MyFaceType from './pages/MyPage/MyFaceType';
 import ReservationInfo from './pages/MyPage/ReservationInfo';
+import ReservationDetails from './pages/MyPage/ReservationDetails';
 import Withdrawal from './pages/MyPage/Withdrawal';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage'
@@ -20,7 +22,6 @@ import FaceWebcamPage from './pages/FaceShapePage/WebcamPage';
 import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
 import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
-
 
 function App() {
   return (
@@ -35,7 +36,9 @@ function App() {
         <Route path="member-info-edit" element={<MemberInfoEdit />} />
         <Route path="password-change" element={<PasswordChange />} />
         <Route path="face-type-info" element={<FaceTypeInfo />} />
+        <Route path="my-face-type" element={<MyFaceType />} />
         <Route path="reservation-info" element={<ReservationInfo />} />
+        <Route path="/reservation/:RNum" element={<ReservationDetails />} />
         <Route path="withdrawal" element={<Withdrawal />} />
         <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
