@@ -37,6 +37,7 @@
   cursor: pointer;
   background-color: transparent;
   color: #474747;
+  font-size: 14px;
 }
 .image-btn:hover {
   background-color: #dcdcdc;
