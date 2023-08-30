@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import './FindIdPwPage.css';
+import Modal from 'react-modal';
 
 const FindIdPwPage = () => {
 
@@ -12,6 +13,9 @@ const FindIdPwPage = () => {
   const [nameError, setNameError] = useState('');
   const [idError, setIdError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+
+  const [idModalOpen, setIdModalOpen] = useState(false);
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -48,21 +52,23 @@ const FindIdPwPage = () => {
     setPhoneNumber(formattedValue);
   };
 
+  //다음 버튼 클릭
   const handleNextButtonClick = () => {
     clearErrors();
     
     let hasError = false;
 
-    if (activeTab === 'id') {
+    if (activeTab === 'id') { //아이디 찾기 메뉴
       if (!name) {
         setNameError('이름을 입력해주세요.');
         hasError = true;
       }
       if (!phoneNumber) {
-        setPhoneNumberError('휴대전화를 입력해주세요.');
+        setPhoneNumberError('전화번호를 입력해주세요.');
         hasError = true;
       }
-    } else if (activeTab === 'password') {
+
+    } else if (activeTab === 'password') { //비밀번호 찾기 메뉴
       if (!name) {
         setNameError('이름을 입력해주세요.');
         hasError = true;
@@ -72,12 +78,17 @@ const FindIdPwPage = () => {
         hasError = true;
       }
       if (!phoneNumber) {
-        setPhoneNumberError('휴대전화를 입력해주세요.');
+        setPhoneNumberError('전화번호를 입력해주세요.');
         hasError = true;
       }
     }
 
     if (!hasError) {
+      if (activeTab === 'id') {
+        setIdModalOpen(true);
+      } else if (activeTab === 'password') {
+        setPasswordModalOpen(true);
+      }
     }
   };
 
@@ -171,6 +182,47 @@ const FindIdPwPage = () => {
         </button>
 
       </div>
+
+      {/* ID 모달 */}
+      <Modal
+        isOpen={idModalOpen}
+        onRequestClose={() => setIdModalOpen(false)}
+        contentLabel="ID 모달"
+        className="modal"
+        overlayClassName="overlay"
+        ariaHideApp={false}
+      >
+        <div className="modal-header">
+          <h2>아이디</h2>
+          <button className="close-button" onClick={() => setIdModalOpen(false)}>
+            X
+          </button>
+        </div>
+        <div className="modal-content">
+          <p>아이디는 #####입니다.</p>
+        </div>
+      </Modal>
+
+      {/* 비밀번호 모달 */}
+      <Modal
+        isOpen={passwordModalOpen}
+        onRequestClose={() => setPasswordModalOpen(false)}
+        contentLabel="비밀번호 모달"
+        className="modal"
+        overlayClassName="overlay"
+        ariaHideApp={false}
+      >
+        <div className="modal-header">
+          <h2>비밀번호</h2>
+          <button className="close-button" onClick={() => setPasswordModalOpen(false)}>
+            X
+          </button>
+        </div>
+        <div className="modal-content">
+          <p>비밀번호는 ******입니다.</p>
+        </div>
+      </Modal>
+
     </div>
   )
 
