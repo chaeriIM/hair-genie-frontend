@@ -66,6 +66,9 @@ const FindIdPwPage = () => {
       if (!phoneNumber) {
         setPhoneNumberError('전화번호를 입력해주세요.');
         hasError = true;
+      } else if (phoneNumber.replace(/\D/g, '').length !== 11) {
+        setPhoneNumberError('올바른 전화번호를 입력해주세요.');
+        hasError = true;
       }
 
     } else if (activeTab === 'password') { //비밀번호 찾기 메뉴
@@ -79,6 +82,9 @@ const FindIdPwPage = () => {
       }
       if (!phoneNumber) {
         setPhoneNumberError('전화번호를 입력해주세요.');
+        hasError = true;
+      } else if (phoneNumber.replace(/\D/g, '').length !== 11) {
+        setPhoneNumberError('올바른 전화번호를 입력해주세요.');
         hasError = true;
       }
     }
