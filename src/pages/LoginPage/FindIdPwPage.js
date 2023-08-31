@@ -126,7 +126,7 @@ const FindIdPwPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              {nameError && <p className='error-message'>{nameError}</p>}
+              {nameError && <p className='error-msg'>{nameError}</p>}
 
               <label htmlFor='phoneNumber'>전화번호</label>
               <input
@@ -136,7 +136,7 @@ const FindIdPwPage = () => {
                 value={phoneNumber}
                 onChange={(e) => handlePhoneNumberChange(e.target.value)}
               />
-              {phoneNumberError && <p className='error-message'>{phoneNumberError}</p>}
+              {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
 
             </div>
           )}
@@ -151,7 +151,7 @@ const FindIdPwPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              {nameError && <p className='error-message'>{nameError}</p>}
+              {nameError && <p className='error-msg'>{nameError}</p>}
 
               <label htmlFor='id'>아이디</label>
               <input
@@ -161,7 +161,7 @@ const FindIdPwPage = () => {
                 value={id}
                 onChange={(e) => setId(e.target.value)}
               />
-              {idError && <p className='error-message'>{idError}</p>}
+              {idError && <p className='error-msg'>{idError}</p>}
 
               <label htmlFor='phoneNumber'>전화번호</label>
               <input
@@ -171,7 +171,7 @@ const FindIdPwPage = () => {
                 value={phoneNumber}
                 onChange={(e) => handlePhoneNumberChange(e.target.value)}
               />
-              {phoneNumberError && <p className='error-message'>{phoneNumberError}</p>}
+              {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
 
             </div>
           )}
