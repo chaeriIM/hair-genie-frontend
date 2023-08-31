@@ -24,8 +24,7 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                         <React.Fragment key={salon.id}>
                             {/*{index === 0 && <div className='distance-label'>거리 순</div>}*/}
                             <div className='salon-box'>
-                                <div className='salon-name'>{salon.name}</div>
-                                <div className='salon-location'>{salon.location}</div>
+                                <div className='salon-name'>{salon.name}<div className='salon-location'>{salon.location}</div></div>
                                 {currentStep === 1 ? (
                                     <div className='reservation-button' onClick={() => handleReservationClick(salon.name)}>예약</div>
                                 ) : null}

@@ -30,13 +30,13 @@
 }
 
 .step.active {
-    color: #698ec7;
+    color: #82b1ff;
     font-weight: bold;
 }
 
 .step.active .step-circle {
-    background-color: #b4d1ff;
-    color: #fff;
+    background-color: #82b1ff;
+    color: #ffffffda;
 }
 
 .step-divider {

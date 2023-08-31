@@ -37,7 +37,7 @@
 }
 
 .menu.selected {
-    color: #7d9fd2;
+    color: #2a67d1;
     position: relative;
 }
 
@@ -50,7 +50,7 @@
     width: 130%;
     max-width: 74px;
     height: 2px;
-    background-color: #7d9fd2;
+    background-color: #2a67d1;
 }
 
 .service-options-container {

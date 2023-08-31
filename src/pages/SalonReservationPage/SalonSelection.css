@@ -1,17 +1,22 @@
 .salon-body-container {
     display: flex;
-    box-sizing: border-box;
-    width: 58%;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 26px 80px;
+    position: relative;
     align-items: center;
-    justify-content: center;
     margin: 10px 0;
+    width: 100%;
 }
 
 .salon-selection-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px;
+    margin: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
 /* .distance-label {
@@ -25,15 +30,14 @@
 .salon-box {
     display: flex;
     background-color: #ffffff;
-    padding: 15px;
-    width: 180px;
-    height: 190px;
-    position: relative;
     border: 1px solid #ccc;
-    border-top: 4px solid #7d9fd2;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: space-between;
+    border-top: 3.5px solid #5681bc;
+    padding: 20px;
+    min-width: 560px;
+    width: 60%;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .salon-name {
@@ -44,7 +48,7 @@
 .salon-location {
     font-size: 14px;
     color: #7a7a7a;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .reservation-button {
@@ -59,7 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 154px;
+    margin: 0;
 }
 
 .reservation-button:hover {
