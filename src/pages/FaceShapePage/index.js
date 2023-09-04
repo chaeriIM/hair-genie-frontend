@@ -26,7 +26,7 @@ const FaceShapePage = () => {
         <p className='about-title'>이미지를 업로드하여 얼굴형 분석 결과를 확인해 보세요.</p>
         <div className='select-container'>
           <button className='select-btn' onClick={navigateToWebcam}>
-            <img src="/images/camera_icon.svg" alt="Webcam icon" class="camera-icon" />
+            <img src="/images/camera_icon.svg" alt="Webcam icon" className="camera-icon" />
             카메라
           </button>
           <button className='select-btn' onClick={navigateToImageUpload}>
