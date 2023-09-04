@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Nav from '../../components/Nav';
 import Popup from '../../components/Popup';
 import { useNavigate } from 'react-router-dom';
@@ -8,45 +8,60 @@ import '../../App.css';
 //비밀번호 변경 내용을 반영하는 내용 추가 필요
 const MemberInfoEdit = () => {
     const userId = "UserId";
-    const name = "UserName";
+    const Name = "UserName";
     const Nickname = "Nickname";
     const PhoneNumber = "010-1234-5678";
     const Email = "example@example.com";
 
-    const [profileImage, setProfileImage] = useState(null);
+    const [name, setName] = useState(Name);
     const [nickname, setNickname] = useState(Nickname);
     const [phoneNumber, setPhoneNumber] = useState(PhoneNumber);
     const [email, setEmail] = useState(Email);
+
+    // eslint-disable-next-line 
+    const [file, setFile] = useState(null);
+    const [proImage, setProImage] = useState(null);
+    const [image, setImage] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
+    const [isImageChanged, setIsImageChanged] = useState(false);
+    const fileInput = useRef(null);
 
     const [savePopupOpen, setSavePopupOpen] = useState(false);
     const [saveCompletePopupOpen, setSaveCompletePopupOpen] = useState(false);
 
     const [nicknameValidationStatus, setNicknameValidationStatus] = useState('');
+    const [nameValidationStatus, setNameValidationStatus] = useState('');
     const [phoneNumberValidationStatus, setPhoneNumberValidationStatus] = useState('');
     const [emailValidationStatus, setEmailValidationStatus] = useState('');
     const [isNicknameChanged, setIsNicknameChanged] = useState(false);
+    const [isNameChanged, setIsNameChanged] = useState(false);
     const [isPhoneNumberChanged, setIsPhoneNumberChanged] = useState(false);
     const [isEmailChanged, setIsEmailChanged] = useState(false);
 
     const navigate = useNavigate();
 
-    const handleImageUpload = (e) => {
-        const selectedImage = e.target.files[0];
-
-        if (selectedImage) {
+    const handleFileChange = (e) => {
+        if (e.target.files[0]) {
             const reader = new FileReader();
-
-            reader.onload = (event) => {
-                const imageUrl = event.target.result;
-                setProfileImage(imageUrl);
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImage(reader.result);
+                }
             };
+            reader.readAsDataURL(e.target.files[0]);
 
-            reader.readAsDataURL(selectedImage);
+            setFile(e.target.files[0]);
+            setIsImageChanged(true);
+        } else {
+            setImage(
+                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            );
+            setFile(null);
+            setIsImageChanged(false);
         }
     };
 
-    const handleProfileImageClick = () => {
-        document.getElementById('imageInput').click();
+    const handleProImageClick = () => {
+        fileInput.current.click();
     };
 
     const handleValueChange = (newValue, defaultValue, changeSetter) => {
@@ -58,46 +73,32 @@ const MemberInfoEdit = () => {
     };
 
     const handleSaveClick = () => {
-        if (!areAllFieldsFilled) {
+        if (
+            isValidNickname(nickname) &&
+            isValidName(name) &&
+            isValidEmail(email) &&
+            isValidPhoneNumber(formatPhoneNumber(phoneNumber))
+        ) {
+            if (isImageChanged) {
+                setProImage(image);
+            }
             setSavePopupOpen(true);
-            return;
-        }
-
-        if (!isValidNickname(nickname)) {
-            setNicknameValidationStatus('error');
-            return;
-        }
-        setNicknameValidationStatus('success');
-
-        if (!isValidEmail(email)) {
-            setEmailValidationStatus('error');
-            return;
-        }
-        setEmailValidationStatus('success');
-
-        const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
-        if (!isValidPhoneNumber(formattedPhoneNumber)) {
-            setPhoneNumberValidationStatus('error');
-            return;
         } else {
-            setPhoneNumberValidationStatus('success');
+            setSavePopupOpen(false);
         }
-
-        setSavePopupOpen(true);
     };
 
     const handleSaveConfirm = () => {
         setSavePopupOpen(false);
         setSaveCompletePopupOpen(true);
 
-        setTimeout(() => {
-            navigate('/mypage');
-        }, 800);
+        navigate('/mypage', { updatedImage: proImage });
     };
 
-    const areAllFieldsFilled =
-        nickname && phoneNumber && email;
-
+    const isValidName = (name) => {
+        const nameRegex = /^[a-zA-Z가-힣]{2,10}$/;
+        return nameRegex.test(name);
+    };
     const isValidNickname = (nickname) => {
         const nicknameRegex = /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,10}$/;
         return nicknameRegex.test(nickname);
@@ -125,60 +126,57 @@ const MemberInfoEdit = () => {
             <p className='main-title'>회원 정보 수정</p>
             <hr />
             <div className='body-container'>
-                <div className='profile-image' onClick={handleProfileImageClick}>
-                    <div className='profile-image-container'>
-                        {profileImage && (
-                            <img src={profileImage} alt='프로필 이미지' />
-                        )}
-                        {!profileImage && (
-                            <div className='empty-profile'>
-                                프로필 이미지를 등록하세요.
-                            </div>
-                        )}
+                <div className='pro-image' onClick={handleProImageClick}>
+                    <div>
+                        <img
+                            src={image}
+                            alt="Profile"
+                            style={{ width: '150px', height: '150px' }}
+                        />
                     </div>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInput}
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                    />
                 </div>
-                <input
-                    type='file'
-                    accept='image/*'
-                    id='imageInput'
-                    style={{ display: 'none' }}
-                    onChange={handleImageUpload}
-                />
                 <div className='info-container'>
                     <div className='info-row'>
                         <div className="info-input-container">
-                            <label>아이디</label>
                             <input
                                 type='text'
                                 value={userId}
                                 readOnly
-                                style={{ backgroundColor: "#b4d1ed" }}
+                                style={{ backgroundColor: "#b4d1ed", hover: "none" }}
                             />
                         </div>
                     </div>
-                    <div className='info-row'>
-                        <div className='info-input-container'>
-                            <label>비밀번호 변경</label>
-                            <div className='password-change-button' onClick={() => navigate('/password-change')}>비밀번호 변경</div>
-                        </div>
-                    </div>
-                    <div className='info-row'>
+
+                    <div className={`info-row ${nameValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>이름</label>
                             <input
                                 type='text'
+                                placeholder='이름'
                                 value={name}
-                                readOnly
-                                style={{ backgroundColor: "#b4d1ed" }}
+                                onChange={(e) => {
+                                    const inputValue = e.target.value;
+                                    setName(inputValue);
+                                    handleValueChange(inputValue, Name, setIsNameChanged);
+                                    setNameValidationStatus(isValidName(inputValue) ? 'success' : 'error');
+                                }}
                             />
                         </div>
+                        {nameValidationStatus === 'error' && (
+                            <p className='error-message'>영문과 한글을 사용하여 2글자 이상 입력하세요.</p>
+                        )}
                     </div>
                     <div className={`info-row ${nicknameValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>별명</label>
                             <input
                                 type='text'
-                                placeholder='별명을 입력하세요.'
+                                placeholder='별명'
                                 value={nickname}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -194,10 +192,9 @@ const MemberInfoEdit = () => {
                     </div>
                     <div className={`info-row ${phoneNumberValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>전화번호</label>
                             <input
                                 type='tel'
-                                placeholder='전화번호를 입력하세요.'
+                                placeholder='전화번호'
                                 value={phoneNumber}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -214,10 +211,9 @@ const MemberInfoEdit = () => {
                     </div>
                     <div className={`info-row ${emailValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
-                            <label>이메일</label>
                             <input
                                 type='email'
-                                placeholder='이메일을 입력하세요.'
+                                placeholder='이메일'
                                 value={email}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -232,22 +228,33 @@ const MemberInfoEdit = () => {
                         )}
                     </div>
                     <div className='save-button'>
-                        <button onClick={handleSaveClick} disabled={!isNicknameChanged && !isPhoneNumberChanged && !isEmailChanged}>저장하기</button>
+                        <button
+                            onClick={handleSaveClick}
+                            disabled={
+                                !isNameChanged &&
+                                !isNicknameChanged &&
+                                !isPhoneNumberChanged &&
+                                !isEmailChanged &&
+                                !isImageChanged
+                            }
+                        >
+                            저장하기
+                        </button>
                     </div>
                 </div>
+                <Popup
+                    isOpen={savePopupOpen}
+                    message="변경사항을 저장하시겠어요?"
+                    onConfirm={handleSaveConfirm}
+                    onCancel={() => setSavePopupOpen(false)}
+                />
+                <Popup
+                    isOpen={saveCompletePopupOpen}
+                    message="변경사항이 저장되었습니다."
+                    isCompleted={true}
+                    onCancel={() => setSaveCompletePopupOpen(false)}
+                />
             </div>
-            <Popup
-                isOpen={savePopupOpen}
-                message="변경사항을 저장하시겠어요?"
-                onConfirm={handleSaveConfirm}
-                onCancel={() => setSavePopupOpen(false)}
-            />
-            <Popup
-                isOpen={saveCompletePopupOpen}
-                message="변경사항이 저장되었습니다."
-                isCompleted={true}
-                onCancel={() => setSaveCompletePopupOpen(false)}
-            />
         </div>
     );
 };

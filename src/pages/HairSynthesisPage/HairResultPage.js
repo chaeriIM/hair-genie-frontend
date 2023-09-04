@@ -17,16 +17,18 @@ const HairResultPage = () => {
       <p className='main-title'>지니 타임</p>
       <hr />
 
-      <div className='container'>
+      <div className='body-container'>
+        <div className='container'>
 
-        <div className='result-image'>
-          결과물
+          <div className='result-image'>
+            결과물
+          </div>
+
+          <button className='result-btn' onClick={navigateToResult}>
+            이전
+          </button>
+
         </div>
-
-        <button className='result-btn' onClick={navigateToResult}>
-          이전
-        </button>
-        
       </div>
     </div>
   )

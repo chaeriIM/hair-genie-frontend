@@ -1,53 +1,78 @@
 /* FaceShapePage, HairSynthesisPage */
+.about-title {
+  font-size: 22px;
+  margin: 40px 0 -10px 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .container h5 {
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 22px;
+  margin: 10px 0 0 0;
 }
+
 .description {
   font-size: 16px;
   margin: 12px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
+
 .description span {
   font-size: 19px;
+  text-decoration: #FFEFCA;
+  text-decoration-thickness: 10px;
+  text-underline-offset: -1.5px;
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
 }
+
 .recommendation {
   margin: 20px 80px;
   width: 380px;
+  line-height: 1.8;
 }
+
 .decommendation {
   margin: 20px 80px;
   width: 380px;
+  line-height: 1.8;
 }
+
 .image-btn {
+  font-size: 14px;
   width: 250px;
   height: 40px;
-  padding: 8px 15px;
-  border: .9px dashed #474747;
+  padding: 6px 16px;
+   border: 1px solid rgba(27, 31, 35, 0.15);
+/*   border:0;
+  background-color: transparent; */
+  border: 1px solid #FFF0F4;
+  color: #FC90A8; /* color: #474747; */
   border-radius: 30px;
   transition: .4s;
   cursor: pointer;
-  background-color: transparent;
-  color: #474747;
-  font-size: 14px;
+  background-color: #FFF0F4;
 }
+
 .image-btn:hover {
-  background-color: #dcdcdc;
+  background-color: #FC90A8;/* #dcdcdc */
+  border-color: #FFF0F4;
   color: white;
-  border: .9px solid #dcdcdc;
 }
+
 .result-btn {
   width: 130px;
   padding: 8px 15px;
-  border: .9px solid #474747;
+  /* border: .9px solid #474747; */
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 60px;
   transition: .4s;
   cursor: pointer;
@@ -55,10 +80,11 @@
   color: #474747;
   margin: 20px 0;
 }
+
 .result-btn:hover {
-  background-color: #b4d1ed;
+  background-color: #8D99ED;/* #b4d1ed */
   color: white;
-  border: .9px solid #b4d1ed;
+  border: 1px solid #8D99ED;
 }
 
 .result-image {
@@ -66,10 +92,12 @@
   height: 350px;
   padding: 20px;
   margin: 20px 0;
-  border: 3px dashed #ccc;
+  /* border: 3px dashed #E0E0E0; */
   display: flex;
   justify-self: center;
   align-items: center;
+  border: 1px solid #C7CDD1;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
 }
 
 .result-image img {
@@ -83,23 +111,45 @@
   align-items: center;
   justify-content: center;
   margin: 40px;
+  /* 수정 */
+  gap: 100px;
 }
+
 .select-btn {
   width: 300px;
   height: 300px;
   padding: 8px 15px;
-  border: 3px dashed #ccc;
-  border-radius: 10px;
+  border: 3px dashed #e1e1e1;
+  /* border-radius: 10px; */
   transition: .4s;
   cursor: pointer;
   background-color: transparent;
-  color: #474747;
-  margin: 50px;
-  font-size: 28px;
-  color: #779aba;
+  /*  margin: 50px; */
+  font-size: 18px;
+  /* color: #779aba; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
 .select-btn:hover {
-  background-color: #b4d1ed;
+  background-color: #B4C6F8;  /* #b4d1ed */
   color: white;
   border: 3px dashed #f3f3f3;
 }
+
+/* 아이콘 */
+.camera-icon,
+.picture-icon {
+  width: 80px;
+  height: 80px;
+  transition: .4s;
+  filter: invert(4%) sepia(26%) saturate(11%) hue-rotate(314deg) brightness(98%) contrast(83%);
+}
+
+.select-btn:hover .camera-icon,
+.select-btn:hover .picture-icon {
+  filter: invert(100%) sepia(0%) saturate(31%) hue-rotate(119deg) brightness(106%) contrast(107%);
+}
+

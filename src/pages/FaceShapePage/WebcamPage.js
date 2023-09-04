@@ -18,9 +18,10 @@ const WebcamPage = () => {
       <p className='main-title'>얼굴형 분석</p>
       <hr />
 
-      <Webcam onImageUploaded={navigateToResult}/>
+      <div className='body-container'>
+        <Webcam onImageUploaded={navigateToResult} />
+      </div>
     </div>
-  
   )
 }
 

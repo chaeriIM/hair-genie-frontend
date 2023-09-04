@@ -104,131 +104,132 @@ const FindIdPwPage = () => {
       <p className='main-title'>ID/PW 찾기</p>
       <hr />
 
-      <div className='tab-menu'>
-        <div>
-          <button
-            className={activeTab === 'id' ? 'active' : ''}
-            onClick={() => handleTabClick('id')}
-          >
-            아이디 찾기
+      <div className='body-container'>
+        <div className='tab-menu'>
+          <div>
+            <button
+              className={activeTab === 'id' ? 'active' : ''}
+              onClick={() => handleTabClick('id')}
+            >
+              아이디 찾기
+            </button>
+            <button
+              className={activeTab === 'password' ? 'active' : ''}
+              onClick={() => handleTabClick('password')}
+            >
+              비밀번호 찾기
+            </button>
+          </div>
+
+          <div className="input-container">
+            {activeTab === 'id' && (
+              <div className='input-form'>
+
+                <label htmlFor='name'>이름</label>
+                <input
+                  id='이름'
+                  type='text'
+                  placeholder='이름을 입력하세요.'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {nameError && <p className='error-msg'>{nameError}</p>}
+
+                <label htmlFor='phoneNumber'>전화번호</label>
+                <input
+                  id='phoneNumber'
+                  type='text'
+                  placeholder='전화번호를 입력하세요.'
+                  value={phoneNumber}
+                  onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                />
+                {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
+
+              </div>
+            )}
+            {activeTab === 'password' && (
+              <div className='input-form'>
+
+                <label htmlFor='name'>이름</label>
+                <input
+                  id='이름'
+                  type='text'
+                  placeholder='이름을 입력하세요.'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {nameError && <p className='error-msg'>{nameError}</p>}
+
+                <label htmlFor='id'>아이디</label>
+                <input
+                  id='id'
+                  type='text'
+                  placeholder='아이디를 입력하세요.'
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
+                />
+                {idError && <p className='error-msg'>{idError}</p>}
+
+                <label htmlFor='phoneNumber'>전화번호</label>
+                <input
+                  id='phoneNumber'
+                  type='text'
+                  placeholder='전화번호를 입력하세요.'
+                  value={phoneNumber}
+                  onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                />
+                {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
+
+              </div>
+            )}
+          </div>
+          
+          <button className='next-btn' onClick={handleNextButtonClick}>
+            다음
           </button>
-          <button
-            className={activeTab === 'password' ? 'active' : ''}
-            onClick={() => handleTabClick('password')}
-          >
-            비밀번호 찾기
-          </button>
+
         </div>
 
-        <div className="input-container">
-          {activeTab === 'id' && (
-            <div className='input-form'>
+        {/* ID 모달 */}
+        <Modal
+          isOpen={idModalOpen}
+          onRequestClose={() => setIdModalOpen(false)}
+          contentLabel="ID 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>아이디</h2>
+            <button className="close-button" onClick={() => setIdModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>아이디는 #####입니다.</p>
+          </div>
+        </Modal>
 
-              <label htmlFor='name'>이름</label>
-              <input
-                id='이름'
-                type='text'
-                placeholder='이름을 입력하세요.'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              {nameError && <p className='error-msg'>{nameError}</p>}
-
-              <label htmlFor='phoneNumber'>전화번호</label>
-              <input
-                id='phoneNumber'
-                type='text'
-                placeholder='전화번호를 입력하세요.'
-                value={phoneNumber}
-                onChange={(e) => handlePhoneNumberChange(e.target.value)}
-              />
-              {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
-
-            </div>
-          )}
-          {activeTab === 'password' && (
-            <div className='input-form'>
-
-              <label htmlFor='name'>이름</label>
-              <input
-                id='이름'
-                type='text'
-                placeholder='이름을 입력하세요.'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              {nameError && <p className='error-msg'>{nameError}</p>}
-
-              <label htmlFor='id'>아이디</label>
-              <input
-                id='id'
-                type='text'
-                placeholder='아이디를 입력하세요.'
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-              />
-              {idError && <p className='error-msg'>{idError}</p>}
-
-              <label htmlFor='phoneNumber'>전화번호</label>
-              <input
-                id='phoneNumber'
-                type='text'
-                placeholder='전화번호를 입력하세요.'
-                value={phoneNumber}
-                onChange={(e) => handlePhoneNumberChange(e.target.value)}
-              />
-              {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
-
-            </div>
-          )}
-        </div>
-        
-        <button className='next-btn' onClick={handleNextButtonClick}>
-          다음
-        </button>
-
+        {/* 비밀번호 모달 */}
+        <Modal
+          isOpen={passwordModalOpen}
+          onRequestClose={() => setPasswordModalOpen(false)}
+          contentLabel="비밀번호 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>비밀번호</h2>
+            <button className="close-button" onClick={() => setPasswordModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>비밀번호는 ******입니다.</p>
+          </div>
+        </Modal>
       </div>
-
-      {/* ID 모달 */}
-      <Modal
-        isOpen={idModalOpen}
-        onRequestClose={() => setIdModalOpen(false)}
-        contentLabel="ID 모달"
-        className="modal"
-        overlayClassName="overlay"
-        ariaHideApp={false}
-      >
-        <div className="modal-header">
-          <h2>아이디</h2>
-          <button className="close-button" onClick={() => setIdModalOpen(false)}>
-            X
-          </button>
-        </div>
-        <div className="modal-content">
-          <p>아이디는 #####입니다.</p>
-        </div>
-      </Modal>
-
-      {/* 비밀번호 모달 */}
-      <Modal
-        isOpen={passwordModalOpen}
-        onRequestClose={() => setPasswordModalOpen(false)}
-        contentLabel="비밀번호 모달"
-        className="modal"
-        overlayClassName="overlay"
-        ariaHideApp={false}
-      >
-        <div className="modal-header">
-          <h2>비밀번호</h2>
-          <button className="close-button" onClick={() => setPasswordModalOpen(false)}>
-            X
-          </button>
-        </div>
-        <div className="modal-content">
-          <p>비밀번호는 ******입니다.</p>
-        </div>
-      </Modal>
-
     </div>
   )
 
