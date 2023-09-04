@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const LoginPage = () => {
 
   return (
-    <div className='body-container'>
-      <div className="login">
+    <div className='login'>
+      <div className="body-container">
         <img
           src="/images/login-logo.svg"
           alt="logo"

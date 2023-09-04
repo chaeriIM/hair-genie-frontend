@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Nav from '../../components/Nav';
 import './FindIdPwPage.css';
 import Modal from 'react-modal';
 
@@ -100,88 +99,93 @@ const FindIdPwPage = () => {
 
   return (
     <div className='find-idpw'>
-      <Nav />
-      <p className='main-title'>ID/PW 찾기</p>
-      <hr />
-
       <div className='body-container'>
+        {/* <img
+          src="/images/login-logo.svg"
+          alt="logo"
+          onClick={() => (window.location.href = "/")}
+          className="login-logo"
+        /> */}
+        <p className='idpw-title' onClick={() => (window.location.href = "/")} >ID/PW 찾기</p>
         <div className='tab-menu'>
-          <div>
-            <button
-              className={activeTab === 'id' ? 'active' : ''}
-              onClick={() => handleTabClick('id')}
-            >
-              아이디 찾기
-            </button>
-            <button
-              className={activeTab === 'password' ? 'active' : ''}
-              onClick={() => handleTabClick('password')}
-            >
-              비밀번호 찾기
-            </button>
-          </div>
+          <div className='form-wrapper'>
+            <div>
+              <button
+                className={activeTab === 'id' ? 'active' : ''}
+                onClick={() => handleTabClick('id')}
+              >
+                아이디 찾기
+              </button>
+              <button
+                className={activeTab === 'password' ? 'active' : ''}
+                onClick={() => handleTabClick('password')}
+              >
+                비밀번호 찾기
+              </button>
+            </div>
 
-          <div className="input-container">
-            {activeTab === 'id' && (
-              <div className='input-form'>
+            <div className="input-container">
+              {activeTab === 'id' && (
+                <div className='input-form'>
 
-                <label htmlFor='name'>이름</label>
-                <input
-                  id='이름'
-                  type='text'
-                  placeholder='이름을 입력하세요.'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {nameError && <p className='error-msg'>{nameError}</p>}
+                  <label htmlFor='name'>이름</label>
+                  <input
+                    id='이름'
+                    type='text'
+                    placeholder='이름을 입력하세요.'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {nameError && <p className='error-msg'>{nameError}</p>}
 
-                <label htmlFor='phoneNumber'>전화번호</label>
-                <input
-                  id='phoneNumber'
-                  type='text'
-                  placeholder='전화번호를 입력하세요.'
-                  value={phoneNumber}
-                  onChange={(e) => handlePhoneNumberChange(e.target.value)}
-                />
-                {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
+                  <label htmlFor='phoneNumber'>전화번호</label>
+                  <input
+                    id='phoneNumber'
+                    type='text'
+                    placeholder='전화번호를 입력하세요.'
+                    value={phoneNumber}
+                    onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                  />
+                  {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
 
-              </div>
-            )}
-            {activeTab === 'password' && (
-              <div className='input-form'>
+                </div>
+              )}
+              {activeTab === 'password' && (
+                <div className='input-form'>
 
-                <label htmlFor='name'>이름</label>
-                <input
-                  id='이름'
-                  type='text'
-                  placeholder='이름을 입력하세요.'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {nameError && <p className='error-msg'>{nameError}</p>}
+                  <label htmlFor='name'>이름</label>
+                  <input
+                    id='이름'
+                    type='text'
+                    placeholder='이름을 입력하세요.'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {nameError && <p className='error-msg'>{nameError}</p>}
 
-                <label htmlFor='id'>아이디</label>
-                <input
-                  id='id'
-                  type='text'
-                  placeholder='아이디를 입력하세요.'
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
-                />
-                {idError && <p className='error-msg'>{idError}</p>}
+                  <label htmlFor='id'>아이디</label>
+                  <input
+                    id='id'
+                    type='text'
+                    placeholder='아이디를 입력하세요.'
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                  />
+                  {idError && <p className='error-msg'>{idError}</p>}
 
-                <label htmlFor='phoneNumber'>전화번호</label>
-                <input
-                  id='phoneNumber'
-                  type='text'
-                  placeholder='전화번호를 입력하세요.'
-                  value={phoneNumber}
-                  onChange={(e) => handlePhoneNumberChange(e.target.value)}
-                />
-                {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
+                  <label htmlFor='phoneNumber'>전화번호</label>
+                  <input
+                    id='phoneNumber'
+                    type='text'
+                    placeholder='전화번호를 입력하세요.'
+                    value={phoneNumber}
+                    onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                  />
+                  {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
 
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
           
           <button className='next-btn' onClick={handleNextButtonClick}>
