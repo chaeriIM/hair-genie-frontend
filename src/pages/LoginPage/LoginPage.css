@@ -41,7 +41,6 @@
 }
 .login input::placeholder {
   color: #c6c6c6;
-  padding-left: 5px;
 }
 .login-btn {
   width: 360px;
