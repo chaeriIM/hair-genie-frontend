@@ -1,10 +1,10 @@
-/* 줄 맞춤*/
 .wrapper {
   display: flex;
   margin: 0 80px;
   align-items: center;
   padding: 15px;
   box-sizing: border-box;
+  color: #1A1718;
 }
 
 .logo {
@@ -12,47 +12,56 @@
   height: 45px;
   margin-right: 30px;
   cursor: pointer;
+  filter: invert(62%) sepia(92%) saturate(524%) hue-rotate(187deg) brightness(100%) contrast(102%);
 }
 
-/* 오른쪽 정렬 */
+.logo-text {
+  font-size: 20px;
+  font-family: 'KBO-Dia-Gothic_bold';
+  white-space: nowrap;
+  margin: 0 10px -15px -30px;
+  cursor: pointer;
+  color: #404756;
+}
+
 .navbar {
   width: 100%;
   display: flex;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  margin-left: 20px;
+  margin: 30px 0 15px 0;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
+  gap: 20px;
+  font-family: 'Noto Sans KR';
+  font-weight: 400;
+  white-space: nowrap; /* 줄바꿈 방지, 간격 다른 문제 해결 */
 }
 
-/* 줄바꿈 방지 최소 길이 지정 */
 .navbarMenu {
-  min-width: 80px;
-  color: #1A1718;
+  color: #22232B;/* #1A1718 */
   margin: 5px;
   text-decoration: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   transition: .4s;
 }
 
 .navbarMenu:hover {
-  color: #77AFE6;
+  color: #82B1FF; /* #77AFE6 */
 }
 
 .navbarMenu.btn {
   display: flex;
-  width: 50px;
+  width: 80px;
   padding: 8px 10px;
-  border: .9px solid #1A1718;
+  border: .9px solid #22232B;/* #1A1718 */
   border-radius: 60px;
   transition: .4s;
   justify-content: center;
 }
 
 .navbarMenu.btn:hover {
-  background-color: #b4d1ed;
+  background-color: #82B1FF;
   color: white;
-  border: .9px solid #b4d1ed;
+  border: .9px solid #82B1FF;
 }

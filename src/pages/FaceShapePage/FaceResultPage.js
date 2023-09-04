@@ -20,7 +20,7 @@ const FaceResultPage = () => {
 
   const [result, setResult] = useState("");
   // 하트형(Heart), 계란형(Oval), 둥근형(Round), 각진형(Square), 긴 얼굴형(Oblong)
-  
+
   //임시로 랜덤으로 값을 가져오도록 설정
   const randomResult = () => {
     const faceShapes = ["heart", "oval", "round", "square", "oblong"];
@@ -43,11 +43,11 @@ const FaceResultPage = () => {
         <div className='result-image'>
           {faceImage && <img src={faceImage} alt="selectedImage" />}
         </div>
-        
-        <button 
-          className='image-btn' 
+
+        <button
+          className='image-btn'
           onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%ED%95%98%ED%8A%B8%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
+          어울리는 헤어스타일 사진 보러가기 
         </button>
 
         <div className='description'>
@@ -83,9 +83,9 @@ const FaceResultPage = () => {
         <div className='result-image'>
           {faceImage && <img src={faceImage} alt="selectedImage" />}
         </div>
-        
-        <button 
-          className='image-btn' 
+
+        <button
+          className='image-btn'
           onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B3%84%EB%9E%80%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
           어울리는 헤어스타일 사진 보러가기
         </button>
@@ -95,7 +95,7 @@ const FaceResultPage = () => {
             <span>👍🏻 추천</span>
             <br /><br />
             - 다 좋지만 갸름한 얼굴형을 잘 보여줄 수 있는<br />
-              업 스타일, 포니테일, 컬이 들어간 레이어드 S컬펌<br />
+            업 스타일, 포니테일, 컬이 들어간 레이어드 S컬펌<br />
             - 중간 길이의 머리에 가벼운 웨이브, 보브컷<br />
             - 짧은 커트에 베이비펌, 셋팅펌<br />
             - 가르마 6:4, 8:2<br />
@@ -106,7 +106,7 @@ const FaceResultPage = () => {
             - 이마를 가리는 무거운 느낌의 뱅<br />
             - 너무 긴 머리<br />
           </div>
-          
+
         </div>
       </div>
     );
@@ -119,13 +119,13 @@ const FaceResultPage = () => {
         <div className='result-image'>
           {faceImage && <img src={faceImage} alt="selectedImage" />}
         </div>
-        
-        <button 
-          className='image-btn' 
+
+        <button
+          className='image-btn'
           onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EB%91%A5%EA%B7%BC%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
           어울리는 헤어스타일 사진 보러가기
         </button>
-        
+
         <div className='description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -145,7 +145,7 @@ const FaceResultPage = () => {
             <span>👎🏻 비추천</span>
             <br /><br />
             - 5:5 가르마 피하기<br />
-              (하고싶다면 지그재그 가르마)<br />
+            (하고싶다면 지그재그 가르마)<br />
           </div>
         </div>
       </div>
@@ -160,12 +160,12 @@ const FaceResultPage = () => {
           {faceImage && <img src={faceImage} alt="selectedImage" />}
         </div>
 
-        <button 
-          className='image-btn' 
+        <button
+          className='image-btn'
           onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B0%81%EC%A7%84%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
           어울리는 헤어스타일 사진 보러가기
         </button>
-        
+
         <div className='description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -198,9 +198,9 @@ const FaceResultPage = () => {
         <div className='result-image'>
           {faceImage && <img src={faceImage} alt="selectedImage" />}
         </div>
-        
-        <button 
-          className='image-btn' 
+
+        <button
+          className='image-btn'
           onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B8%B4%20%EC%96%BC%EA%B5%B4%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
           어울리는 헤어스타일 사진 보러가기
         </button>
@@ -235,12 +235,14 @@ const FaceResultPage = () => {
       <p className='main-title'>얼굴형 분석</p>
       <hr />
 
-      <div className='container'>
-        <div>{dataToShow}</div>
-        
-        <button className='result-btn' onClick={navigateToResult}>
-          이전
-        </button>
+      <div className='body-container'>
+        <div className='container'>
+          <div>{dataToShow}</div>
+
+          <button className='result-btn' onClick={navigateToResult}>
+            이전
+          </button>
+        </div>
       </div>
     </div>
   )

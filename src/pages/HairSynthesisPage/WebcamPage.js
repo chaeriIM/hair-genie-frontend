@@ -18,7 +18,9 @@ const WebcamPage = () => {
       <p className='main-title'>지니 타임</p>
       <hr />
 
-      <Webcam onImageUploaded={navigateToResult}/>
+      <div className='body-container'>
+        <Webcam onImageUploaded={navigateToResult} />
+      </div>
     </div>
   )
 }

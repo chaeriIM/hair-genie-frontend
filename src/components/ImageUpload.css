@@ -11,7 +11,7 @@
 
 .upload-label {
   display: inline-block;
-  border: 3px dashed #ccc;
+  border: 3px dashed  #e1e1e1;
   width: 350px;
   height: 350px;
   padding: 20px;
@@ -22,8 +22,8 @@
 }
 
 .upload-label:hover {
-  border-color: #a5cbe1;
-  background-color: #f3f3f3;
+  border-color: #B4C6F8; /* #a5cbe1 */
+  background-color: #F3F4F6; /* #f3f3f3 */
 }
 
 .image-container {
@@ -45,6 +45,7 @@
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
+  white-space: nowrap /* 줄바꿈 방지 */
 }
 
 .imageupload input {

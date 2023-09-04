@@ -22,13 +22,18 @@ const FaceShapePage = () => {
       <p className='main-title'>얼굴형 분석</p>
       <hr />
 
-      <div className='select-container'>
-        <button className='select-btn' onClick={navigateToWebcam}>
-          카메라
-        </button>
-        <button className='select-btn' onClick={navigateToImageUpload}>
-          사진
-        </button>
+      <div className='body-container'>
+        <p className='about-title'>이미지를 업로드하여 얼굴형 분석 결과를 확인해 보세요.</p>
+        <div className='select-container'>
+          <button className='select-btn' onClick={navigateToWebcam}>
+            <img src="/images/camera_icon.svg" alt="Webcam icon" class="camera-icon" />
+            카메라
+          </button>
+          <button className='select-btn' onClick={navigateToImageUpload}>
+            <img src="/images/picture_icon.svg" alt="ImageUpload icon" className="picture-icon" />
+            사진
+          </button>
+        </div>
       </div>
     </div>
   )

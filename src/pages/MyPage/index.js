@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Nav from '../../components/Nav';
-import Popup from '../../components/Popup';
+/* import Popup from '../../components/Popup'; */
 import { useNavigate } from 'react-router-dom';
 import './MyPage.css';
 import '../../App.css';
 
 const MyPage = () => {
-  const name = "UserName";
+  const Nickname = "Nickname";
+
+  const [image, setImage] = useState(
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+  );
 
   const navigate = useNavigate();
-  const [logoutPopupOpen, setLogoutPopupOpen] = useState(false);
-  const [logoutCompletePopupOpen, setLogoutCompletePopupOpen] = useState(false);
-
-  const profileImageUrl = null;
+/*   const [logoutPopupOpen, setLogoutPopupOpen] = useState(false);
+  const [logoutCompletePopupOpen, setLogoutCompletePopupOpen] = useState(false); */
 
   const handleButtonClick = (path) => {
     navigate(path);
   };
 
-  const handleLogoutClick = () => {
+  /* const handleLogoutClick = () => {
     setLogoutPopupOpen(true);
   };
 
@@ -29,7 +32,14 @@ const MyPage = () => {
     setTimeout(() => {
       window.location.href = "/";
     }, 800);
-  };
+  }; */
+
+  const location = useLocation();
+  const updatedImage = location.state?.updatedImage || image;
+
+  if (updatedImage !== image) {
+    setImage(updatedImage);
+  }
 
   return (
     <div className='mypage'>
@@ -40,45 +50,33 @@ const MyPage = () => {
         <div className='mypage-container'>
           <div className='profile-section'>
             <div className='mypage-profile'>
-              <div className='mypage-profile-image'>
-                {profileImageUrl ? (
-                  <img src={profileImageUrl} alt="프로필 이미지" />
-                ) : (
-                  <div className='empty-profile'>
-                    프로필 이미지가 없습니다.
-                  </div>
-                )}
+              <div>
+                <img
+                  src={updatedImage}
+                  alt="Profile"
+                  style={{ width: '120px', height: '120px' }}
+                />
               </div>
-              <div className='user-name'>
-                {name}
-              </div>
+              <div className='nickname-text'><span className='nickname'>{Nickname}</span>님, 환영합니다.</div>
             </div>
           </div>
-          <div className='button-section'>
-            <div className='button' onClick={() => handleButtonClick('/member-info-edit')}>
-              <span>회원 정보 수정</span>
-              <div className='button-icon'>&gt;</div>
+          <div className='mypage-button-section'>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/member-info-edit')}>회원 정보 수정  &#xE001;</div>
+              <div className='bottom-button' onClick={() => handleButtonClick('/password-change')}>비밀번호 변경  &#xE001;</div>
+              {/* <div className='bottom-button' onClick={handleLogoutClick}>로그아웃  &#xE001;</div> */}
             </div>
-            <div className='button' onClick={() => handleButtonClick('/face-type-info')}>
-              <span>나의 얼굴형 타입</span>
-              <div className='button-icon'>&gt;</div>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/face-type-info')}>나의 얼굴형 타입  &#xE001;</div>
             </div>
-            <div className='button' onClick={() => handleButtonClick('/reservation-info')}>
-              <span>미용실 예약 정보</span>
-              <div className='button-icon'>&gt;</div>
-            </div>
-            <div className='button' onClick={handleLogoutClick}>
-              <span>로그아웃</span>
-              <div className='button-icon'>&gt;</div>
+            <div className='mypage-menu'>
+              <div className='mypage-menu-button' onClick={() => handleButtonClick('/reservation-info')}>미용실 예약 정보  &#xE001;</div>
             </div>
           </div>
-          <div className='leave-button' onClick={() => handleButtonClick('/withdrawal')}>
-            <span className='leave-button-text'>회원 탈퇴</span>
-            <span className='leave-button-icon'>&gt;</span>
-          </div>
+          <div className='withdrawal-button' onClick={() => handleButtonClick('/withdrawal')}>회원 탈퇴  &#xE001;</div>
         </div>
       </div>
-      <Popup
+      {/* <Popup
         isOpen={logoutPopupOpen}
         message="로그아웃 하시겠어요?"
         onConfirm={handleLogoutConfirm}
@@ -89,7 +87,7 @@ const MyPage = () => {
         message="로그아웃 되었습니다."
         isCompleted={true}
         onCancel={() => setLogoutCompletePopupOpen(false)}
-      />
+      /> */}
     </div>
   );
 };

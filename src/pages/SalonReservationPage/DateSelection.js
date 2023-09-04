@@ -49,7 +49,7 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
     };
 
     return (
-        <div className="date-selection-container">
+        <div className='body-container'>
             <div className="selected-salon-box">
                 <p className="salon-name">{selectedSalon}</p>
                 <div className={`selected-date ${selectedTimeLocal ? 'time-selected-date' : ''}`}>

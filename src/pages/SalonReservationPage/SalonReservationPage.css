@@ -1,19 +1,20 @@
+.salonreservation {
+    background-color: #ffffff;
+}
+
 .step-indicator {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    font-size: 16px;
 }
 
 .step {
     text-align: center;
     margin: 10px;
-    font-size: 15px;
-}
-
-.step.active {
-    color: #9fc3d7;
-    font-weight: bold;
+    font-weight: 400;
 }
 
 .step-circle {
@@ -23,23 +24,40 @@
     width: 28px;
     height: 28px;
     background-color: #e3e3e3;
-    color: #000;
     border-radius: 50%;
-    margin-right: 10px;
-    font-weight: bold;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.step.active {
+    color: #88A5F6;
+    font-weight: 500;
 }
 
 .step.active .step-circle {
-    background-color: #9fc3d7;
-    color: #5477aa;
+    background-color: #88A5F6;
+    color: #ffffffda;
+    font-weight: 500;
 }
 
 .step-divider {
     margin: 0 12px;
     display: inline-block;
-    color: #000000;
-    font-weight: bold;
 }
 
-.salonreservation {
+/* 컴포넌트 버튼 */
+.reservation-button:hover,
+.time-options button:hover,
+.time-options button.selected,
+.confirm-button:hover {
+    background-color: #FC90A8;
+    color: white;
+    border-color: #E9EBED;
+}
+
+.time-options button:disabled,
+.confirm-button:disabled {
+    background-color: #f0f0f0;
+    color: #c7c7c7;
+    cursor: auto;
 }

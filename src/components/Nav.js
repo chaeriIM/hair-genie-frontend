@@ -5,12 +5,12 @@ import './Nav.css'
 const Nav = () => {
   return (
     <div className='wrapper'>
-      <img 
-          src="/images/logo.svg" 
-          alt="logo" 
-          onClick={() => (window.location.href = "/")}
-          className='logo'
-        />
+      <img
+        src="/images/logo.svg"
+        alt="logo"
+        onClick={() => (window.location.href = "/")}
+        className='logo' /> 
+        <span className="logo-text" onClick={() => (window.location.href = "/")}>Hair Genie</span>
       <div className='navbar'>
         {/* <Link className='navbarMenu' to={'/'}>메인</Link> */}
         <Link className='navbarMenu' to={'/hairsynthesis'}>지니 타임</Link>
