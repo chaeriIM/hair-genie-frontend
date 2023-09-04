@@ -34,7 +34,7 @@ function App() {
         <Route path="salonreservation" element={<SalonReservationPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="member-info-edit" element={<MemberInfoEdit />} />
-        <Route path="password-change" element={<PasswordChange />} />
+-        <Route path="password-change" element={<PasswordChange />} />
         <Route path="face-type-info" element={<FaceTypeInfo />} />
         <Route path="my-face-type" element={<MyFaceType />} />
         <Route path="reservation-info" element={<ReservationInfo />} />

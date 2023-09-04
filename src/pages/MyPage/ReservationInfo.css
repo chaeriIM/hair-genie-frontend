@@ -1,7 +1,6 @@
 .my-reservation-container {
     display: flex;
-    width: 60%;
-    min-width: 600px;
+    width: 100%;
     margin: 0 0 10px 0;
     flex-direction: column;
     justify-content: center;
@@ -13,26 +12,22 @@
     display: flex;
     background-color: #ffffff;
     padding: 15px;
-    width: 600px;
-    border-radius: 2px;
+    min-width: 560px;
+    width: 60%;
     position: relative;
-    border: 1px solid #ccc;
-    border-top: 4px solid #82b1ff;
+    border: 1px solid #dce0e2;
     flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
 }
 
-.cancelled {
-    border-top: 4px solid #ccc;
-}
-
-.cancelled
-.my-salon-name {
+.cancelled .my-salon-name {
     color: #ccc;
 }
 .my-salon-name {
     font-size: 18px;
-    font-weight: bold;
-    color:#2979ff;
+    font-weight: 400;
+    color: #387BE3;
     margin: 0 0 0 0;
 }
 
@@ -50,6 +45,22 @@
     margin: 0 2px;
 }
 
+.my-reservation-box-top {
+    display: flex;
+    flex-direction: row;
+}
+
+/* .dryer-icon {
+    height: 34px;
+    margin-right:2px;
+    filter: invert(73%) sepia(63%) saturate(3005%) hue-rotate(190deg) brightness(102%) contrast(105%);
+} */
+
+.my-reservation-box-info{
+    display: flex;
+    flex-direction: column;
+}
+
 .mypage-separator {
     margin: 10px 0;
     background-color: #ecf0f2;
@@ -62,13 +73,20 @@
     margin: 0;
     text-decoration: none;
     color: #1f1f1f;
+    cursor: pointer;
 }
 
 .my-reservation-service:hover {
-    text-decoration: #ffc1075a;
-    text-decoration-thickness: 4px;
-    text-underline-offset: -1.5px;
+    text-decoration: #FFEECB;
+    text-decoration-thickness: 12px;
+    text-underline-offset: -6px;
     text-decoration-line: underline;
     text-decoration-skip-ink: none;
     cursor: pointer;
+}
+
+.location_icon {
+    height: 20px;
+    margin-bottom: -2px;
+    filter: invert(4%) sepia(25%) saturate(72%) hue-rotate(314deg) brightness(97%) contrast(83%);
 }

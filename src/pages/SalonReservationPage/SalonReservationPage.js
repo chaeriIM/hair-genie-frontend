@@ -36,7 +36,7 @@ const SalonReservationPage = () => {
             selectedSalon={selectedSalon}
             selectedDate={selectedDate}
             selectedTime={selectedTime}
-            setStep={setStep} 
+            setStep={setStep}
           />
         );
       default:
@@ -54,19 +54,17 @@ const SalonReservationPage = () => {
           <div className='step-circle'>1</div>
           미용실 선택
         </div>
-        <span className='step-divider'>{'>'}</span>
+        <span className='step-divider'>&#xE001;</span>
         <div className={`step ${step === 2 ? 'active' : ''}`} onClick={() => step >= 2 && setStep(2)}>
           <div className='step-circle'>2</div>
           날짜 선택
         </div>
-        <span className='step-divider'>{'>'}</span>
+        <span className='step-divider'>&#xE001;</span>
         <div className={`step ${step === 3 ? 'active' : ''}`} onClick={() => step >= 3 && setStep(3)}>
           <div className='step-circle'>3</div>
           시술 메뉴 선택
         </div>
       </div>
-
-      {/* 각 단계에 따라 다른 컴포넌트 출력 */}
       {renderStepContent()}
     </div>
   );

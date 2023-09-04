@@ -1,5 +1,5 @@
 .main {
-  background-color: #E2F2FF;
+  background-color: #E1F1FF; /* #E2F2FF */
   min-height: 100vh;
 }
 
@@ -10,4 +10,11 @@
   align-items: center;
   display: flex;
   margin: 0 80px;
+  font-family: 'KBO-Dia-Gothic_bold';
+  color: #404756;
+}
+
+.main .logo,
+.main .logo-text {
+  display: none;
 }

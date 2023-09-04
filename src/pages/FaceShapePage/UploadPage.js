@@ -17,12 +17,15 @@ const UploadPage = () => {
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
       <hr />
-      <ImageUpload onImageUploaded={navigateToResult} />
-      {/* <div className='container'>
+
+      <div className='body-container'>
+        <ImageUpload onImageUploaded={navigateToResult} />
+        {/* <div className='container'>
         <button className='result-btn' onClick={navigateToResult}>
           분석
         </button>
       </div> */}
+      </div>
     </div>
   )
 }

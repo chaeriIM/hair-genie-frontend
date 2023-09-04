@@ -60,7 +60,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
     };
 
     return (
-        <div className="service-selection-container">
+        <div className='body-container'>
             <div className="selected-salon-box">
                 <p className="salon-name">{selectedSalon}</p>
                 <div className="time-selected-date">{moment(selectedDate).format("MM월 DD일")}</div>
@@ -86,7 +86,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
                                 type="checkbox"
                                 className={`service-checkbox ${selectedService && selectedService.name === service.name ? 'checked' : ''}`}
                                 checked={selectedService && selectedService.name === service.name}
-                                onChange={() => handleServiceClick(service)}
+                                onChange={() => handleServiceClick(service)}                        
                             />
                             <span className={`service-name ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}>{service.name}</span>
                             <span className={`service-price ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}>{service.price}원</span>
@@ -100,7 +100,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
                     isOpen={popupOpen}
                     message={
                         reservationCompleted
-                            ? '예약이 완료되었습니다!'
+                            ? '예약이 완료되었습니다.'
                             : `${selectedSalon}-${moment(selectedDate).format("MM월 DD일")} ${selectedTime}, ${selectedService?.name || ''
                             }(으)로 예약을 진행할까요?`
                     }

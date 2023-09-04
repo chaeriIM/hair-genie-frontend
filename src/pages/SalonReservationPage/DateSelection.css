@@ -1,14 +1,5 @@
-.date-selection-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
 .selected-salon-box {
     display: flex;
-    background-color: #5680bc24;
     padding: 15px;
     width: 60%;
     min-width: 560px;
@@ -19,32 +10,36 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border: 1px solid #82b2ff75;
-}
-
-.selected-date {
-    display: flex;
-    font-size: 22px;
-    margin-left: auto;
-    margin-right: 10px;
-    white-space: nowrap;
-    color: #1f1f1f;
+    border: 1px solid #dce0e2;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
 }
 
 .time-selected-date {
     display: flex;
-    font-size: 22px;
+    font-size: 20px;
     margin-left: auto;
     margin-right: 10px;
-    color: #1f1f1f;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.selected-date {
+    display: flex;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
 }
 
 .selected-time {
     display: flex;
-    font-size: 22px;
+    font-size: 20px;
     margin-right: 10px;
     overflow: hidden;
-    color: #1f1f1f;
+    transition: transform 0.2s ease-in-out;
 }
 
 .options-container {
@@ -76,24 +71,11 @@
 .time-options button {
     width: 120px;
     height: 40px;
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
     background-color: #fff;
-    color: #1f1f1f;
-    border: 1px solid #ccc;
+    border: 1px solid #dce0e2;
     margin: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.time-options button:hover,
-.time-options button.selected {
-    background-color: #ffa9a9;
-    color: white;
-}
-
-.time-options button:disabled {
-    background-color: #f0f0f0;
-    color: #c7c7c7;
-    cursor: auto;
 }

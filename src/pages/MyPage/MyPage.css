@@ -1,11 +1,10 @@
-.mypage {
+.mypage-m {
     background-color: #ffffff;
 }
 
 .mypage-container {
     display: flex;
-    width: 60%;
-    min-width: 600px;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     margin: 0 0 10px 0;
@@ -15,8 +14,13 @@
     display: flex;
     padding: 10px;
     cursor: auto;
-    flex-direction: column;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, .08);
+    min-width: 560px;
+    width: 60%;
     align-items: center;
+    background-color: #fff;
+    box-shadow: 1px 5px 8px 0 rgba(0, 0, 0, .06);
 }
 
 .profile-section {
@@ -41,8 +45,12 @@
 }
 
 .nickname {
-    font-size: 17px;
-    margin: 10px 0 0 0;
+    font-size: 24px;
+    margin: 0 0 0 10px;
+}
+
+.nickname-text {
+    font-size: 20px;
 }
 
 .mypage-button-section {
@@ -51,63 +59,56 @@
     margin: 30px 60px 20px 60px;
     flex-wrap: wrap;
     justify-content: space-between;
-    min-width: 484px;
+    min-width: 600px;
+    width: 60%;
 }
 
 .mypage-menu {
     display: flex;
-    background-color: #ffffff;
-    padding: 15px;
-    width: 200px;
-    height: 80px;
-    position: relative;
-    border: 1px solid #ccc;
-    border-top: 4px solid #82b1ff;
-    flex-wrap: wrap;
     flex-direction: column;
     align-content: space-between;
-    gap: 4px;
-    border-radius: 4px;
+    gap: 5px;
+    width: 290px;
+    height: 120px;
+    padding: 17px;
+    border-radius: 12px;
+    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
+    border: solid 1px #e3e9ed;
+    background-color: #fff;
+    box-sizing: border-box;
+    font-size: 18px;
 }
 
 .mypage-menu-button {
     display: flex;
+    transition: 0.4s;
+    cursor: pointer;
 }
 
 .mypage-menu-button:hover,
-.bottom-button:hover {
-    color: #698ec7;
+.bottom-button:hover,
+.withdrawal-button:hover {
+    color: #8D99ED;
 }
 
 .bottom-button {
     display: flex;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: 0.4s;
     color: #a6a6a6;
     align-items: baseline;
     font-size: 14px;
 }
 
-.withdrawal {
+/* 비밀번호 변경 */
+.password-C-description {
+    font-size: 18px;
+    margin-top: -10px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-  }
-
-.withdrawal-title {
-    font-size: 40px;
-    margin: 0 0 30px 0;
-    color: #1f1f1f;
-    font-weight: 650;
 }
 
-.withdrawal-description {
-    font-size: 16px;
-    color: #1f1f1f;
-    width: 500px;
-    margin: -12px 0 12px 0;
-    display: flex;
-    justify-content: center;
+.lock-icon {
+    height:100px;
 }

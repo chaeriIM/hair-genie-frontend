@@ -5,7 +5,6 @@ import '../../App.css';
 import Popup from '../../components/Popup';
 
 const JoinPage = () => {
-  const [profileImage, setProfileImage] = useState(null);
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -28,25 +27,6 @@ const JoinPage = () => {
   const [phoneNumberValidationStatus, setPhoneNumberValidationStatus] = useState('');
 
   const navigate = useNavigate();
-
-  const handleImageUpload = (e) => {
-    const selectedImage = e.target.files[0];
-
-    if (selectedImage) {
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const imageUrl = event.target.result;
-        setProfileImage(imageUrl);
-      };
-
-      reader.readAsDataURL(selectedImage);
-    }
-  };
-
-  const handleProfileImageClick = () => {
-    document.getElementById('imageInput').click();
-  };
 
   const handleConsentToggle = () => {
     setConsentAgreed(!consentAgreed);
@@ -177,28 +157,9 @@ const JoinPage = () => {
   };
 
   return (
-    <div>
+    <div className='join'>
       <div className='body-container'>
-        <p className='join-title'>회원 가입</p>
-        <div className='profile-image' onClick={handleProfileImageClick}>
-          <div className='profile-image-container'>
-            {profileImage && (
-              <img src={profileImage} alt='프로필 이미지' />
-            )}
-            {!profileImage && (
-              <div className='empty-profile'>
-                프로필 이미지를 등록하세요.
-              </div>
-            )}
-          </div>
-        </div>
-        <input
-          type='file'
-          accept='image/*'
-          id='imageInput'
-          style={{ display: 'none' }}
-          onChange={handleImageUpload}
-        />
+        <p className='join-title' onClick={() => (window.location.href = "/")} >회원 가입</p>
         <div className='info-container'>
           <div className={`info-row ${idValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
@@ -246,7 +207,7 @@ const JoinPage = () => {
             <div className="info-input-container">
               <input
                 type='password'
-                placeholder='비밀번호'
+                placeholder='비밀번호 확인'
                 value={passwordConfirm}
                 onChange={(e) => {
                   const inputValue = e.target.value;

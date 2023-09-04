@@ -17,12 +17,15 @@ const UploadPage = () => {
       <Nav />
       <p className='main-title'>지니 타임</p>
       <hr />
-      <ImageUpload onImageUploaded={navigateToResult} />
-      {/* <div className='container'>
+
+      <div className='body-container'>
+        <ImageUpload onImageUploaded={navigateToResult} />
+        {/* <div className='container'>
         <button className='result-btn' onClick={navigateToResult}>
           합성
         </button>
       </div> */}
+      </div>
     </div>
   )
 }

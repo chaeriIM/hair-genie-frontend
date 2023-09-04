@@ -1,17 +1,6 @@
-.salon-body-container {
+.salon-box-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 26px 80px;
-    position: relative;
-    align-items: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
-.salon-selection-container {
-    display: flex;
-    margin: 0;
+    margin: 0 0 10px 0;
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -30,8 +19,9 @@
 .salon-box {
     display: flex;
     background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-top: 3.5px solid #5681bc;
+    border: 1px solid #dce0e2;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
     padding: 20px;
     min-width: 560px;
     width: 60%;
@@ -41,8 +31,7 @@
 }
 
 .salon-name {
-    font-size: 22px;
-    color: #1f1f1f;
+    font-size: 20px;
 }
 
 .salon-location {
@@ -52,21 +41,16 @@
 }
 
 .reservation-button {
-    background-color: #fff;
-    color: #1f1f1f;
+    background-color: transparent;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    border: 1px solid #ccc;
-    font-size: 16px;
+    border: 1px solid #dce0e2;
+    font-size: 15px;
     height: 35px;
     width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-}
-
-.reservation-button:hover {
-    background-color: #ffa9a9;
-    color: white;
+    transition: .4s;
 }

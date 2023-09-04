@@ -56,7 +56,9 @@ const ReservationDetails = () => {
                         <hr className="mypage-separator" />
                         <p className="D-title">오시는 길
                             <hr className="mypage-separator" />
-                            <Kakaomap /> <span className="D-info">📍 {reservation.location}</span></p>
+                            <Kakaomap /> <span className="D-info">
+                                <img src="/images/location_icon.svg" alt="location icon" class="location_icon" />
+                                {reservation.location}</span></p>
                     </div>
                 </div>
             </div>

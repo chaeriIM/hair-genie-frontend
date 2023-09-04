@@ -23,7 +23,7 @@ const ImageUpload = ({ onImageUploaded }) => {
             {selectedImage ? (
               <img src={selectedImage} alt="Uploaded" className="uploaded-image" />
             ) : (
-              <div className="placeholder">정면 사진을 업로드하세요</div>
+              <div className="placeholder">정면 사진을 업로드하세요.</div>
             )}
             {/* <div className="placeholder">정면 사진을 업로드하세요</div> */}
           </div>

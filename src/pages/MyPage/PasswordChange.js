@@ -69,6 +69,9 @@ const PasswordChange = () => {
             <hr />
             <div className='body-container'>
                 <div className='info-container'>
+                    <p className='password-C-description'>
+                    <img src="/images/password_icon.svg" alt="lock icon" class="lock-icon" />
+                    현재 비밀번호를 입력한 후 <br/>새로 사용할 비밀번호를 입력해주세요.</p>
                     <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
                             <input

@@ -45,10 +45,15 @@ const ReservationInfo = () => {
                         <div
                             key={reservation.RNum}
                             className={`my-reservation-box ${reservation.isCancelled ? 'cancelled' : ''}`}>
+                                <div className='my-reservation-box-top'>
+{/*                                 <img src="/images/dryer_icon.svg" alt="dryer icon" class="dryer-icon" />
+ */}                                <div className='my-reservation-box-info'>
                             <p className="my-salon-name">{reservation.salon}</p>
                             <p className="my-reservation-date">
                                 {reservation.date} <span className="date-separator">|</span> {reservation.time}
                             </p>
+                            </div>
+                            </div>
                             <hr className="mypage-separator" />
                             <Link
                                 to={`/reservation/${reservation.RNum}`}

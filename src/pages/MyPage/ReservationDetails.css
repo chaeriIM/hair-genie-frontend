@@ -1,7 +1,6 @@
 .reservation-details-container {
     display: flex;
-    width: 60%;
-    min-width: 600px;
+    width: 100%;
     margin: 0 0 10px 0;
     flex-direction: column;
     justify-content: center;
@@ -12,36 +11,38 @@
     display: flex;
     background-color: #ffffff;
     padding: 15px;
-    width: 590px;
+    min-width: 560px;
+    width: 60%;
     /*height: 260px;*/
     border-radius: 2px;
     position: relative;
-    border: 1px solid #ccc;
-    border-top: 4px solid #82b1ff;
+    border: 1px solid #dce0e2;
+    border-top: 6px solid #82b1ff;
     flex-direction: column;
 }
 
-.cancelled {
-    border-top: 4px solid #ccc;
+.D-reservation-box.cancelled  {
+    border-top: 6px solid #ccc;
 }
 
 .DDR-title {
     font-size: 20px;
+    font-weight: 500;
     margin: 0;
-    color :#ccc;
+    color: #8f8f8f
 }
 
 .D-RNum {
     font-size: 18px;
-    font-weight: bold;
-    color: #2979ff;
+    font-weight: 400;
+    color: #387BE3;
     margin: 0 0 0 0;
 }
 
 .D-menu {
     font-size: 16px;
     margin: 0 2px 0 0;
-    color: #8b8b8b;
+    color: #A4ABBD;
 }
 
 .D-info {
@@ -53,13 +54,12 @@
 
 .D-title {
     font-size: 18px;
-    font-weight: bold;
-    color: #1f1f1f;
+    font-weight: 500;
     margin: 5px 0 0 0;
 }
 
-.D-title
-.total_wrap {
+.D-title .total_wrap {
     margin: 0;
     margin: 0 0 5px 0;
+    min-width: 560px;
 }
