@@ -18,7 +18,7 @@
 
 .description {
   font-size: 16px;
-  margin: 12px 0;
+  margin: 40px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -35,13 +35,15 @@
 }
 
 .recommendation {
-  margin: 20px 80px;
+  margin-left: 80px;
+  padding: 10px;
   width: 380px;
   line-height: 1.8;
 }
 
 .decommendation {
-  margin: 20px 80px;
+  margin-left: 40px;
+  padding: 10px;
   width: 380px;
   line-height: 1.8;
 }
