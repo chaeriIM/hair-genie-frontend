@@ -1,0 +1,25 @@
+.main {
+  background-color: #E1F1FF; /* #E2F2FF */
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.main h1 {
+  font-size: 80px;
+  font-style: oblique;
+  font-family: 'KBO-Dia-Gothic_bold';
+  height: 600px;
+  align-items: center;
+  display: flex;
+  margin: 0 80px;
+  
+  color: #404756;
+}
+
+.main .logo,
+.main .logo-text {
+  display: none;
+}

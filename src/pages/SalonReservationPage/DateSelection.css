@@ -1,0 +1,81 @@
+.selected-salon-box {
+    display: flex;
+    padding: 15px;
+    width: 60%;
+    min-width: 560px;
+    height: 42px;
+    margin: auto;
+    margin-top: 4px;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce0e2;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
+}
+
+.time-selected-date {
+    display: flex;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.selected-date {
+    display: flex;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.selected-time {
+    display: flex;
+    font-size: 20px;
+    margin-right: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.options-container {
+    display: flex;
+    padding: 15px;
+    margin: 25px 0;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    min-width: 700px;
+}
+
+.calendar {
+    display: flex;
+    margin-left: 2%;
+}
+
+.time-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 650px;
+    margin-left: 4%;
+}
+
+.time-options button {
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #dce0e2;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

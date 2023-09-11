@@ -1,0 +1,54 @@
+.save-button button:disabled,
+.save-button button:disabled:hover,
+.withdrawal-button button:disabled,
+.withdrawal-button button:disabled:hover {
+    background-color: #f0f0f0;
+    color: #c7c7c7;
+    cursor: auto;
+}
+
+.join-button {
+    text-align: center;
+}
+
+.save-button button,
+.withdrawal-button button {
+    width: 360px;
+    height: 40px;
+    margin: 0 0 10px 0;
+    cursor: pointer;
+    background-color: #82B1FF;
+    border: none;
+    border-radius: 5px;
+    transition: 0.4s;
+    color: #f6f6f6;
+}
+
+.save-button button:hover,
+.withdrawal-button button:hover {
+    background-color: #467DC6;
+}
+
+
+.save-button,
+.withdrawal-button {
+    text-align: center;
+}
+
+/* 프로필 이미지 */
+.pro-image {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.pro-image img {
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+    transition: transform 0.2s ease-in-out;
+}
+
+#imageInput {
+    display: none;
+}

@@ -1,38 +1,166 @@
-.App {
-  text-align: center;
+/* body {
+  font-family: Avenir-Roman, sans-serif;
+  margin: 0;
+  padding: 0;
+} */
+
+hr {
+  background-color: #a3a3a3;
+  height: 1px;
+  border: 0;
+  margin: 20px 80px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-title {
+  font-size: 50px;
+  margin: 30px 80px 10px;
+  font-family: 'TheJamsil';
+  font-weight: 400;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.body-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 10px 0;
+  width: 100%;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
-.App-link {
-  color: #61dafb;
+button {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-weight: 400;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-weight: 300;
+}
+
+/* 폰트 */
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+/* body에서 적용 중 */
+
+@font-face {
+  /* 메인화면, 로그인, 회원가입 제목 폰트로 적용 중 */
+  font-family: 'KBO-Dia-Gothic_bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  /* main-title 폰트로 적용 중 */
+  font-family: 'TheJamsil';
+  font-weight: 100;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Thin.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Thin.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Thin.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Thin.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Thin.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheJamsil';
+  font-weight: 300;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Light.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Light.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Light.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Light.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Light.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheJamsil';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Regular.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Regular.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Regular.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Regular.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Regular.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheJamsil';
+  font-weight: 500;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Medium.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Medium.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Medium.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Medium.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Medium.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheJamsil';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Bold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Bold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Bold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Bold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-Bold.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TheJamsil';
+  font-weight: 800;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-ExtraBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-ExtraBold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-ExtraBold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/TheJamsil/TheJamsil-ExtraBold.ttf') format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  /* Nav, popup 폰트로 적용 중 */
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 100;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 300;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 500;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 900;
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');
 }

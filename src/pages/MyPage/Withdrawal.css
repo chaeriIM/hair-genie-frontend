@@ -1,0 +1,39 @@
+.withdrawal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F3F3F7;
+}
+
+.trash_bin_icon {
+    height: 60px;
+    margin-bottom: 5px;
+    filter: invert(15%) sepia(9%) saturate(1418%) hue-rotate(192deg) brightness(96%) contrast(92%);
+}
+
+.withdrawal-title {
+    font-size: 40px;
+    margin: 0 0 15px 0;
+    color: #2A2D3A;
+    font-family: 'KBO-Dia-Gothic_bold';
+}
+
+.withdrawal-description {
+    font-size: 17px;
+    width: 500px;
+    margin: -12px 0 12px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.withdrawal-button {
+    display: flex;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: #a6a6a6;
+    align-items: baseline;
+    font-size: 14px;
+    justify-content: center;
+}
