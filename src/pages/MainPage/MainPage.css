@@ -10,11 +10,12 @@
 .main h1 {
   font-size: 80px;
   font-style: oblique;
+  font-family: 'KBO-Dia-Gothic_bold';
   height: 600px;
   align-items: center;
   display: flex;
   margin: 0 80px;
-  font-family: 'KBO-Dia-Gothic_bold';
+  
   color: #404756;
 }
 
