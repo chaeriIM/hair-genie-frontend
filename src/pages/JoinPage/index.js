@@ -159,8 +159,8 @@ const JoinPage = () => {
   return (
     <div className='join'>
       <div className='body-container'>
-        <p className='join-title' onClick={() => (window.location.href = "/")} >회원 가입</p>
-        <div className='info-container'>
+        <div className='join-container'>
+          <p className='join-title' onClick={() => (window.location.href = "/")} >회원 가입</p>
           <div className={`info-row ${idValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
               <input
