@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './JoinPage.css';
 import '../../App.css';
 import Popup from '../../components/Popup';
+import axios from 'axios';
 
 const JoinPage = () => {
   const [userId, setUserId] = useState('');
@@ -13,10 +14,8 @@ const JoinPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
 
-  const [joinPopupOpen, setJoinPopupOpen] = useState(false);
   const [joinCompletePopupOpen, setJoinCompletePopupOpen] = useState(false);
   const [consentAgreed, setConsentAgreed] = useState(false);
-  /*   const [setJoinPopupMessage] = useState('');*/
 
   const [idValidationStatus, setIdValidationStatus] = useState('');
   const [passwordValidationStatus, setPasswordValidationStatus] = useState('');
@@ -32,57 +31,37 @@ const JoinPage = () => {
     setConsentAgreed(!consentAgreed);
   };
 
-  const handleJoinClick = () => {
-    if (!areAllFieldsFilled) {
-      setJoinPopupOpen(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (!areAllFieldsFilled || !consentAgreed) {
+      // 필수 입력 필드가 비어있거나 동의가 되지 않으면 처리 중단
       return;
     }
-
-    if (!isValidId(userId)) {
-      setIdValidationStatus('error');
-      return;
-    }
-    setIdValidationStatus('success');
-
-    if (!isValidPassword(password)) {
-      setPasswordValidationStatus('error');
-      return;
-    }
-    setPasswordValidationStatus('success');
-
-    if (password !== passwordConfirm) {
-      setPasswordConfirmValidationStatus('error');
-      return;
-    }
-    setPasswordConfirmValidationStatus('success');
-
-    if (!isValidName(name)) {
-      setNameValidationStatus('error');
-      return;
-    }
-    setNameValidationStatus('success');
-
-    if (!isValidNickname(nickname)) {
-      setNicknameValidationStatus('error');
-      return;
-    }
-    setNicknameValidationStatus('success');
-
-    if (!isValidEmail(email)) {
-      setEmailValidationStatus('error');
-      return;
-    }
-    setEmailValidationStatus('success');
-
+  
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
-    if (!isValidPhoneNumber(formattedPhoneNumber)) {
-      setPhoneNumberValidationStatus('error');
-      return;
-    } else {
-      setPhoneNumberValidationStatus('success');
+  
+    const userData = {
+      uid: userId,
+      password,
+      uname: name,
+      unickname: nickname,
+      uphone: formattedPhoneNumber,
+      uemail: email,
+    };
+  
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/user/', userData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
 
-    setJoinPopupOpen(true);
+    setJoinCompletePopupOpen(true);
+
+     setTimeout(() => {
+       navigate('/login');
+     }, 1500);
   };
 
   /*   // 아이디 중복 체크
@@ -99,15 +78,6 @@ const JoinPage = () => {
         console.error('ID 중복체크 실패', error);
       });
   }; */
-
-  const handleJoinPopupConfirm = () => {
-    setJoinPopupOpen(false);
-    setJoinCompletePopupOpen(true);
-
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
-  };
 
   const areAllFieldsFilled =
     userId && password && passwordConfirm && name && nickname && phoneNumber && email;
@@ -137,18 +107,6 @@ const JoinPage = () => {
     return phoneNumberRegex.test(phoneNumber);
   };
 
-  /*  // 아이디 중복 체크 API 호출 (가정)
-   const checkIdAvailability = async (id) => {
-     try {
-       const response = await fetch(`/api/checkIdAvailability?id=${id}`);
-       const data = await response.json();
-       return data;
-     } catch (error) {
-       console.error('ID 중복 체크 실패', error);
-       throw error;
-     }
-   }; */
-
   // 전화번호에 자동으로 하이픈 추가
   const formatPhoneNumber = (phoneNumber) => {
     const digitsOnly = phoneNumber.replace(/\D/g, '');
@@ -163,20 +121,23 @@ const JoinPage = () => {
           <p className='join-title' onClick={() => (window.location.href = "/")} >회원 가입</p>
           <div className={`info-row ${idValidationStatus === 'error' ? 'has-error' : ''}`}>
             <div className="info-input-container">
-              <input
-                type='text'
-                placeholder='아이디'
-                value={userId}
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (inputValue.length <= 12) {
-                    setUserId(inputValue);
-                    setIdValidationStatus(isValidId(inputValue) ? 'success' : 'error');
-                  } else if (inputValue.length <= 12) {
-                    setUserId(userId);
-                  }
-                }}
-              />
+              <div className='id-wrapper'>
+                <input
+                  type='text'
+                  placeholder='아이디'
+                  value={userId}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    if (inputValue.length <= 12) {
+                      setUserId(inputValue);
+                      setIdValidationStatus(isValidId(inputValue) ? 'success' : 'error');
+                    } else if (inputValue.length <= 12) {
+                      setUserId(userId);
+                    }
+                  }}
+                />
+                <button>중복 확인</button>
+              </div>
             </div>
             {idValidationStatus === 'error' && (
               <p className='error-message'> 영문과 숫자를 사용하여 6글자 이상 입력하세요.</p>
@@ -318,22 +279,18 @@ const JoinPage = () => {
             <p className='checkbox-agreement-message'>개인 정보 제공에 동의합니다.</p>
           </div>
           <div className='join-button'>
-            <button onClick={handleJoinClick} disabled={!areAllFieldsFilled || !consentAgreed}>가입하기</button>
+            <button onClick={handleSubmit} disabled={!areAllFieldsFilled || !consentAgreed}>가입하기</button>
           </div>
         </div>
       </div>
-      <Popup
-        isOpen={joinPopupOpen}
-        message="회원가입 하시겠어요?"
-        onConfirm={handleJoinPopupConfirm}
-        onCancel={() => setJoinPopupOpen(false)}
-      />
+      
       <Popup
         isOpen={joinCompletePopupOpen}
         message="회원가입이 완료되었습니다."
         isCompleted={true}
         onCancel={() => setJoinCompletePopupOpen(false)}
       />
+
     </div>
   );
 };
