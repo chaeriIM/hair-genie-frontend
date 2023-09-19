@@ -23,6 +23,9 @@ import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
 import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 
+import Modal from 'react-modal';
+Modal.setAppElement('#root')
+
 function App() {
   return (
     <div className='app'>
@@ -34,7 +37,7 @@ function App() {
         <Route path="salonreservation" element={<SalonReservationPage />} />
         <Route path="mypage" element={<MyPage />} />
         <Route path="member-info-edit" element={<MemberInfoEdit />} />
--        <Route path="password-change" element={<PasswordChange />} />
+        <Route path="password-change" element={<PasswordChange />} />
         <Route path="face-type-info" element={<FaceTypeInfo />} />
         <Route path="my-face-type" element={<MyFaceType />} />
         <Route path="reservation-info" element={<ReservationInfo />} />
@@ -42,7 +45,6 @@ function App() {
         <Route path="withdrawal" element={<Withdrawal />} />
         <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="join" element={<JoinPage />} />
         <Route path="faceresult" element={<FaceResultPage />} />
         <Route path="face-uploadpage" element={<FaceUploadPage />} />
         <Route path="face-webcampage" element={<FaceWebcamPage />} />
