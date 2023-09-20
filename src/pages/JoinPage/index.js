@@ -38,6 +38,13 @@ const JoinPage = () => {
       // 필수 입력 필드가 비어있거나 동의가 되지 않으면 처리 중단
       return;
     }
+
+    // 아이디 중복 확인
+    if (idValidationStatus !== 'no-exist') {
+      // 'no-exist' 상태가 아니면 중복 확인을 하지 않은 것으로 간주
+      setIdValidationStatus('no-check');
+      return;
+    }
   
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
   
@@ -64,20 +71,28 @@ const JoinPage = () => {
      }, 1500);
   };
 
-  /*   // 아이디 중복 체크
-    checkIdAvailability(userId)
-      .then((response) => {
-        if (!response.available) {
-          setJoinPopupMessage('이미 사용 중인 아이디입니다.');
-          setJoinPopupOpen(true);
-        } else {
-          setJoinPopupOpen(true);
-        }
-      })
-      .catch((error) => {
-        console.error('ID 중복체크 실패', error);
+  const handleCheckIdDuplicate = async () => {
+    if (!isValidId(userId)) {
+      // 아이디가 유효하지 않을 때 처리
+      setIdValidationStatus('error');
+      return;
+    }
+  
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/user/check-id-exists/', {
+        params: { uid: userId },
       });
-  }; */
+      const data = response.data;
+  
+      if (data.exists) { //아이디 존재(true)
+        setIdValidationStatus('exist');
+      } else { //존재x(false)
+        setIdValidationStatus('no-exist');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const areAllFieldsFilled =
     userId && password && passwordConfirm && name && nickname && phoneNumber && email;
@@ -109,9 +124,14 @@ const JoinPage = () => {
 
   // 전화번호에 자동으로 하이픈 추가
   const formatPhoneNumber = (phoneNumber) => {
-    const digitsOnly = phoneNumber.replace(/\D/g, '');
-    const formattedPhoneNumber = digitsOnly.replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3');
-    return formattedPhoneNumber;
+    const numericValue = phoneNumber.replace(/\D/g, '').slice(0, 11);
+    if (numericValue.length <= 3) {
+      return numericValue;
+    } else if (numericValue.length <= 7) {
+      return `${numericValue.slice(0, 3)}-${numericValue.slice(3)}`;
+    } else {
+      return `${numericValue.slice(0, 3)}-${numericValue.slice(3, 7)}-${numericValue.slice(7)}`;
+    }
   };
 
   return (
@@ -136,11 +156,20 @@ const JoinPage = () => {
                     }
                   }}
                 />
-                <button>중복 확인</button>
+                <button onClick={handleCheckIdDuplicate}>중복 확인</button>
               </div>
             </div>
             {idValidationStatus === 'error' && (
               <p className='error-message'> 영문과 숫자를 사용하여 6글자 이상 입력하세요.</p>
+            )}
+            {idValidationStatus === 'exist' && (
+              <p className='error-message'> 이미 존재하는 아이디입니다.</p>
+            )}
+            {idValidationStatus === 'no-exist' && (
+              <p className='success-message'> 사용 가능한 아이디입니다.</p>
+            )}
+            {idValidationStatus === 'no-check' && (
+              <p className='error-message'> 아이디 중복 확인을 해주세요.</p>
             )}
           </div>
           <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>

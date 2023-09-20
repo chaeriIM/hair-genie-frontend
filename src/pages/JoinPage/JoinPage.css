@@ -130,3 +130,9 @@
     font-size: 12px;
     margin: 5px 5px 0 5px;
 }
+
+.success-message {
+    color: #82B1FF;
+    font-size: 12px;
+    margin: 5px 5px 0 5px;
+}
