@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './FindIdPwPage.css';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 const FindIdPwPage = () => {
 
@@ -15,6 +16,10 @@ const FindIdPwPage = () => {
 
   const [idModalOpen, setIdModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
+  const [foundUserId, setFoundUserId] = useState('');
+  const [foundUserPw, setFoundUserPw] = useState('');
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -52,7 +57,7 @@ const FindIdPwPage = () => {
   };
 
   //다음 버튼 클릭
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     clearErrors();
     
     let hasError = false;
@@ -89,11 +94,32 @@ const FindIdPwPage = () => {
     }
 
     if (!hasError) {
-      if (activeTab === 'id') {
-        setIdModalOpen(true);
+      if (activeTab === 'id'){
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/user/find-userid/', {
+            params: { uname: name, uphone: phoneNumber }
+          });
+          const { uid } = response.data;
+          setFoundUserId(uid); // 아이디 값을 상태에 설정
+          setIdModalOpen(true); // 모달에서 값 보여주기
+        } catch (error) {
+          console.error('서버에서 에러 발생:', error.response.data.error);
+          setErrorModalOpen(true);
+        }
       } else if (activeTab === 'password') {
-        setPasswordModalOpen(true);
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/user/find-userpw/', {
+            params: { uname: name, uid: id, uphone: phoneNumber}
+          });
+          const { password } = response.data;
+          setFoundUserPw(password); // 비밀번호 값을 상태에 설정
+          setPasswordModalOpen(true); // 모달에서 값 보여주기
+        } catch (error) {
+          console.error('서버에서 에러 발생:', error.response.data.error);
+          setErrorModalOpen(true);
+        }
       }
+      
     }
   };
 
@@ -130,7 +156,7 @@ const FindIdPwPage = () => {
 
                   <label htmlFor='name'>이름</label>
                   <input
-                    id='이름'
+                    id='name'
                     type='text'
                     placeholder='이름을 입력하세요.'
                     value={name}
@@ -155,7 +181,7 @@ const FindIdPwPage = () => {
 
                   <label htmlFor='name'>이름</label>
                   <input
-                    id='이름'
+                    id='name'
                     type='text'
                     placeholder='이름을 입력하세요.'
                     value={name}
@@ -210,7 +236,7 @@ const FindIdPwPage = () => {
             </button>
           </div>
           <div className="modal-content">
-            <p>아이디는 #####입니다.</p>
+            <p>아이디는 {foundUserId}입니다.</p>
           </div>
         </Modal>
 
@@ -230,9 +256,30 @@ const FindIdPwPage = () => {
             </button>
           </div>
           <div className="modal-content">
-            <p>비밀번호는 ******입니다.</p>
+            <p>비밀번호는 {foundUserPw}입니다.</p>
           </div>
         </Modal>
+
+        {/* 에러 모달 */}
+        <Modal
+          isOpen={errorModalOpen}
+          onRequestClose={() => setErrorModalOpen(false)}
+          contentLabel="에러 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>에러</h2>
+            <button className="close-button" onClick={() => setErrorModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>사용자를 찾을 수 없습니다.</p>
+          </div>
+        </Modal>
+
       </div>
     </div>
   )
