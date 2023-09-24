@@ -58,7 +58,7 @@ const JoinPage = () => {
     };
   
     try {
-      const response = await axios.post('http://127.0.0.1:8000/user/', userData);
+      const response = await axios.post('http://127.0.0.1:8000/user/join/', userData);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -66,9 +66,9 @@ const JoinPage = () => {
 
     setJoinCompletePopupOpen(true);
 
-     setTimeout(() => {
-       navigate('/login');
-     }, 1500);
+    setTimeout(() => {
+      navigate('/login');
+    }, 1500);
   };
 
   const handleCheckIdDuplicate = async () => {
