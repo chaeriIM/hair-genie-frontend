@@ -45,8 +45,9 @@
 }
 
 .nickname {
-    font-size: 24px;
     margin: 0 0 0 10px;
+    font-size: 24px;
+    color: #82B1FF;
 }
 
 .nickname-text {

@@ -1,22 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Nav from '../../components/Nav';
 import Popup from '../../components/Popup';
 import { useNavigate } from 'react-router-dom';
 import './MemberInfoEdit.css';
 import '../../App.css';
+import axios from 'axios';
 
 //비밀번호 변경 내용을 반영하는 내용 추가 필요
 const MemberInfoEdit = () => {
-    const userId = "UserId";
-    const Name = "UserName";
+    // const userId = "UserId";
+    // const Name = "UserName";
     const Nickname = "Nickname";
     const PhoneNumber = "010-1234-5678";
     const Email = "example@example.com";
 
-    const [name, setName] = useState(Name);
-    const [nickname, setNickname] = useState(Nickname);
-    const [phoneNumber, setPhoneNumber] = useState(PhoneNumber);
-    const [email, setEmail] = useState(Email);
+    const [user, setUser] = useState([]);
+
+    const [name, setName] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
 
     // eslint-disable-next-line 
     const [file, setFile] = useState(null);
@@ -120,6 +123,31 @@ const MemberInfoEdit = () => {
         return formattedPhoneNumber;
     };
 
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+          try {
+            const accessToken = localStorage.getItem('accessToken');
+    
+            const response = await axios.get('http://127.0.0.1:8000/user/get-user-info/', {
+              headers: {
+                Authorization: `Bearer ${accessToken}`, // 요청 헤더에 액세스 토큰 포함
+              },
+            });
+    
+            setUser(response.data);
+          } catch (error) {
+            console.error('사용자 정보를 가져오는데 실패했습니다.', error);
+            //setLoginErrorPopupOpen(true);
+    
+            setTimeout(() => {
+              navigate('/login');
+            }, 1500);
+          }
+        };
+        fetchUserInfo();
+    
+      }, [navigate]);
+
     return (
         <div>
             <Nav />
@@ -142,12 +170,15 @@ const MemberInfoEdit = () => {
                         onChange={handleFileChange}
                     />
                 </div>
+
                 <div className='info-container'>
                     <div className='info-row'>
                         <div className="info-input-container">
+                            <label htmlFor='uid'>아이디</label>
                             <input
+                                id='id'
                                 type='text'
-                                value={userId}
+                                value={user.uid}
                                 readOnly
                                 style={{ backgroundColor: "#b4d1ed", hover: "none" }}
                             />
@@ -156,14 +187,15 @@ const MemberInfoEdit = () => {
 
                     <div className={`info-row ${nameValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
+                            <label htmlFor='name'>이름</label>
                             <input
                                 type='text'
-                                placeholder='이름'
+                                placeholder='이름을 입력하세요.'
                                 value={name}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
                                     setName(inputValue);
-                                    handleValueChange(inputValue, Name, setIsNameChanged);
+                                    handleValueChange(inputValue, name, setIsNameChanged);
                                     setNameValidationStatus(isValidName(inputValue) ? 'success' : 'error');
                                 }}
                             />
@@ -172,11 +204,14 @@ const MemberInfoEdit = () => {
                             <p className='error-message'>영문과 한글을 사용하여 2글자 이상 입력하세요.</p>
                         )}
                     </div>
+
                     <div className={`info-row ${nicknameValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
+                            <label htmlFor='nickname'>별명</label>
                             <input
+                                id='nickname'
                                 type='text'
-                                placeholder='별명'
+                                placeholder='별명을 입력하세요.'
                                 value={nickname}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -190,11 +225,14 @@ const MemberInfoEdit = () => {
                             <p className='error-message'>영문, 한글, 숫자를 사용하여 2글자 이상 입력하세요.</p>
                         )}
                     </div>
+
                     <div className={`info-row ${phoneNumberValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
+                            <label htmlFor='tel'>전화번호</label>
                             <input
+                                id='tel'
                                 type='tel'
-                                placeholder='전화번호'
+                                placeholder='전화번호를 입력하세요.'
                                 value={phoneNumber}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -209,11 +247,14 @@ const MemberInfoEdit = () => {
                             <p className='error-message'>올바른 전화번호를 입력하세요.</p>
                         )}
                     </div>
+
                     <div className={`info-row ${emailValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
+                            <label htmlFor='email'>이메일</label>
                             <input
+                                id='email'
                                 type='email'
-                                placeholder='이메일'
+                                placeholder='이메일을 입력하세요.'
                                 value={email}
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -227,6 +268,7 @@ const MemberInfoEdit = () => {
                             <p className='error-message'>올바른 이메일을 입력하세요.</p>
                         )}
                     </div>
+
                     <div className='save-button'>
                         <button
                             onClick={handleSaveClick}

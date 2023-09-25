@@ -50,6 +50,8 @@ const LoginPage = () => {
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
   
+        autoRefreshAccessToken();
+        
         setTimeout(() => {
           navigate('/');
         }, 1500);
@@ -61,6 +63,23 @@ const LoginPage = () => {
     }
 
   }
+  // 엑세스 토큰 자동 갱신
+  const autoRefreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await axios.post('http://127.0.0.1:8000/user/token/refresh/', {
+        refresh: refreshToken,
+      });
+
+      localStorage.setItem('accessToken', response.data.access);
+      //console.log("액세스 토큰 갱신 성공", response.data);
+  
+      // 일정 시간마다 액세스 토큰 갱신 함수 호출 (50분마다)
+      setTimeout(autoRefreshAccessToken, 10 * 300 * 1000);
+    } catch (error) {
+      //console.error("액세스 토큰 갱신 실패", error);
+    }
+  };
 
   return (
     <div className='login'>
