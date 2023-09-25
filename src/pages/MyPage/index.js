@@ -32,7 +32,7 @@ const MyPage = () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
 
-        const response = await axios.get('http://127.0.0.1:8000/user/get-user-info/', {
+        const response = await axios.get('http://127.0.0.1:8000/user/info/', {
           headers: {
             Authorization: `Bearer ${accessToken}`, // 요청 헤더에 액세스 토큰 포함
           },
