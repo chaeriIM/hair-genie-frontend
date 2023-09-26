@@ -64,9 +64,29 @@ const MemberInfoEdit = () => {
         uphone: phoneNumber,
         uemail: email,
       };
+
+      const response = await axios.put("http://127.0.0.1:8000/user/info/",
+        updatedUserData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      
+      console.log("사용자 정보가 성공적으로 업데이트되었습니다:", response.data);
+
+    } catch (error) {
+      console.error("사용자 정보 업데이트 실패:", error);
+    }
+  };
+
+  // 프로필 사진 업데이트
+  const updateUserImage = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
       const formData = new FormData();
       formData.append("profile_image", profileImage);
-      formData.append("data", JSON.stringify(updatedUserData));
 
       const response = await axios.put("http://127.0.0.1:8000/user/info/",
         formData,
@@ -77,13 +97,12 @@ const MemberInfoEdit = () => {
           },
         }
       );
-
-      console.log("사용자 정보가 성공적으로 업데이트되었습니다:", response.data);
+      console.log("사용자 사진이 성공적으로 업데이트되었습니다:", response.data);
       
     } catch (error) {
-      console.error("사용자 정보 업데이트 실패:", error);
+      console.error("사용자 사진 업데이트 실패:", error);
     }
-  };
+  }
 
   // 저장 버튼 클릭
   const handleSaveClick = () => {
@@ -102,10 +121,13 @@ const MemberInfoEdit = () => {
   // 팝업창에서 확인 버튼 클릭
   const handleSaveConfirm = () => {
     setSavePopupOpen(false);
-    updateUserInfo();
     setSaveCompletePopupOpen(true);
+    updateUserInfo();
+    updateUserImage();
 
-    navigate("/mypage");
+    setTimeout(() => {
+      navigate('/mypage');
+    }, 1300);
   };
 
   // 프로필 이미지 클릭 시 input 클릭
