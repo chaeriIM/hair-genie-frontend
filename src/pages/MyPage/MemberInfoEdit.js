@@ -13,14 +13,14 @@ const MemberInfoEdit = () => {
   const [nickname, setNickname] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
 
   const [savePopupOpen, setSavePopupOpen] = useState(false);
   const [saveCompletePopupOpen, setSaveCompletePopupOpen] = useState(false);
 
   const [nicknameValidationStatus, setNicknameValidationStatus] = useState("");
   const [nameValidationStatus, setNameValidationStatus] = useState("");
-  const [phoneNumberValidationStatus, setPhoneNumberValidationStatus] =
-    useState("");
+  const [phoneNumberValidationStatus, setPhoneNumberValidationStatus] = useState("");
   const [emailValidationStatus, setEmailValidationStatus] = useState("");
 
   const navigate = useNavigate();
@@ -64,15 +64,20 @@ const MemberInfoEdit = () => {
         uphone: phoneNumber,
         uemail: email,
       };
+      const formData = new FormData();
+      formData.append("profile_image", profileImage);
+      formData.append("data", JSON.stringify(updatedUserData));
 
       const response = await axios.put("http://127.0.0.1:8000/user/info/",
-        updatedUserData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
+
       console.log("사용자 정보가 성공적으로 업데이트되었습니다:", response.data);
       
     } catch (error) {
@@ -101,6 +106,24 @@ const MemberInfoEdit = () => {
     setSaveCompletePopupOpen(true);
 
     navigate("/mypage");
+  };
+
+  // 프로필 이미지 클릭 시 input 클릭
+  const handleProfileImageClick = () => {
+    document.getElementById("profileImageInput").click();
+  };
+
+  // 프로필 이미지를 업로드
+  const handleImageUpload = (e) => {
+    const selectedFile = e.target.files[0];
+    setProfileImage(selectedFile);
+
+    // 이미지 파일 미리보기
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      document.getElementById("profileImagePreview").src = event.target.result;
+    };
+    reader.readAsDataURL(selectedFile);
   };
 
   // 유효성 검사
@@ -138,10 +161,26 @@ const MemberInfoEdit = () => {
       <p className="main-title">회원 정보 수정</p>
       <hr />
       <div className="body-container">
+
+        <div className='pro-image'>
+          <img
+            src={`http://127.0.0.1:8000${user.profile_image}`}
+            alt="ProfileImage"
+            id="profileImagePreview"
+            onClick={handleProfileImageClick}
+          />
+          <input
+            type="file"
+            id="profileImageInput"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
+        </div>
+
         <div className="info-container">
           <div className="info-row">
             <div className="info-input-container">
-              <label htmlFor="uid">아이디</label>
+              <label htmlFor="id">아이디</label>
               <input
                 id="id"
                 type="text"
@@ -160,6 +199,7 @@ const MemberInfoEdit = () => {
             <div className="info-input-container">
               <label htmlFor="name">이름</label>
               <input
+                id="name"
                 type="text"
                 placeholder="이름을 입력하세요."
                 value={name || ''}

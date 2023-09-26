@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import './MyPage.css';
 import '../../App.css';
@@ -9,43 +9,39 @@ import Popup from '../../components/Popup';
 const MyPage = () => {
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [user, setUser] = useState([]);
-  const [image, setImage] = useState(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
+
   const [loginErrorPopupOpen, setLoginErrorPopupOpen] = useState(false);
 
   const handleButtonClick = (path) => {
     navigate(path);
   };
 
-  const updatedImage = location.state?.updatedImage || image;
-
-  if (updatedImage !== image) {
-    setImage(updatedImage);
-  }
-
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
+
+        if (!accessToken) {
+          setLoginErrorPopupOpen(true);
+  
+          setTimeout(() => {
+            navigate('/login');
+          }, 1500);
+          
+          return;
+        }
 
         const response = await axios.get('http://127.0.0.1:8000/user/info/', {
           headers: {
             Authorization: `Bearer ${accessToken}`, // 요청 헤더에 액세스 토큰 포함
           },
         });
-
         setUser(response.data);
+
       } catch (error) {
         console.error('사용자 정보를 가져오는데 실패했습니다.', error);
-        setLoginErrorPopupOpen(true);
-
-        setTimeout(() => {
-          navigate('/login');
-        }, 1500);
       }
     };
     fetchUserInfo();
@@ -63,9 +59,8 @@ const MyPage = () => {
             <div className='mypage-profile'>
               <div>
                 <img
-                  src={updatedImage}
+                  src={`http://127.0.0.1:8000${user.profile_image}`}
                   alt="Profile"
-                  style={{ width: '120px', height: '120px' }}
                 />
               </div>
               <div className='nickname-text'><span className='nickname'>{user.unickname}</span>님, 환영합니다.</div>
