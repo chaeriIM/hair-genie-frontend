@@ -65,10 +65,7 @@ const App = () => {
           </>
         ) : (
           // 로그인이 필요한 페이지에 접근할 때 표시할 팝업
-          <Route
-            path="*"
-            element={<Navigate to="/login" />}
-          />
+          <Route path="*" element={<Navigate to="/login" />} />
         )}
       </Routes>
     </div>
