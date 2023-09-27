@@ -8,14 +8,14 @@ import '../../App.css';
 
 const SalonReservationPage = () => {
   const [step, setStep] = useState(1);
-  const [selectedSalon, setSelectedSalon] = useState(null);
+  const [selectedSalon, setSelectedSalon] = useState({ HName: '', HID: '' });
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
 
-  const handleSelectSalon = (salonName) => {
-    setSelectedSalon(salonName);
+  const handleSelectSalon = (selectedSalon) => {
+    setSelectedSalon(selectedSalon);
     setStep(2);
-  };
+};
 
   const renderStepContent = () => {
     switch (step) {

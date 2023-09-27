@@ -4,6 +4,8 @@ import CustomCalendar from '../../components/Calendar';
 import './DateSelection.css';
 
 const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTime }) => {
+    const { HName } = selectedSalon;
+
     const [selectedDateLocal, setSelectedDateLocal] = useState(new Date());
     const [selectedTimeLocal, setSelectedTimeLocal] = useState(null);
     const [previousSelectedTime, setPreviousSelectedTime] = useState(null);
@@ -51,7 +53,7 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
     return (
         <div className='body-container'>
             <div className="selected-salon-box">
-                <p className="salon-name">{selectedSalon}</p>
+                <p className="salon-name">{HName}</p>
                 <div className={`selected-date ${selectedTimeLocal ? 'time-selected-date' : ''}`}>
                     {moment(selectedDateLocal).format("MM월 DD일")}
                 </div>

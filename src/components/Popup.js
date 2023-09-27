@@ -7,7 +7,7 @@ const Popup = ({ message, onConfirm, onCancel, isOpen, isCompleted }) => {
         onConfirm();
     };
 
-    console.log('Popup 컴포넌트가 렌더링됨. 메시지:', message);
+    //console.log('Popup 컴포넌트가 렌더링됨. 메시지:', message);
 
     return (
         <Modal

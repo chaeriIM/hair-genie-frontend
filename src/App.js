@@ -1,4 +1,6 @@
-import { Route, Routes } from 'react-router-dom';
+
+import React from "react";
+import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import MainPage from './pages/MainPage';
 import FaceShapePage from './pages/FaceShapePage';
@@ -26,35 +28,51 @@ import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 import Modal from 'react-modal';
 Modal.setAppElement('#root')
 
-function App() {
+const App = () => {
+  const isLoggedIn = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    return !!accessToken;
+  };
+
   return (
-    <div className='app'>
+    <div className="app">
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="hairsynthesis" element={<HairSynthesisPage />} />
-        <Route path="faceshape" element={<FaceShapePage />} />
-        <Route path="salonlocator" element={<SalonLocatorPage />} />
-        <Route path="salonreservation" element={<SalonReservationPage />} />
-        <Route path="mypage" element={<MyPage />} />
-        <Route path="member-info-edit" element={<MemberInfoEdit />} />
-        <Route path="password-change" element={<PasswordChange />} />
-        <Route path="face-type-info" element={<FaceTypeInfo />} />
-        <Route path="my-face-type" element={<MyFaceType />} />
-        <Route path="reservation-info" element={<ReservationInfo />} />
-        <Route path="/reservation/:RNum" element={<ReservationDetails />} />
-        <Route path="withdrawal" element={<Withdrawal />} />
         <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="faceresult" element={<FaceResultPage />} />
-        <Route path="face-uploadpage" element={<FaceUploadPage />} />
-        <Route path="face-webcampage" element={<FaceWebcamPage />} />
-        <Route path="hairresult" element={<HairResultPage />} />
-        <Route path="hair-uploadpage" element={<HairUploadPage />} />
-        <Route path="hair-webcampage" element={<HairWebcamPage />} />
         <Route path="findidpw" element={<FindIdPwPage />} />
+        {/* 로그인 후에만 접근 가능한 페이지 */}
+        {isLoggedIn() ? (
+          <>
+            <Route path="hairsynthesis" element={<HairSynthesisPage />} />
+            <Route path="faceshape" element={<FaceShapePage />} />
+            <Route path="salonlocator" element={<SalonLocatorPage />} />
+            <Route path="salonreservation" element={<SalonReservationPage />} />
+            <Route path="mypage" element={<MyPage />} />
+            <Route path="member-info-edit" element={<MemberInfoEdit />} />
+            <Route path="password-change" element={<PasswordChange />} />
+            <Route path="face-type-info" element={<FaceTypeInfo />} />
+            <Route path="my-face-type" element={<MyFaceType />} />
+            <Route path="reservation-info" element={<ReservationInfo />} />
+            <Route path="/reservation/:RNum" element={<ReservationDetails />} />
+            <Route path="withdrawal" element={<Withdrawal />} />
+            <Route path="faceresult" element={<FaceResultPage />} />
+            <Route path="face-uploadpage" element={<FaceUploadPage />} />
+            <Route path="face-webcampage" element={<FaceWebcamPage />} />
+            <Route path="hairresult" element={<HairResultPage />} />
+            <Route path="hair-uploadpage" element={<HairUploadPage />} />
+            <Route path="hair-webcampage" element={<HairWebcamPage />} />
+          </>
+        ) : (
+          // 로그인이 필요한 페이지에 접근할 때 표시할 팝업
+          <Route
+            path="*"
+            element={<Navigate to="/login" />}
+          />
+        )}
       </Routes>
     </div>
   );
-}
+};
 
 export default App;

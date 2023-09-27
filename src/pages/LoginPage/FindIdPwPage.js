@@ -270,7 +270,7 @@ const FindIdPwPage = () => {
           ariaHideApp={false}
         >
           <div className="modal-header">
-            <h2>에러</h2>
+            <h2>🚫 에러</h2>
             <button className="close-button" onClick={() => setErrorModalOpen(false)}>
               X
             </button>
