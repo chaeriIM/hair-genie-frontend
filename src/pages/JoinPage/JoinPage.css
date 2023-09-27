@@ -66,11 +66,12 @@
 .id-wrapper {
     display: flex;
     flex-direction: row;
+    margin-bottom: 6px;
 }
 
 .id-wrapper input {
     width: 270px;
-    margin-right: 10px;
+    margin: 0 10px 0 0;
 }
 
 .id-wrapper button {
