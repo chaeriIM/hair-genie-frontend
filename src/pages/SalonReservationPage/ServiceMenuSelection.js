@@ -1,37 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import axios from 'axios';
 import Popup from '../../components/Popup';
 import './ServiceMenuSelection.css';
 
-const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => {
-    const [selectedMenu, setSelectedMenu] = useState('컷');
+const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setStep }) => {
+    const { HID, HName } = selectedSalon;
+    const [selectedMenu, setSelectedMenu] = useState(null);
     const [selectedService, setSelectedService] = useState(null);
     const [popupOpen, setPopupOpen] = useState(false);
     const [reservationCompleted, setReservationCompleted] = useState(false);
+    const [menus, setMenus] = useState([]);
+    const [menuServices, setMenuServices] = useState({});
+    const [customerId, setCustomerId] = useState(null);
 
-    const menus = ['컷', '펌', '컬러', '클리닉'];
-    const services = {
-        컷: [
-            { name: '남자컷', price: 10000 },
-            { name: '여자컷', price: 10000 },
-            { name: '앞머리 컷', price: 10000 },
-            { name: '컷 4', price: 10000 }],
-        펌: [
-            { name: '펌 1', price: 10000 },
-            { name: '펌 2', price: 10000 },
-            { name: '펌 3', price: 10000 },
-            { name: '펌 4', price: 10000 }],
-        컬러: [
-            { name: '컬러 1', price: 10000 },
-            { name: '컬러 2', price: 10000 },
-            { name: '컬러 3', price: 10000 },
-            { name: '컬러 4', price: 10000 }],
-        클리닉: [
-            { name: '클리닉 1', price: 10000 },
-            { name: '클리닉 2', price: 10000 },
-            { name: '클리닉 3', price: 10000 },
-            { name: '클리닉 4', price: 10000 }],
-    };
+    useEffect(() => {
+        setSelectedService(null);
+    }, [selectedSalon, selectedDate, selectedTime]);
+
+    useEffect(() => {
+        const fetchMenu = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/hairsalon/${HID}/service/`);
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // 모든 메뉴를 가져오기
+                    const menuList = [...new Set(data.map((service) => service.menu_name))];
+                    setMenus(menuList);
+
+                    // 각 메뉴별로 서비스 목록을 그룹화
+                    const menuServiceMap = {};
+                    menuList.forEach((menu) => {
+                        menuServiceMap[menu] = data.filter((service) => service.menu_name === menu);
+                    });
+                    setMenuServices(menuServiceMap);
+
+                    // 첫 번째 메뉴를 기본으로 선택
+                    if (menuList.length > 0) {
+                        setSelectedMenu(menuList[0]);
+                    }
+                } else {
+                    throw new Error('API 요청에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        if (HID) {
+            fetchMenu();
+        }
+
+        // 사용자 UID 가져오기
+        const userId = localStorage.getItem('userId');
+        console.log('사용자 UID:', userId);
+
+        const fetchUserId = async () => {
+            try {
+                if (userId) {
+                    // 백엔드 API를 호출하여 사용자 데이터를 가져옵니다.
+                    const response = await axios.get(`http://127.0.0.1:8000/user/`);
+                    const userDataArray = response.data;
+                    console.log('사용자 데이터:', userDataArray);
+
+                    // 'userId'와 일치하는 사용자 데이터 찾기
+                    const matchedUser = userDataArray.find((user) => user.uid === userId);
+
+                    if (matchedUser) {
+                        // 사용자 데이터에서 ID 추출
+                        const customerId = matchedUser.id;
+
+                        // 추출한 ID를 상태 변수에 저장
+                        setCustomerId(customerId);
+                        console.log('사용자 ID:', customerId);
+                    } else {
+                        console.error('일치하는 사용자를 찾을 수 없습니다.');
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserId();
+    }, [HID]);
+
 
     const handleMenuClick = (menu) => {
         setSelectedMenu(menu);
@@ -39,21 +92,49 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
     };
 
     const handleServiceClick = (service) => {
-        setSelectedService(selectedService === service ? null : service);
+        setSelectedService(service);
     };
 
     const handleConfirmClick = () => {
         setPopupOpen(true);
     };
 
-    const handlePopupConfirm = () => {
-        setReservationCompleted(true);
+    const handlePopupConfirm = async () => {
+        try {
+            /* const customerId = matchedUser.id; */
+            const salonId = HID;
+            const date = moment(selectedDate).format('YYYY-MM-DD');
+            const time = selectedTime || '';
+            const serviceId = selectedService.id;
 
-        setTimeout(() => {
-            setPopupOpen(false);
-            window.location.href = "/";
-        }, 800);
+            // 요청 데이터
+            const requestData = {
+                customer: customerId,
+                salon: salonId,
+                date: date,
+                time: time,
+                service: serviceId,
+            };
+            console.log('requestData:', requestData);
+
+            // 백엔드로 POST 요청 보내기
+            const response = await axios.post('http://127.0.0.1:8000/reservation/', requestData);
+
+            if (response.status === 201) {
+                setReservationCompleted(true);
+
+                setTimeout(() => {
+                    setPopupOpen(false);
+                    window.location.href = '/';
+                }, 800);
+            } else {
+                console.error('예약 생성 실패:', response.data);
+            }
+        } catch (error) {
+            console.error('예약 생성 중 오류 발생:', error);
+        }
     };
+
 
     const handlePopupCancel = () => {
         setPopupOpen(false);
@@ -62,7 +143,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
     return (
         <div className='body-container'>
             <div className="selected-salon-box">
-                <p className="salon-name">{selectedSalon}</p>
+                <p className="salon-name">{HName}</p>
                 <div className="time-selected-date">{moment(selectedDate).format("MM월 DD일")}</div>
                 <div className="selected-time">{selectedTime}</div>
             </div>
@@ -70,26 +151,30 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
             <div className="menu-selection-container">
                 <div className="menu-options">
                     {menus.map((menu) => (
-                        <div key={menu} onClick={() => handleMenuClick(menu)} className={`menu ${selectedMenu === menu ? 'selected' : ''}`}>
+                        <div
+                            key={menu}
+                            onClick={() => handleMenuClick(menu)}
+                            className={`menu ${selectedMenu === menu ? 'selected' : ''}`}
+                        >
                             {menu}
                         </div>
                     ))}
                 </div>
                 <div className="service-options">
-                    {services[selectedMenu].map((service) => (
+                    {selectedMenu && menuServices[selectedMenu].map((service) => (
                         <div
-                            key={service.name}
-                            className={`service ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}
+                            key={service.id}
+                            className={`service ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}
                             onClick={() => handleServiceClick(service)}
                         >
                             <input
                                 type="checkbox"
-                                className={`service-checkbox ${selectedService && selectedService.name === service.name ? 'checked' : ''}`}
-                                checked={selectedService && selectedService.name === service.name}
-                                onChange={() => handleServiceClick(service)}                        
+                                className={`service-checkbox ${selectedService && selectedService.id === service.id ? 'checked' : ''}`}
+                                checked={selectedService && selectedService.id === service.id}
+                                onChange={() => handleServiceClick(service)}
                             />
-                            <span className={`service-name ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}>{service.name}</span>
-                            <span className={`service-price ${selectedService && selectedService.name === service.name ? 'selected' : ''}`}>{service.price}원</span>
+                            <span className={`service-name ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}>{service.service_name}</span>
+                            <span className={`service-price ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}>{service.price}원</span>
                         </div>
                     ))}
                 </div>
@@ -101,7 +186,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime }) => 
                     message={
                         reservationCompleted
                             ? '예약이 완료되었습니다.'
-                            : `${selectedSalon}-${moment(selectedDate).format("MM월 DD일")} ${selectedTime}, ${selectedService?.name || ''
+                            : `${HName}-${moment(selectedDate).format("MM월 DD일")} ${selectedTime}, ${selectedService?.service_name || ''
                             }(으)로 예약을 진행할까요?`
                     }
                     onConfirm={handlePopupConfirm}

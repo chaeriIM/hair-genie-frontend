@@ -46,6 +46,8 @@ const LoginPage = () => {
         });
         console.log("로그인 성공", response.data);
         setLoginCompletePopupOpen(true);
+
+        localStorage.setItem('userId', userId);
   
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
