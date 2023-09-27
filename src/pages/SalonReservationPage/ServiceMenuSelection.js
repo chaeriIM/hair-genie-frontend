@@ -104,7 +104,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
             /* const customerId = matchedUser.id; */
             const salonId = HID;
             const date = moment(selectedDate).format('YYYY-MM-DD');
-            const time = selectedTime || '';
+            const time = selectedTime;
             const serviceId = selectedService.id;
 
             // 요청 데이터
@@ -145,7 +145,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
             <div className="selected-salon-box">
                 <p className="salon-name">{HName}</p>
                 <div className="time-selected-date">{moment(selectedDate).format("MM월 DD일")}</div>
-                <div className="selected-time">{selectedTime}</div>
+                <div className="selected-time">{moment(selectedTime, 'HH:mm').format('a h:mm')}</div>
             </div>
             <hr className="mini-separator" />
             <div className="menu-selection-container">
@@ -186,7 +186,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
                     message={
                         reservationCompleted
                             ? '예약이 완료되었습니다.'
-                            : `${HName}-${moment(selectedDate).format("MM월 DD일")} ${selectedTime}, ${selectedService?.service_name || ''
+                            : `${HName}에서 ${moment(selectedDate).format("MM월 DD일")} ${moment(selectedTime, 'HH:mm').format('a h:mm')}에 ${selectedService?.service_name || ''
                             }(으)로 예약을 진행할까요?`
                     }
                     onConfirm={handlePopupConfirm}
