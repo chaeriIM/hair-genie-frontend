@@ -44,8 +44,8 @@
 
 .options-container {
     display: flex;
-    padding: 15px;
-    margin: 25px 0;
+    padding: 0;
+    margin: 5px 0 0 0;
     box-sizing: border-box;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -58,6 +58,7 @@
 .calendar {
     display: flex;
     margin-left: 2%;
+    margin-top: -90px;
 }
 
 .time-options {
@@ -69,7 +70,7 @@
 }
 
 .time-options button {
-    width: 120px;
+    width: 100px;
     height: 40px;
     font-size: 20px;
     text-align: center;
@@ -78,4 +79,10 @@
     margin: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.time-title {
+    font-size: 20px;
+    margin-left: 10px;
+    margin-bottom: 0;
 }
