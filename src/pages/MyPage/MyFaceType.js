@@ -11,6 +11,14 @@ const MyFaceType = () => {
   if (selectedType === "Heart") { // 하트형
     dataToShow = (
       <div className='container'>
+        <div className='faceshape-image'>
+          <img src="/images/heart.png" alt="Heart" />
+        </div>
+        <button
+          className='image-btn'
+          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%ED%95%98%ED%8A%B8%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
+          어울리는 헤어스타일 사진 보러가기
+        </button>
         <div className='MFT-description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -33,16 +41,20 @@ const MyFaceType = () => {
             - 뿌리볼륨<br />
           </div>
         </div>
-        <button
-          className='image-btn'
-          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%ED%95%98%ED%8A%B8%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
-        </button>
+        
       </div>
     );
   } else if (selectedType === "Oval") { // 계란형
     dataToShow = (
       <div className='container'>
+        <div className='faceshape-image'>
+          <img src="/images/oval.png" alt="Oval" />
+        </div>
+        <button
+          className='image-btn'
+          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B3%84%EB%9E%80%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
+          어울리는 헤어스타일 사진 보러가기
+        </button>
         <div className='MFT-description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -60,16 +72,19 @@ const MyFaceType = () => {
             - 너무 긴 머리<br />
           </div>
         </div>
-        <button
-          className='image-btn'
-          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B3%84%EB%9E%80%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
-        </button>
       </div>
     );
   } else if (selectedType === "Round") { // 둥근형
     dataToShow = (
       <div className='container'>
+        <div className='faceshape-image'>
+          <img src="/images/round.png" alt="Round" />
+        </div>
+        <button
+          className='image-btn'
+          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EB%91%A5%EA%B7%BC%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
+          어울리는 헤어스타일 사진 보러가기
+        </button>
         <div className='MFT-description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -92,16 +107,19 @@ const MyFaceType = () => {
             (하고싶다면 지그재그 가르마)<br />
           </div>
         </div>
-        <button
-          className='image-btn'
-          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EB%91%A5%EA%B7%BC%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
-        </button>
       </div>
     );
   } else if (selectedType === "Square") { // 각진형
     dataToShow = (
       <div className='container'>
+        <div className='faceshape-image'>
+          <img src="/images/square.png" alt="Square" />
+        </div>
+        <button
+          className='image-btn'
+          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B0%81%EC%A7%84%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
+          어울리는 헤어스타일 사진 보러가기
+        </button>
         <div className='MFT-description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -123,16 +141,19 @@ const MyFaceType = () => {
             - 5:5 정가르마, 반듯한 일자 앞머리<br />
           </div>
         </div>
-        <button
-          className='image-btn'
-          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B0%81%EC%A7%84%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
-        </button>
       </div>
     );
   } else if (selectedType === "Oblong") { // 긴얼굴형
     dataToShow = (
       <div className='container'>
+        <div className='faceshape-image'>
+          <img src="/images/oblong.png" alt="Oblong" />
+        </div>
+        <button
+          className='image-btn'
+          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B8%B4%20%EC%96%BC%EA%B5%B4%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
+          어울리는 헤어스타일 사진 보러가기
+        </button>
         <div className='MFT-description'>
           <div className='recommendation'>
             <span>👍🏻 추천</span>
@@ -153,11 +174,6 @@ const MyFaceType = () => {
             - 턱선에 닿는 길이의 단발<br />
           </div>
         </div>
-        <button
-          className='image-btn'
-          onClick={() => window.open('https://www.pinterest.co.kr/search/pins/?q=%EA%B8%B4%20%EC%96%BC%EA%B5%B4%ED%98%95%20%ED%97%A4%EC%96%B4%EC%8A%A4%ED%83%80%EC%9D%BC&rs=typed', '_blank')}>
-          어울리는 헤어스타일 사진 보러가기
-        </button>
       </div>
     );
   }

@@ -105,7 +105,7 @@ hr.hr-dashed {
     justify-self: center;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 7px rgba(0, 0, 0, .2);
 }
   
 .faceshape-image img {
