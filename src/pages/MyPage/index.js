@@ -57,12 +57,10 @@ const MyPage = () => {
         <div className='mypage-container'>
           <div className='profile-section'>
             <div className='mypage-profile'>
-              <div>
-                <img
-                  src={`http://127.0.0.1:8000${user.profile_image}`}
-                  alt="Profile"
-                />
-              </div>
+              <img
+                src={`http://127.0.0.1:8000${user.profile_image}`}
+                alt="Profile"
+              />
               <div className='nickname-text'><span className='nickname'>{user.unickname}</span>님, 환영합니다.</div>
             </div>
           </div>

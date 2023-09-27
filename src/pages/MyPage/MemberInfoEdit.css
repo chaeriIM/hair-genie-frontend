@@ -94,3 +94,19 @@
 .info-input-container input::placeholder {
   color: #c6c6c6;
 }
+
+.info-input-container select {
+  width: 365px;
+  height: 40px;
+  margin: 6px;
+  padding-left: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #757575;
+  outline: none;
+  transition: 0.3s;
+}
+
+.info-input-container select:focus {
+  border-color: #c9deff;
+}

@@ -18,7 +18,7 @@
 
 .description {
   font-size: 16px;
-  margin: 40px 0;
+  margin: 40px 0 40px 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -35,7 +35,7 @@
 }
 
 .recommendation {
-  margin-left: 80px;
+  margin-left: 40px;
   padding: 10px;
   width: 380px;
   line-height: 1.8;
@@ -52,10 +52,8 @@
   font-size: 14px;
   width: 250px;
   height: 40px;
+  margin-top: 20px;
   padding: 6px 16px;
-   border: 1px solid rgba(27, 31, 35, 0.15);
-/*   border:0;
-  background-color: transparent; */
   border: 1px solid #FFF0F4;
   color: #FC90A8; /* color: #474747; */
   border-radius: 30px;
@@ -93,7 +91,7 @@
   width: 350px;
   height: 350px;
   padding: 20px;
-  margin: 20px 0;
+  margin: 30px 0 20px 0;
   /* border: 3px dashed #E0E0E0; */
   display: flex;
   justify-self: center;

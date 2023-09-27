@@ -12,21 +12,23 @@
 
 .mypage-profile {
   display: flex;
-  padding: 10px;
+  padding: 15px;
   cursor: auto;
   flex-direction: row;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
+  border: solid 1px #e3e9ed;
+  background-color: #fff;
   min-width: 560px;
   width: 60%;
   align-items: center;
-  background-color: #fff;
-  box-shadow: 1px 5px 8px 0 rgba(0, 0, 0, 0.06);
 }
 
 .mypage-profile img {
   object-fit: cover;
   width: 120px;
   height: 120px;
+  border-radius: 5px;
 }
 
 .profile-section {
@@ -51,7 +53,7 @@
 }
 
 .nickname {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 15px;
   font-size: 24px;
   color: #82b1ff;
 }

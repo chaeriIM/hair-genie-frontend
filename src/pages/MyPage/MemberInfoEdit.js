@@ -14,6 +14,8 @@ const MemberInfoEdit = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [faceShape, setFaceShape] = useState("");
+  const faceShapeOptions = ["선택", "계란형", "하트형", "둥근형", "긴 얼굴형", "각진형"];
 
   const [savePopupOpen, setSavePopupOpen] = useState(false);
   const [saveCompletePopupOpen, setSaveCompletePopupOpen] = useState(false);
@@ -42,13 +44,10 @@ const MemberInfoEdit = () => {
         setNickname(response.data.unickname);
         setPhoneNumber(response.data.uphone);
         setEmail(response.data.uemail);
+        setFaceShape(response.data.face_shape);
 
       } catch (error) {
         console.error("사용자 정보를 가져오는데 실패했습니다.", error);
-
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
       }
     };
     fetchUserInfo();
@@ -63,6 +62,7 @@ const MemberInfoEdit = () => {
         unickname: nickname,
         uphone: phoneNumber,
         uemail: email,
+        face_shape: faceShape,
       };
 
       const response = await axios.put("http://127.0.0.1:8000/user/info/",
@@ -123,8 +123,10 @@ const MemberInfoEdit = () => {
     setSavePopupOpen(false);
     setSaveCompletePopupOpen(true);
     updateUserInfo();
-    updateUserImage();
-
+    if(profileImage){
+      updateUserImage();
+    }
+    
     setTimeout(() => {
       navigate('/mypage');
     }, 1300);
@@ -322,6 +324,23 @@ const MemberInfoEdit = () => {
             {emailValidationStatus === "error" && (
               <p className="error-message">올바른 이메일을 입력하세요.</p>
             )}
+          </div>
+
+          <div className="info-row">
+            <div className="info-input-container">
+              <label htmlFor="faceShape">얼굴형</label>
+              <select
+                id="faceShape"
+                value={faceShape}
+                onChange={(e) => setFaceShape(e.target.value)}
+              >
+                {faceShapeOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="save-button">
