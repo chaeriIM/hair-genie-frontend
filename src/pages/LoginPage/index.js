@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import axios from "axios";
 import Popup from '../../components/Popup';
 import Modal from 'react-modal';
@@ -15,12 +15,18 @@ const LoginPage = () => {
 
   const [loginCompletePopupOpen, setLoginCompletePopupOpen] = useState(false);
   const [loginErrorPopupOpen, setLoginErrorPopupOpen] = useState(false);
-
-  const navigate = useNavigate();
-
+  
   const clearErrors = () => {
     setIdError('');
     setPwError('');
+  };
+
+  // 엔터키로 로그인
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -48,16 +54,14 @@ const LoginPage = () => {
         setLoginCompletePopupOpen(true);
 
         localStorage.setItem('userId', userId);
-  
+
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
-  
-        autoRefreshAccessToken();
-        
+
         setTimeout(() => {
-          navigate('/');
+          window.location.href = "/";
         }, 1500);
-  
+
       } catch (error) {
         console.error("로그인 실패", error);
         setLoginErrorPopupOpen(true);
@@ -65,23 +69,6 @@ const LoginPage = () => {
     }
 
   }
-  // 엑세스 토큰 자동 갱신
-  const autoRefreshAccessToken = async () => {
-    try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      const response = await axios.post('http://127.0.0.1:8000/user/token/refresh/', {
-        refresh: refreshToken,
-      });
-
-      localStorage.setItem('accessToken', response.data.access);
-      //console.log("액세스 토큰 갱신 성공", response.data);
-  
-      // 일정 시간마다 액세스 토큰 갱신 함수 호출 (50분마다)
-      setTimeout(autoRefreshAccessToken, 10 * 300 * 1000);
-    } catch (error) {
-      //console.error("액세스 토큰 갱신 실패", error);
-    }
-  };
 
   return (
     <div className='login'>
@@ -92,21 +79,21 @@ const LoginPage = () => {
           onClick={() => (window.location.href = "/")}
           className="login-logo"
         />
-        {/* <p onClick={() => (window.location.href = "/")}>LOGIN</p> */}
         <p className="login-title">LOGIN</p>
         <div className="login-form">
-          <input 
-            type='text' 
-            placeholder="아이디" 
+          <input
+            type='text'
+            placeholder="아이디"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
           {idError && <p className='error-msg'>{idError}</p>}
-          <input 
-            type='password' 
+          <input
+            type='password'
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           {pwError && <p className='error-msg'>{pwError}</p>}
           <button className="login-btn" onClick={handleSubmit}>로그인</button>
@@ -125,24 +112,24 @@ const LoginPage = () => {
       />
 
       <Modal
-          isOpen={loginErrorPopupOpen}
-          onRequestClose={() => setLoginErrorPopupOpen(false)}
-          contentLabel="에러 모달"
-          className="modal"
-          overlayClassName="overlay"
-          ariaHideApp={false}
-        >
-          <div className="modal-header">
-            <h2>🚫 에러</h2>
-            <button className="close-button" onClick={() => setLoginErrorPopupOpen(false)}>
-              X
-            </button>
-          </div>
-          <div className="modal-content">
-            <p>아이디 또는 비밀번호가 올바르지 않습니다.</p>
-            <p>다시 확인해주세요.</p>
-          </div>
-        </Modal>
+        isOpen={loginErrorPopupOpen}
+        onRequestClose={() => setLoginErrorPopupOpen(false)}
+        contentLabel="에러 모달"
+        className="modal"
+        overlayClassName="overlay"
+        ariaHideApp={false}
+      >
+        <div className="modal-header">
+          <h2>🚫 에러</h2>
+          <button className="close-button" onClick={() => setLoginErrorPopupOpen(false)}>
+            X
+          </button>
+        </div>
+        <div className="modal-content">
+          <p>아이디 또는 비밀번호가 올바르지 않습니다.</p>
+          <p>다시 확인해주세요.</p>
+        </div>
+      </Modal>
 
     </div>
   );
