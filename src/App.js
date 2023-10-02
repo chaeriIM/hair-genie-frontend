@@ -54,7 +54,7 @@ const App = () => {
             <Route path="face-type-info" element={<FaceTypeInfo />} />
             <Route path="my-face-type" element={<MyFaceType />} />
             <Route path="reservation-info" element={<ReservationInfo />} />
-            <Route path="/reservation/:RNum" element={<ReservationDetails />} />
+            <Route path="/reservation/:id" element={<ReservationDetails />} />
             <Route path="withdrawal" element={<Withdrawal />} />
             <Route path="faceresult" element={<FaceResultPage />} />
             <Route path="face-uploadpage" element={<FaceUploadPage />} />

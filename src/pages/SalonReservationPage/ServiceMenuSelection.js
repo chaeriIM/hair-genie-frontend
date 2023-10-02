@@ -126,7 +126,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
                 setTimeout(() => {
                     setPopupOpen(false);
                     window.location.href = '/';
-                }, 800);
+                }, 1800);
             } else {
                 console.error('예약 생성 실패:', response.data);
             }
@@ -185,7 +185,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
                     isOpen={popupOpen}
                     message={
                         reservationCompleted
-                            ? '예약이 완료되었습니다.'
+                            ? '예약 정보는 마이페이지에서 확인할 수 있습니다.'
                             : `${HName}에서 ${moment(selectedDate).format("MM월 DD일")} ${moment(selectedTime, 'HH:mm').format('a h:mm')}에 ${selectedService?.service_name || ''
                             }(으)로 예약을 진행할까요?`
                     }
