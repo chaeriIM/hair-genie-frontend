@@ -20,6 +20,15 @@
     justify-content: center;
 }
 
+.FT-button-all-container {
+    margin-top: 22px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 550px;
+    justify-content: center;
+}
+
 .MFT-button {
     padding: 10px 20px;
     font-size: 17px;

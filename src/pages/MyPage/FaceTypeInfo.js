@@ -72,6 +72,7 @@ const FaceTypeInfo = () => {
               - 뿌리볼륨<br />
             </div>
           </div>
+          <hr className="hr-dashed" />
         </div>
       );
     } else if (faceShape === "계란형") {
@@ -103,6 +104,7 @@ const FaceTypeInfo = () => {
               - 너무 긴 머리<br />
             </div>
           </div>
+          <hr className="hr-dashed" />
         </div>
       );
     } else if (faceShape === "둥근형") {
@@ -139,6 +141,7 @@ const FaceTypeInfo = () => {
               (하고싶다면 지그재그 가르마)<br />
             </div>
           </div>
+          <hr className="hr-dashed" />
         </div>
       );
     } else if (faceShape === "각진형") {
@@ -174,6 +177,7 @@ const FaceTypeInfo = () => {
               - 5:5 정가르마, 반듯한 일자 앞머리<br />
             </div>
           </div>
+          <hr className="hr-dashed" />
         </div>
       );
     } else if (faceShape === "긴 얼굴형") {
@@ -208,15 +212,18 @@ const FaceTypeInfo = () => {
               - 턱선에 닿는 길이의 단발<br />
             </div>
           </div>
+          <hr className="hr-dashed" />
         </div>
       )
-    }
+    } 
     return null;
   };
 
   const renderFaceShapeBtn = () => {
     if (faceShape === '하트형') {
       return (
+        <>
+        <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
         <div className="FT-button-container">
           <button className="MFT-button" onClick={() => navigateToResult("Oval")}>계란형 (Oval)</button>
           <br />
@@ -227,9 +234,12 @@ const FaceTypeInfo = () => {
           <button className="MFT-button" onClick={() => navigateToResult("Oblong")}>긴 얼굴형 (Oblong)</button>
           <br />
         </div>
+        </>
       );
     } else if (faceShape === "계란형") {
       return (
+        <>
+        <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
         <div className="FT-button-container">
           <button className="MFT-button" onClick={() => navigateToResult("Heart")}>하트형 (Heart)</button>
           <br />
@@ -240,9 +250,12 @@ const FaceTypeInfo = () => {
           <button className="MFT-button" onClick={() => navigateToResult("Oblong")}>긴 얼굴형 (Oblong)</button>
           <br />
         </div>
+        </>
       );
     } else if (faceShape === "둥근형") {
       return (
+        <>
+        <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
         <div className="FT-button-container">
           <button className="MFT-button" onClick={() => navigateToResult("Heart")}>하트형 (Heart)</button>
           <br />
@@ -253,9 +266,12 @@ const FaceTypeInfo = () => {
           <button className="MFT-button" onClick={() => navigateToResult("Oblong")}>긴 얼굴형 (Oblong)</button>
           <br />
         </div>
+        </>
       );
     } else if (faceShape === "각진형") {
       return (
+        <>
+        <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
         <div className="FT-button-container">
           <button className="MFT-button" onClick={() => navigateToResult("Heart")}>하트형 (Heart)</button>
           <br />
@@ -266,9 +282,12 @@ const FaceTypeInfo = () => {
           <button className="MFT-button" onClick={() => navigateToResult("Oblong")}>긴 얼굴형 (Oblong)</button>
           <br />
         </div>
+        </>
       );
     } else if (faceShape === "긴 얼굴형") {
       return (
+        <>
+        <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
         <div className="FT-button-container">
           <button className="MFT-button" onClick={() => navigateToResult("Heart")}>하트형 (Heart)</button>
           <br />
@@ -279,7 +298,26 @@ const FaceTypeInfo = () => {
           <button className="MFT-button" onClick={() => navigateToResult("Square")}>각진형 (Square)</button>
           <br />
         </div>
+        </>
       );
+    } else if (faceShape === "선택") {
+      return (
+        <>
+        <p className="FT-title">나의 얼굴형을 선택하고 추천 스타일을 확인해 보세요!</p>
+        <div className="FT-button-all-container">
+          <button className="MFT-button" onClick={() => navigateToResult("Heart")}>하트형 (Heart)</button>
+          <br />
+          <button className="MFT-button" onClick={() => navigateToResult("Oval")}>계란형 (Oval)</button>
+          <br />
+          <button className="MFT-button" onClick={() => navigateToResult("Round")}>둥근형 (Round)</button>
+          <br />
+          <button className="MFT-button" onClick={() => navigateToResult("Square")}>각진형 (Square)</button>
+          <br />
+          <button class="MFT-button" onClick={() => navigateToResult('Oblong')}>긴 얼굴형 (Oblong)</button>
+          <br />
+        </div>
+        </>
+      )
     }
     return null;
   };
@@ -292,13 +330,11 @@ const FaceTypeInfo = () => {
       <div className="myfacetype">
         <div className="body-container">
           {renderFaceShapeDetails()}
-          <hr className="hr-dashed" />
           <img
             src="/images/check_glass_icon.svg"
             alt="face check icon"
             className="face-check-icon"
           />
-          <p className="FT-title">다른 얼굴형의 추천 스타일을 확인해 보세요!</p>
           {renderFaceShapeBtn()}
           <p className="FT-link" onClick={navigateToFaceShapePage}>나의 얼굴형 타입을 알고 싶으면 여기를 클릭하세요.</p>
         </div>
