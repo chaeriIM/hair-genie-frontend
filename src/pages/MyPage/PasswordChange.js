@@ -12,7 +12,6 @@ const PasswordChange = () => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
-    const [savePopupOpen, setSavePopupOpen] = useState(false);
     const [saveCompletePopupOpen, setSaveCompletePopupOpen] = useState(false);
     const [saveErrorPopupOpen, setSaveErrorPopupOpen] = useState(false);
 
@@ -22,10 +21,9 @@ const PasswordChange = () => {
     const navigate = useNavigate();
 
     const handleSaveClick = async () => {
-        if (!areAllFieldsFilled) {
-            setSavePopupOpen(true);
-            return;
-        }
+        // if (!areAllFieldsFilled) {
+        //     return;
+        // }
 
         if (!isValidPassword(password)) {
             setPasswordValidationStatus('error');
@@ -56,7 +54,6 @@ const PasswordChange = () => {
                 
             console.log("비밀번호 변경 성공", response.data);
             setIsPasswordChanged(true);
-            setSavePopupOpen(false);
             setSaveCompletePopupOpen(true);
 
             setTimeout(() => {
@@ -84,15 +81,6 @@ const PasswordChange = () => {
             }
             
         }
-    };
-
-    const handleSaveConfirm = () => {
-        setSavePopupOpen(false);
-        setSaveCompletePopupOpen(true);
-
-        setTimeout(() => {
-            navigate('/mypage');
-        }, 800);
     };
 
     const areAllFieldsFilled = currentPassword && password && passwordConfirm;
@@ -175,12 +163,6 @@ const PasswordChange = () => {
                     </div>
                 </div>
             </div>
-            <Popup
-                isOpen={savePopupOpen}
-                message="비밀번호를 변경하시겠어요?"
-                onConfirm={handleSaveConfirm}
-                onCancel={() => setSavePopupOpen(false)}
-            />
             <Popup
                 isOpen={saveCompletePopupOpen}
                 message="비밀번호가 변경되었습니다."

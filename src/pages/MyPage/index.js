@@ -4,15 +4,12 @@ import Nav from '../../components/Nav';
 import './MyPage.css';
 import '../../App.css';
 import axios from 'axios';
-import Popup from '../../components/Popup';
 
 const MyPage = () => {
 
   const navigate = useNavigate();
 
   const [user, setUser] = useState([]);
-
-  const [loginErrorPopupOpen, setLoginErrorPopupOpen] = useState(false);
 
   const handleButtonClick = (path) => {
     navigate(path);
@@ -22,16 +19,6 @@ const MyPage = () => {
     const fetchUserInfo = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-
-        if (!accessToken) {
-          setLoginErrorPopupOpen(true);
-  
-          setTimeout(() => {
-            navigate('/login');
-          }, 1500);
-          
-          return;
-        }
 
         const response = await axios.get('http://127.0.0.1:8000/user/info/', {
           headers: {
@@ -46,7 +33,7 @@ const MyPage = () => {
     };
     fetchUserInfo();
 
-  }, [navigate]);
+  }, []);
 
   return (
     <div className='mypage'>
@@ -79,14 +66,6 @@ const MyPage = () => {
           <div className='withdrawal-button' onClick={() => handleButtonClick('/withdrawal')}>회원 탈퇴  &#xE001;</div>
         </div>
       </div>
-
-      <Popup
-        isOpen={loginErrorPopupOpen}
-        message="로그인 후 이용해 주세요."
-        isCompleted={true}
-        onCancel={() => setLoginErrorPopupOpen(false)}
-      />
-
     </div>
   );
 };

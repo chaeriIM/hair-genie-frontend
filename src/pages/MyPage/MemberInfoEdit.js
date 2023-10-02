@@ -51,7 +51,7 @@ const MemberInfoEdit = () => {
       }
     };
     fetchUserInfo();
-  }, [navigate]);
+  }, []);
 
   // 사용자 정보 업데이트
   const updateUserInfo = async () => {

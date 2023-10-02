@@ -35,7 +35,7 @@ const FaceTypeInfo = () => {
       }
     };
     fetchUserInfo();
-  }, [navigate]);
+  }, []);
 
   const renderFaceShapeDetails = () => {
     if (faceShape === "하트형") {
@@ -313,7 +313,7 @@ const FaceTypeInfo = () => {
           <br />
           <button className="MFT-button" onClick={() => navigateToResult("Square")}>각진형 (Square)</button>
           <br />
-          <button class="MFT-button" onClick={() => navigateToResult('Oblong')}>긴 얼굴형 (Oblong)</button>
+          <button className="MFT-button" onClick={() => navigateToResult('Oblong')}>긴 얼굴형 (Oblong)</button>
           <br />
         </div>
         </>
