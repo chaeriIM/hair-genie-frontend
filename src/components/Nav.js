@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import './Nav.css'
 
 const Nav = () => {
@@ -20,21 +19,21 @@ const Nav = () => {
         src="/images/logo.svg"
         alt="logo"
         onClick={() => (window.location.href = "/")}
-        className='logo' /> 
-        <span className="logo-text" onClick={() => (window.location.href = "/")}>Hair Genie</span>
+        className='logo' />
+      <span className="logo-text" onClick={() => (window.location.href = "/")}>Hair Genie</span>
       <div className='navbar'>
         {/* <Link className='navbarMenu' to={'/'}>메인</Link> */}
-        <Link className='navbarMenu' to={'/hairsynthesis'}>지니 타임</Link>
-        <Link className='navbarMenu' to={'/faceshape'}>얼굴형 분석</Link>
-        <Link className='navbarMenu' to={'/salonlocator'}>미용실 찾기</Link>
-        <Link className='navbarMenu' to={'/salonreservation'}>미용실 예약</Link>
-        <Link className='navbarMenu' to={'/mypage'}>마이페이지</Link>
+        <a href='/hairsynthesis' className='navbarMenu'>지니 타임</a>
+        <a href='/faceshape' className='navbarMenu'>얼굴형 분석</a>
+        <a href='/salonlocator' className='navbarMenu'>미용실 찾기</a>
+        <a href='/salonreservation' className='navbarMenu'>미용실 예약</a>
+        <a href='/mypage' className='navbarMenu'>마이페이지</a>
 
         {/* 로그인 여부에 따라 버튼 표시 */}
         {accessToken ? (
-          <Link className='navbarMenu btn' onClick={handleLogout}>로그아웃</Link>
+          <a href='/' className='navbarMenu btn' onClick={handleLogout}>로그아웃</a>
         ) : (
-          <Link className='navbarMenu btn' to={'/login'}>로그인</Link>
+          <a href='/login' className='navbarMenu btn'>로그인</a>
         )}
       </div>
     </div>
