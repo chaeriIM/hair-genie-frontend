@@ -174,7 +174,7 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
                                 onChange={() => handleServiceClick(service)}
                             />
                             <span className={`service-name ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}>{service.service_name}</span>
-                            <span className={`service-price ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}>{service.price}원</span>
+                            <span className={`service-price ${selectedService && selectedService.id === service.id ? 'selected' : ''}`}>{parseInt(service.price).toLocaleString()}원</span>
                         </div>
                     ))}
                 </div>

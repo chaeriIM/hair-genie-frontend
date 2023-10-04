@@ -33,12 +33,14 @@ const ReservationDetails = () => {
                 // 예약에 관련된 서비스 정보 가져오기
                 const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
                 const serviceName = serviceResponse.data.service_name;
+                const price = serviceResponse.data.price;
 
                 const reservationWithDetails = {
                     ...reservationData,
                     HName,
                     HLoc,
                     serviceName,
+                    price,
                     status,
                 };
 
@@ -148,7 +150,7 @@ const ReservationDetails = () => {
                         <p className="D-RNum">No.{reservation?.id}</p>
                         <hr className="mypage-separator" />
                         <p className="D-menu">일정{' '} <span className="D-info">{reservation?.date} {moment(reservation?.time, 'HH:mm').format('a h:mm')}</span></p>
-                        <p className="D-menu">메뉴{' '} <span className="D-info">{reservation?.serviceName}</span></p>
+                        <p className="D-menu">메뉴{' '} <span className="D-info">{reservation?.serviceName} {parseInt(reservation?.price).toLocaleString()}원</span></p>
                         {reservation?.status === '예약 중' && !isReservationTimeInPast() && (
                             <button className="Rstatus-button" onClick={handleCancelClick}>예약 취소</button>
                         )}
