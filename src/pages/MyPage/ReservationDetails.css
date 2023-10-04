@@ -25,6 +25,21 @@
     border-top: 6px solid #ccc;
 }
 
+.Rstatus-button {
+    width: auto;
+    height: 40px;
+    font-size: 16px;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    /* border: none; */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* color: #f6f6f6; */
+}
+
+
+
 .DDR-title {
     font-size: 20px;
     font-weight: 500;
@@ -52,10 +67,17 @@
     font-weight: normal;
 }
 
+.L-info {
+    font-size: 16px;
+    margin: 0 0 0 -2px;
+    color: #1f1f1f;
+    font-weight: normal;
+}
+
 .D-title {
     font-size: 18px;
     font-weight: 500;
-    margin: 5px 0 0 0;
+    margin: 5px 0 10px 0;
 }
 
 .D-title .total_wrap {

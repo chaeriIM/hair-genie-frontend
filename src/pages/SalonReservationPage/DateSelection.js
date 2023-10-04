@@ -5,8 +5,8 @@ import CustomCalendar from '../../components/Calendar';
 import './DateSelection.css';
 
 const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTime }) => {
-    moment.locale('ko'); 
-    const { HName } = selectedSalon;
+    moment.locale('ko');
+    const { HName, HID } = selectedSalon;
 
     const [selectedDateLocal, setSelectedDateLocal] = useState(new Date());
     const [selectedTimeLocal, setSelectedTimeLocal] = useState(null);
@@ -75,7 +75,7 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
     useEffect(() => {
         // 선택한 날짜에 대한 예약 정보 필터링
         const reservationsForSelectedDate = reservations.filter((reservation) => {
-            return moment(reservation.date).isSame(selectedDateLocal, 'day');
+            return moment(reservation.date).isSame(selectedDateLocal, 'day') && reservation.salon === HID;
         });
 
         // 예약 가능한 시간대 계산
@@ -88,7 +88,7 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
         });
 
         setAvailableTimes(availableTimes);
-    }, [selectedDateLocal, reservations, times]);
+    }, [selectedDateLocal, reservations, times, HID]);
 
     const handleSelectTime = (time) => {
         if (filterPassedTime(time) && availableTimes.includes(time)) {
