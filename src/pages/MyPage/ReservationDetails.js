@@ -1,68 +1,194 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Popup from '../../components/Popup';
 import '../../App.css';
 import './ReservationDetails.css'
-import Kakaomap from '../../components/Kakaomap';
+import moment from 'moment';
 
 const ReservationDetails = () => {
-    const { RNum } = useParams();
+    const { id } = useParams();
+    const [reservation, setReservation] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [cancelCompleted, setCancelCompleted] = useState(false);
+    const [reservationCompleted, setReservationCompleted] = useState(false);
 
-    const SampleReservationData = [
-        {
-            RNum: '00',
-            salon: "00 미용실",
-            location: "00 미용실 위치",
-            date: '23. 3. 3',
-            time: "10:00",
-            service: "여자컷",
-            isCancelled: false,
-        },
-        {
-            RNum: '01',
-            salon: "04 미용실",
-            location: "04 미용실 위치",
-            date: '23. 5. 10',
-            time: "12:00",
-            service: "컬러 3",
-            isCancelled: false,
-        },
-        {
-            RNum: '02',
-            salon: "00 미용실",
-            location: "00 미용실 위치",
-            date: '23. 8. 29',
-            time: "15:00",
-            service: "클리닉 2",
-            isCancelled: true, /* 임시로 예약 취소 설정 */
-        },
-    ];
+    const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
+    const [completePopupOpen, setCompletePopupOpen] = useState(false);
 
-    const reservation = SampleReservationData.find(res => res.RNum === RNum);
+    useEffect(() => {
+        // 서버에서 예약 정보 가져오기
+        axios.get(`http://127.0.0.1:8000/reservation/${id}`)
+            .then(async (response) => {
+                // 예약 정보를 상태에 설정
+                const reservationData = response.data;
+                const status = response.data.status;
+
+                // 예약에 관련된 미용실 정보 가져오기
+                const salonResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/${reservationData.salon}`);
+                const HName = salonResponse.data.HName;
+                const HLoc = salonResponse.data.HLoc;
+
+                // 예약에 관련된 서비스 정보 가져오기
+                const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
+                const serviceName = serviceResponse.data.service_name;
+                const price = serviceResponse.data.price;
+
+                const reservationWithDetails = {
+                    ...reservationData,
+                    HName,
+                    HLoc,
+                    serviceName,
+                    price,
+                    status,
+                };
+
+                setReservation(reservationWithDetails);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('예약 정보를 불러오는 중 오류 발생:', error);
+                setLoading(false);
+            });
+    }, [id]); // id가 변경될 때마다 호출
+
+    const isReservationTimeInPast = () => {
+        if (reservation) {
+            const currentDateTime = moment();
+            const reservationDateTime = moment(`${reservation.date} ${reservation.time}`, 'YYYY-MM-DD HH:mm');
+            return reservationDateTime.isBefore(currentDateTime);
+        }
+        return false;
+    };
+
+    // 예약 취소 
+    const handleCancelClick = () => {
+        setCancelPopupOpen(true);
+    };
+
+    const handlePopupConfirm = async () => {
+        try {
+            if (reservation) {
+                // 예약이 '예약 중' 상태인 경우에만 취소 요청
+                if (reservation.status === '예약 중') {
+                    setCancelCompleted(true);
+                    await axios.put(`http://127.0.0.1:8000/reservation/${reservation.id}/cancel/`);
+                    setReservation({ ...reservation, status: '예약 취소' });
+                    setTimeout(() => {
+                        setCancelPopupOpen(false);
+                    }, 1000);
+                } else {
+                    alert('이미 취소된 예약입니다.');
+                }
+            }
+        } catch (error) {
+            console.error('예약 취소 중 오류 발생:', error);
+            alert('예약 취소 중 오류가 발생했습니다.');
+        }
+    };
+
+    //이용 완료
+    const handleCompleteClick = () => {
+        setCompletePopupOpen(true);
+    };
+
+    const handleCompleteConfirmation = async () => {
+        if (reservation.status === '예약 중' && isReservationTimeInPast()) {
+            try {
+                setReservationCompleted(true);
+                const response = await axios.put(`http://127.0.0.1:8000/reservation/${reservation.id}/complete/`);
+                if (response.status === 200) {
+                    setReservation({ ...reservation, status: '이용 완료' });
+                    setTimeout(() => {
+                        setCompletePopupOpen(false);
+                    }, 1000);
+                } else {
+                    console.error('예약 상태 업데이트에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('예약 상태 업데이트 중 오류 발생:', error);
+                alert('예약 상태 업데이트 중 오류가 발생했습니다.');
+            }
+        } else {
+            alert('이용 완료할 수 없는 예약입니다.');
+        }
+    };
+
+    if (loading) {
+        return (
+            <div>
+                <Nav />
+                <p className='main-title'> </p>
+            </div>
+        );
+    }
+
+    if (!reservation) {
+        return (
+            <div>
+                <Nav />
+                <p className='main-title'>예약 정보를 찾을 수 없습니다.</p>
+            </div>
+        );
+    }
+
+    /* const handlePopupCancel = () => {
+        setPopupOpen(false);
+    }; */
 
     return (
         <div>
             <Nav />
-            <p className='main-title'>{reservation.salon}</p>
+            <p className='main-title'>{reservation?.HName}</p>
             <hr />
             <div className='body-container'>
                 <div className='reservation-details-container'>
-                    <div className={`D-reservation-box ${reservation.isCancelled ? 'cancelled' : ''}`}>
-                        {reservation.isCancelled && <p className="DDR-title">취소된 예약</p>}
-                        <p className="D-RNum">No.{reservation.RNum}</p>
+                    <div className={`D-reservation-box ${reservation?.status === '예약 취소' ? 'cancelled' : ''}`}>
+                        {reservation?.status === '예약 취소' && <p className="DDR-title">취소된 예약</p>}
+                        {reservation?.status === '이용 완료' && <p className="DDR-title">이용 완료</p>}
+                        <p className="D-RNum">No.{reservation?.id}</p>
                         <hr className="mypage-separator" />
-                        <p className="D-menu">일정{' '} <span className="D-info">{reservation.date} {reservation.time}</span></p>
-                        <p className="D-menu">메뉴{' '} <span className="D-info">{reservation.service}</span></p>
+                        <p className="D-menu">일정{' '} <span className="D-info">{reservation?.date} {moment(reservation?.time, 'HH:mm').format('a h:mm')}</span></p>
+                        <p className="D-menu">메뉴{' '} <span className="D-info">{reservation?.serviceName} {parseInt(reservation?.price).toLocaleString()}원</span></p>
+                        {reservation?.status === '예약 중' && !isReservationTimeInPast() && (
+                            <button className="Rstatus-button" onClick={handleCancelClick}>예약 취소</button>
+                        )}
+                        {reservation?.status === '예약 중' && isReservationTimeInPast() && (
+                            <button className="Rstatus-button" onClick={handleCompleteClick}>이용 완료</button>
+                        )}
                         <hr className="mypage-separator" />
-                        <p className="D-title">오시는 길
-                            <hr className="mypage-separator" />
-                            <Kakaomap /> <span className="D-info">
-                                <img src="/images/location_icon.svg" alt="location icon" class="location_icon" />
-                                {reservation.location}</span></p>
+                        <p className="D-title">오시는 길</p>
+                        <p className="L-info">
+                            <img src="/images/location_icon.svg" alt="location icon" className="location_icon" />
+                            {reservation?.HLoc}
+                        </p>
+                        <Popup
+                            isOpen={cancelPopupOpen}
+                            message={
+                                cancelCompleted
+                                    ? '예약이 취소되었습니다.'
+                                    : `예약 취소 후에는 복구할 수 없습니다.`
+                            }
+                            onConfirm={handlePopupConfirm}
+                            onCancel={() => setCancelPopupOpen(false)}
+                            isCompleted={cancelCompleted}
+                        />
+                        <Popup
+                            isOpen={completePopupOpen}
+                            message={
+                                reservationCompleted
+                                    ? '이용 완료 되었습니다.'
+                                    : '서비스를 받아보셨다면 이용 완료해 주세요.'
+                            }
+                            onConfirm={handleCompleteConfirmation}
+                            onCancel={() => setCompletePopupOpen(false)}
+                            isCompleted={reservationCompleted}
+                        />
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

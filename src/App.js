@@ -55,7 +55,7 @@ const App = () => {
             <Route path="face-type-info" element={<FaceTypeInfo />} />
             <Route path="my-face-type" element={<MyFaceType />} />
             <Route path="reservation-info" element={<ReservationInfo />} />
-            <Route path="/reservation/:RNum" element={<ReservationDetails />} />
+            <Route path="/reservation/:id" element={<ReservationDetails />} />
             <Route path="withdrawal" element={<Withdrawal />} />
             <Route path="faceresult" element={<FaceResultPage />} />
             <Route path="face-uploadpage" element={<FaceUploadPage />} />
@@ -66,10 +66,7 @@ const App = () => {
           </>
         ) : (
           // 로그인이 필요한 페이지에 접근할 때 표시할 팝업
-          <Route
-            path="*"
-            element={<Navigate to="/login" />}
-          />
+          <Route path="*" element={<Navigate to="/login" />} />
         )}
       </Routes>
     </div>

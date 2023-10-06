@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const [loginCompletePopupOpen, setLoginCompletePopupOpen] = useState(false);
   const [loginErrorPopupOpen, setLoginErrorPopupOpen] = useState(false);
-  
+
   const clearErrors = () => {
     setIdError('');
     setPwError('');
