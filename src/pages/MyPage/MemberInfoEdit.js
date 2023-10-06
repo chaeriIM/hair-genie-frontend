@@ -43,7 +43,7 @@ const MemberInfoEdit = () => {
         setName(response.data.uname);
         setNickname(response.data.unickname);
         setPhoneNumber(response.data.uphone);
-        setEmail(response.data.uemail);
+        setEmail(response.data.email);
         setFaceShape(response.data.face_shape);
 
       } catch (error) {
@@ -51,7 +51,7 @@ const MemberInfoEdit = () => {
       }
     };
     fetchUserInfo();
-  }, [navigate]);
+  }, []);
 
   // 사용자 정보 업데이트
   const updateUserInfo = async () => {
@@ -61,7 +61,7 @@ const MemberInfoEdit = () => {
         uname: name,
         unickname: nickname,
         uphone: phoneNumber,
-        uemail: email,
+        email: email,
         face_shape: faceShape,
       };
 

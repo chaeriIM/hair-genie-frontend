@@ -5,6 +5,8 @@
   align-items: center;
 }
 
+.save-button button:disabled,
+.save-button button:disabled:hover,
 .withdrawal-button button:disabled,
 .withdrawal-button button:disabled:hover {
   background-color: #f0f0f0;
@@ -20,7 +22,7 @@
 .withdrawal-button button {
   width: 365px;
   height: 40px;
-  margin: 0 0 10px 0;
+  margin: 6px;
   cursor: pointer;
   background-color: #82b1ff;
   border: none;

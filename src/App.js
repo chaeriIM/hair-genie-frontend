@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
@@ -26,6 +25,7 @@ import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
 import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 
 import Modal from 'react-modal';
+import NewPwPage from "./pages/LoginPage/NewPwPage";
 Modal.setAppElement('#root')
 
 const App = () => {
@@ -41,6 +41,7 @@ const App = () => {
         <Route path="join" element={<JoinPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="findidpw" element={<FindIdPwPage />} />
+        <Route path="/user/reset/:uidb64/:token/" element={<NewPwPage />} />
         {/* 로그인 후에만 접근 가능한 페이지 */}
         {isLoggedIn() ? (
           <>

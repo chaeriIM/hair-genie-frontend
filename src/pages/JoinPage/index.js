@@ -54,7 +54,7 @@ const JoinPage = () => {
       uname: name,
       unickname: nickname,
       uphone: formattedPhoneNumber,
-      uemail: email,
+      email: email,
     };
   
     try {
