@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
-import Webcam from '../../components/Webcam';
+import ImageUpload from '../../components/ImageUpload';
+import './HairSynthesisPage.css';
 import '../../App.css';
 
-const WebcamPage = () => {
-
+const UploadPage = () => {
   const navigate = useNavigate();
 
   const navigateToResult = () => {
@@ -19,10 +19,15 @@ const WebcamPage = () => {
       <hr />
 
       <div className='body-container'>
-        <Webcam onImageUploaded={navigateToResult} />
+        <ImageUpload onImageUploaded={navigateToResult} />
+        {/* <div className='container'>
+        <button className='result-btn' onClick={navigateToResult}>
+          합성
+        </button>
+      </div> */}
       </div>
     </div>
   )
 }
 
-export default WebcamPage
+export default UploadPage
