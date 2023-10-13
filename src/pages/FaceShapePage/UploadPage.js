@@ -1,16 +1,37 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Nav from '../../components/Nav';
 import ImageUpload from '../../components/ImageUpload';
 import './FaceShapePage.css';
 import '../../App.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 const UploadPage = () => {
+
+  const [value, setValue] = useState('');
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  const navigateToResult = () => {
-    navigate("/faceresult");
-  };
+  const handleanalyze = async () => {
+    console.log(value);
+    try {
+      const formData = new FormData();
+      formData.append('image', value);
+
+      const response = await axios.post('http://127.0.0.1:8000/faceshape/analyze_face/',
+      formData
+    );
+      localStorage.setItem('predictions', JSON.stringify(response.data.predictions));
+      localStorage.setItem('cropped_face_url', response.data.cropped_face_url);
+      navigate("/faceresult");
+
+    } catch (error) {
+      console.error('얼굴형 분석 실패:', error);
+      setErrorModalOpen(true);
+    }
+  }
 
   return (
     <div className='faceshape'>
@@ -19,14 +40,33 @@ const UploadPage = () => {
       <hr />
 
       <div className='body-container'>
-        <ImageUpload onImageUploaded={navigateToResult} />
-        {/* <div className='container'>
-        <button className='result-btn' onClick={navigateToResult}>
-          분석
-        </button>
-      </div> */}
+        <ImageUpload setValue={setValue}/>
+        <div className='container'>
+          <button className='result-btn' onClick={handleanalyze}>분석</button>
+        </div>
       </div>
+
+      <Modal
+          isOpen={errorModalOpen}
+          onRequestClose={() => setErrorModalOpen(false)}
+          contentLabel="에러 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>🚫 에러</h2>
+            <button className="close-button" onClick={() => setErrorModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>얼굴형이 잘 보이는 정면 사진을 업로드해 주세요.</p>
+          </div>
+        </Modal>
+
     </div>
+    
   )
 }
 
