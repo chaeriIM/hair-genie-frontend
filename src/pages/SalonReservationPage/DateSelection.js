@@ -75,7 +75,7 @@ const DateSelection = ({ selectedSalon, setStep, setSelectedDate, setSelectedTim
     useEffect(() => {
         // 선택한 날짜에 대한 예약 정보 필터링
         const reservationsForSelectedDate = reservations.filter((reservation) => {
-            return moment(reservation.date).isSame(selectedDateLocal, 'day') && reservation.salon === HID;
+            return moment(reservation.date).isSame(selectedDateLocal, 'day') && reservation.salon === HID && reservation.status === '예약 중';
         });
 
         // 예약 가능한 시간대 계산

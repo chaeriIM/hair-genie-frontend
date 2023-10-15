@@ -3,39 +3,34 @@ import Webcam from '../../components/Webcam';
 import Nav from '../../components/Nav';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import axios from 'axios';
+import Modal from 'react-modal';
 
 const WebcamPage = () => {
+
+  const [value, setValue] = useState('');
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
   const navigate = useNavigate();
-  const [/* result */, setResult] = useState(null);
 
-  const navigateToResult = () => {
-    navigate("/faceresult");
-  };
-
-  // 웹캠 컴포넌트에서 이미지를 캡처하고 백엔드에 전송하는 함수
-  const captureAndAnalyzeImage = async (imageData) => {
-    const formData = new FormData();
-    formData.append('image', imageData);
-
+  const handleanalyze = async () => {
+    console.log(value);
     try {
-      const response = await fetch('http://127.0.0.1:8000/faceshape/analyze-face/', {
-        method: 'POST',
-        body: formData,
-      });
+      const formData = new FormData();
+      formData.append('image', value, "capture-image.jpg");
 
-      if (response.ok) {
-        const data = await response.json();
-        setResult(data.predictions);
-        navigateToResult();
-      } else {
-        // Handle error
-        console.error('Failed to analyze face');
-      }
+      const response = await axios.post('http://127.0.0.1:8000/faceshape/analyze_face/',
+      formData
+    );
+      localStorage.setItem('predictions', JSON.stringify(response.data.predictions));
+      localStorage.setItem('cropped_face_url', response.data.cropped_face_url);
+      navigate("/faceresult");
+
     } catch (error) {
-      // Handle error
-      console.error('An error occurred:', error);
+      console.error('얼굴형 분석 실패:', error);
+      setErrorModalOpen(true);
     }
-  };
+  }
 
   return (
     <div className='faceshape'>
@@ -44,10 +39,33 @@ const WebcamPage = () => {
       <hr />
 
       <div className='body-container'>
-        {/* Webcam 컴포넌트에 이미지 캡처 함수를 전달 */}
-        <Webcam onImageCaptured={captureAndAnalyzeImage} />
-        {/* <Webcam onImageUploaded={navigateToResult} /> */}
+        <Webcam setValue={setValue} />
+        {value && (
+          <div className='container'>
+            <button className='result-btn' onClick={handleanalyze}>분석</button>
+          </div>
+        )}
       </div>
+
+      <Modal
+          isOpen={errorModalOpen}
+          onRequestClose={() => setErrorModalOpen(false)}
+          contentLabel="에러 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>🚫 에러</h2>
+            <button className="close-button" onClick={() => setErrorModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>얼굴형이 잘 보이는 정면 사진을 업로드해 주세요.</p>
+          </div>
+        </Modal>
+
     </div>
   )
 }
