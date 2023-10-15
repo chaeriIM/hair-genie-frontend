@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
@@ -23,9 +24,10 @@ import FaceWebcamPage from './pages/FaceShapePage/WebcamPage';
 import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
 import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
+import NewPwPage from "./pages/LoginPage/NewPwPage";
+import LogoutNoticePage from "./pages/LoginPage/LogoutNoticePage";
 
 import Modal from 'react-modal';
-import NewPwPage from "./pages/LoginPage/NewPwPage";
 Modal.setAppElement('#root')
 
 const App = () => {
@@ -33,6 +35,28 @@ const App = () => {
     const accessToken = localStorage.getItem("accessToken");
     return !!accessToken;
   };
+
+  const checkTokenExpiration = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const tokenData = JSON.parse(atob(accessToken.split(".")[1])); // 디코딩하여 토큰 데이터 추출
+      const expirationTime = tokenData.exp * 1000; // 토큰 만료 시간(밀리초) - 유닉스 타임스탬프
+
+      // 현재 시간(밀리초)
+      const currentTime = new Date().getTime();
+
+      // 토큰 만료 여부 확인
+      if (expirationTime < currentTime) {
+        // 토큰이 만료되었을 경우 로그아웃 로직을 수행
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/logout-notice";
+      }
+    }
+  };
+
+  // 페이지 로드 시 토큰 만료 여부 확인
+  checkTokenExpiration();
 
   return (
     <div className="app">
@@ -42,6 +66,8 @@ const App = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="findidpw" element={<FindIdPwPage />} />
         <Route path="/user/reset/:uidb64/:token/" element={<NewPwPage />} />
+        <Route path="logout-notice" element={<LogoutNoticePage />} />
+
         {/* 로그인 후에만 접근 가능한 페이지 */}
         {isLoggedIn() ? (
           <>
