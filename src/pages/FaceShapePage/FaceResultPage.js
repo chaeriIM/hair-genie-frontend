@@ -11,6 +11,12 @@ const FaceResultPage = () => {
 
   const navigate = useNavigate();
 
+  const navigateToPrevious = () => {
+    navigate("/faceshape")
+    localStorage.removeItem('cropped_face_url');
+    localStorage.removeItem('predictions');
+  }
+
   useEffect(() => {
     const uploadedImage = localStorage.getItem('cropped_face_url');
     const savePredictions = JSON.parse(localStorage.getItem('predictions'));
@@ -187,7 +193,7 @@ const FaceResultPage = () => {
       <div className='body-container'>
         <div className='container'>
           {renderFaceResult()}
-          <button className='result-btn' onClick={() => navigate("/faceshape")}>
+          <button className='result-btn' onClick={navigateToPrevious}>
             이전
           </button>
         </div>

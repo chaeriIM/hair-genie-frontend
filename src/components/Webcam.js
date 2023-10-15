@@ -2,19 +2,17 @@ import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import './Webcam.css';
 
-const WebcamCapture = ({ onImageUploaded }) => {
+function WebcamCapture(props) {
   const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
 
-  const capture = () => {
+  const capture = async () => {
     const imageUrl = webcamRef.current.getScreenshot();
     setCapturedImage(imageUrl);
-    localStorage.setItem('uploadedImage', imageUrl); //이미지 URL 저장
-  };
 
-  const navigate = () => {
-    onImageUploaded();
-  }
+    const blob = await fetch(imageUrl).then((res) => res.blob());
+    props.setValue(blob);
+  };
 
   return (
     <div className='container'>
@@ -28,7 +26,6 @@ const WebcamCapture = ({ onImageUploaded }) => {
       {capturedImage && (
         <div className='container'>
           <img src={capturedImage} alt="Captured" />
-          <button onClick={navigate} className='shoot-btn'>다음</button>
         </div>
       )}
     </div>
