@@ -5,16 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import axios from 'axios';
 import Modal from 'react-modal';
+import Loading from '../../components/Loading';
 
 const WebcamPage = () => {
 
   const [value, setValue] = useState('');
   const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleanalyze = async () => {
-    console.log(value);
+    // console.log(value);
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('image', value, "capture-image.jpg");
@@ -29,6 +32,9 @@ const WebcamPage = () => {
     } catch (error) {
       console.error('얼굴형 분석 실패:', error);
       setErrorModalOpen(true);
+
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -39,11 +45,17 @@ const WebcamPage = () => {
       <hr />
 
       <div className='body-container'>
-        <Webcam setValue={setValue} />
-        {value && (
-          <div className='container'>
-            <button className='result-btn' onClick={handleanalyze}>분석</button>
-          </div>
+        {loading ? (
+          <Loading />
+        ): (
+          <>
+            <Webcam setValue={setValue} />
+            {value && (
+              <div className='container'>
+                <button className='result-btn' onClick={handleanalyze}>분석</button>
+              </div>
+            )}
+          </>
         )}
       </div>
 
