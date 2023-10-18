@@ -6,16 +6,19 @@ import '../../App.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import Loading from '../../components/Loading';
 
 const UploadPage = () => {
 
   const [value, setValue] = useState('');
   const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleanalyze = async () => {
-    console.log(value);
+    // console.log(value);
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('image', value);
@@ -30,6 +33,9 @@ const UploadPage = () => {
     } catch (error) {
       console.error('얼굴형 분석 실패:', error);
       setErrorModalOpen(true);
+    
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -40,10 +46,16 @@ const UploadPage = () => {
       <hr />
 
       <div className='body-container'>
-        <ImageUpload setValue={setValue}/>
-        <div className='container'>
-          <button className='result-btn' onClick={handleanalyze}>분석</button>
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <ImageUpload setValue={setValue}/>
+            <div className='container'>
+              <button className='result-btn' onClick={handleanalyze}>분석</button>
+            </div>
+          </>
+        )}
       </div>
 
       <Modal
