@@ -5,6 +5,8 @@ import '../../App.css';
 
 const HairResultPage = () => {
 
+  const [resultImage, setResultImage] = useState('');
+
   const navigate = useNavigate();
 
   const navigateToResult = () => {
@@ -21,7 +23,7 @@ const HairResultPage = () => {
         <div className='container'>
 
           <div className='result-image'>
-            결과물
+          {resultImage && <img src={`http://127.0.0.1:8000${resultImage}`} alt="로드 실패" />}
           </div>
 
           <button className='result-btn' onClick={navigateToResult}>
