@@ -43,8 +43,7 @@ const App = () => {
         <Route path="findidpw" element={<FindIdPwPage />} />
         <Route path="/user/reset/:uidb64/:token/" element={<NewPwPage />} />
         {/* 로그인 후에만 접근 가능한 페이지 */}
-        {isLoggedIn() ? (
-          <>
+        
             <Route path="hairsynthesis" element={<HairSynthesisPage />} />
             <Route path="faceshape" element={<FaceShapePage />} />
             <Route path="salonlocator" element={<SalonLocatorPage />} />
@@ -63,11 +62,10 @@ const App = () => {
             <Route path="hairresult" element={<HairResultPage />} />
             <Route path="hair-uploadpage" element={<HairUploadPage />} />
             <Route path="hair-webcampage" element={<HairWebcamPage />} />
-          </>
-        ) : (
+         : (
           // 로그인이 필요한 페이지에 접근할 때 표시할 팝업
           <Route path="*" element={<Navigate to="/login" />} />
-        )}
+        )
       </Routes>
     </div>
   );
