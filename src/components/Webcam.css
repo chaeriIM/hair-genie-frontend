@@ -21,3 +21,31 @@
   color: white;
   border: .9px solid #8D99ED;
 }
+
+.shoot-btn:disabled,
+.shoot-btn:disabled:hover {
+  background-color: #f0f0f0;
+  color: #c7c7c7;
+  cursor: auto;
+}
+
+.warning-text,
+.success-text {
+  text-align : center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.warning-text {
+  color: #ff6161;
+  background-color: #ffe8e8; 
+  border: 1px solid #ff6161;
+}
+
+.success-text {
+  color: #82b1ff;
+  background-color: #dfeaff;
+  border: 1px solid #82b1ff;
+}
