@@ -1,11 +1,11 @@
 import React from 'react';
 import './Loading.css';
 
-const Loading = () => {
+const Loading = (props) => {
   return (
     <div className='loading'>
       <img src='/images/spinner.gif' alt='로딩중' className='loading-img'/>
-      <p className='loading-msg'>얼굴형 분석 중</p>
+      <p className='loading-msg'>{props.message}</p>
     </div>
   )
 }

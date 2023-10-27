@@ -47,7 +47,7 @@ const UploadPage = () => {
 
       <div className='body-container'>
         {loading ? (
-          <Loading />
+          <Loading message='얼굴형 분석 중' />
         ) : (
           <>
             <ImageUpload setValue={setValue}/>

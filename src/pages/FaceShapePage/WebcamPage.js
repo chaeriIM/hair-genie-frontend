@@ -46,7 +46,7 @@ const WebcamPage = () => {
 
       <div className='body-container'>
         {loading ? (
-          <Loading />
+          <Loading message='얼굴형 분석 중' />
         ): (
           <>
             <Webcam setValue={setValue} />
