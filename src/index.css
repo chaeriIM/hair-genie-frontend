@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  min-width: 800px;
+  min-width: 1000px;
   /* 내용들 밀리는 거 방지하기 위해 최소 넓이 지정 */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

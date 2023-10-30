@@ -101,7 +101,6 @@ const ServiceMenuSelection = ({ selectedSalon, selectedDate, selectedTime, setSt
 
     const handlePopupConfirm = async () => {
         try {
-            /* const customerId = matchedUser.id; */
             const salonId = HID;
             const date = moment(selectedDate).format('YYYY-MM-DD');
             const time = selectedTime;
