@@ -22,8 +22,7 @@ const Nav = () => {
         className='logo' />
       <span className="logo-text" onClick={() => (window.location.href = "/")}>Hair Genie</span>
       <div className='navbar'>
-        {/* <Link className='navbarMenu' to={'/'}>메인</Link> */}
-        <a href='/hairsynthesis' className='navbarMenu'>지니 타임</a>
+        <a href='/hairsynthesis' className='navbarMenu'>헤어스타일 합성</a>
         <a href='/faceshape' className='navbarMenu'>얼굴형 분석</a>
         <a href='/salonlocator' className='navbarMenu'>미용실 찾기</a>
         <a href='/salonreservation' className='navbarMenu'>미용실 예약</a>
