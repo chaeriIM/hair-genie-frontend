@@ -1,0 +1,27 @@
+.total_wrap {
+  margin: 0 80px;
+}
+
+/* infowindow */
+.salon-info {
+  padding: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 200px;
+  /* word-wrap: break-word; */
+}
+
+.salon-name strong {
+  font-size: 15px;
+  color: #76a1e6;
+}
+
+.salon-list {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  z-index: 1;
+}

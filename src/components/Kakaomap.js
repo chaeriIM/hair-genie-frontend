@@ -10,6 +10,7 @@ const getLocation = async () => {
             navigator.geolocation.getCurrentPosition(function (position) {
                 const lat = position.coords.latitude; //위도
                 const lon = position.coords.longitude; //경도
+                console.log(lat, lon);
 
                 const coordinate = new kakao.maps.LatLng(lat, lon); //위치 정보를 표현
                 res(coordinate);
