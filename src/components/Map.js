@@ -7,6 +7,7 @@ import './Map.css';
 const Map = () => {
   const [salons, setSalons] = useState([]);
   const [initialPosition, setInitialPosition] = useState(null);
+  const [mapInstance, setMapInstance] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Map = () => {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
+          console.log('사용자의 현재 위치', latitude, longitude);
           setInitialPosition(new kakao.maps.LatLng(latitude, longitude));
           setLoading(false);
         },
@@ -47,6 +49,8 @@ const Map = () => {
         level: 3
       };
       const map = new kakao.maps.Map(mapContainer, mapOption);
+      setMapInstance(map);
+      
       // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
       const mapTypeControl = new kakao.maps.MapTypeControl();
 
@@ -99,6 +103,13 @@ const Map = () => {
     }
   }, [initialPosition, salons]);
 
+  const handleMyLocationClick = () => {
+    if (mapInstance && initialPosition) {
+      // 현재 위치로 지도의 중심 이동
+      mapInstance.setCenter(initialPosition);
+    }
+  };
+
   return (
     <>
     {loading ? (
@@ -106,6 +117,10 @@ const Map = () => {
     ) : (
       <div className='total_wrap'>
         <div id="map" style={{ width: '100%', height: '500px' }}></div>
+        <button className='current-btn' onClick={handleMyLocationClick}>
+          <img src='/images/currenticon.png' alt='현재 위치 아이콘' />
+          <span>나의 위치</span>
+        </button>
       </div>
     )}
     </> 
