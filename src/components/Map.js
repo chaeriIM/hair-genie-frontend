@@ -43,6 +43,7 @@ const Map = () => {
   useEffect(() => {
     // 사용자의 현재 위치를 기반으로 지도에 마커를 표시
     if (initialPosition) {
+      // console.log('사용자 중심', initialPosition);
       const mapContainer = document.getElementById('map');
       const mapOption = {
         center: initialPosition,
@@ -51,52 +52,74 @@ const Map = () => {
       const map = new kakao.maps.Map(mapContainer, mapOption);
       setMapInstance(map);
       
-      // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+      // 지도 컨트롤
       const mapTypeControl = new kakao.maps.MapTypeControl();
-
-      // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-      // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
       map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-      // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
       const zoomControl = new kakao.maps.ZoomControl();
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+      // 지도 중심을 기반으로 LatLngBounds 객체 생성
+      const bounds = new kakao.maps.LatLngBounds(
+        new kakao.maps.LatLng(initialPosition.getLat() - 0.05, initialPosition.getLng() - 0.05),
+        new kakao.maps.LatLng(initialPosition.getLat() + 0.05, initialPosition.getLng() + 0.05)
+      );
+
+      
 
       salons.forEach(salon => {
         // 미용실 주소를 이용하여 위도와 경도를 얻어옴
         const geocoder = new kakao.maps.services.Geocoder();
         geocoder.addressSearch(salon.HLoc, (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            const latlng = new kakao.maps.LatLng(result[0].y, result[0].x);
+            const salonLatLng = new kakao.maps.LatLng(result[0].y, result[0].x);
             
-            const markerImage = new kakao.maps.MarkerImage(
-              '/images/salonicon.png', new kakao.maps.Size(48, 48));
-
-            const marker = new kakao.maps.Marker({
-              position: latlng,
-              map: map,
-              title: salon.HName,
-              image: markerImage
-            });
-
-            // console.log('Marker created:', marker.getPosition());
-
-            // 마커 클릭 시 인포윈도우 표시
-            kakao.maps.event.addListener(marker, 'click', function() {
-              const infowindow = new kakao.maps.InfoWindow({
-                content: `<div class="salon-info">
-                            <div class="salon-name">
-                              <strong>${salon.HName}</strong>
-                            </div>
-                            <br />
-                            <div class="salon-loc">
-                              주소: ${salon.HLoc}
-                            </div>
-                          </div>`,
-                removable: true
+            // LatLngBounds에 속하는 미용실만 표시
+            if (bounds.contain(salonLatLng)) {
+              // 마커 생성
+              const markerImage = new kakao.maps.MarkerImage(
+                '/images/salonicon.png', new kakao.maps.Size(48, 48));
+  
+              const marker = new kakao.maps.Marker({
+                position: salonLatLng,
+                map: map,
+                title: salon.HName,
+                image: markerImage
               });
-              infowindow.open(map, marker);
-            });
+  
+              // console.log('Marker created:', marker.getPosition());
+  
+              // 마커 클릭 시 인포윈도우 표시
+              kakao.maps.event.addListener(marker, 'click', function() {
+                const infowindow = new kakao.maps.InfoWindow({
+                  content: `<div class="salon-info">
+                              <div class="salon-name">
+                                <strong>${salon.HName}</strong>
+                              </div>
+                              <br />
+                              <div class="salon-loc">
+                                주소: ${salon.HLoc}
+                              </div>
+                            </div>`,
+                  removable: true
+                });
+                infowindow.open(map, marker);
+              });
+              
+              // 미용실 목록 표시 element
+              const salonList = document.getElementById('salon-list');
+              // 미용실 목록 추가
+              const listItem = document.createElement('li');
+              listItem.innerHTML = `
+                <strong>${salon.HName}</strong>
+                <div class="salon-loc">주소: ${salon.HLoc}</div>
+              `;
+              listItem.addEventListener('click', () => {
+                map.setCenter(salonLatLng);
+                map.setLevel(3);
+              });
+              salonList.appendChild(listItem);
+            }
           }
         });
       });
@@ -107,6 +130,8 @@ const Map = () => {
     if (mapInstance && initialPosition) {
       // 현재 위치로 지도의 중심 이동
       mapInstance.setCenter(initialPosition);
+      // 지도 레벨을 3으로 변경
+      mapInstance.setLevel(3);
     }
   };
 
@@ -121,6 +146,10 @@ const Map = () => {
           <img src='/images/currenticon.png' alt='현재 위치 아이콘' />
           <span>나의 위치</span>
         </button>
+        <div className='salon-wrap'>
+          <div className='list-title'>주변 미용실 목록</div>
+          <ul id="salon-list"></ul>
+        </div>
       </div>
     )}
     </> 
