@@ -6,9 +6,15 @@
 .img-notice {
   display: flex;
   justify-content: center;
-  margin: 20px 0 0 0;
-  font-size: 20px;
+  margin: 40px 0 0 0;
+  font-size: 24px;
+  font-weight: 500;
   color: #82B1FF;
+  text-decoration: #fff7d6;
+  text-decoration-thickness: 10px;
+  text-underline-offset: -1.5px;
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
 }
 
 .down-btn {

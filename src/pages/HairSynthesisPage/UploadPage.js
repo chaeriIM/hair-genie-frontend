@@ -54,16 +54,16 @@ const UploadPage = () => {
 
       <div className='body-container'>
         {loading ? (
-          <Loading message='헤어스타일 합성중' />
+          <Loading message='헤어스타일 합성 중' />
         ) : (
           <>
             <div className='img-container'>
               <div>
-                <p className='img-notice'>-- 얼굴 사진 --</p>
+                <p className='img-notice'>✧ 얼굴 사진 ✧</p>
                 <ImageUpload setValue={handleFaceImage} inputId="FaceImage" />
               </div>
               <div>
-                <p className='img-notice'>-- 헤어스타일 사진 --</p>
+                <p className='img-notice'>✧ 헤어스타일 사진 ✧</p>
                 <ImageUpload setValue={handleHairstyleImage} inputId="HairstyleImage" />
               </div>
             </div>
