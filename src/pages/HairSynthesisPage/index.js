@@ -17,9 +17,9 @@ const HairSynthesisPage = () => {
   };
 
   return (
-    <div className='faceshape'>
+    <div className='hairsynthesis'>
       <Nav />
-      <p className='main-title'>지니 타임</p>
+      <p className='main-title'>헤어스타일 합성</p>
       <hr />
 
       <div className='body-container'>

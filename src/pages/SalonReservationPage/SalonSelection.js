@@ -1,35 +1,89 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import './SalonSelection.css';
 
 const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
-    const handleReservationClick = (selectedSalon) => {
+    const [salonData, setSalonData] = useState([]);
+    const [selectedRegion, setSelectedRegion] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    useEffect(() => {
+        const fetchSalonData = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/hairsalon/');
+                if (response.ok) {
+                    const data = await response.json();
+                    const sortedData = data.sort((a, b) => a.HName.localeCompare(b.HName));
+                    setSalonData(sortedData);
+                } else {
+                    throw new Error('API 요청에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchSalonData();
+    }, []);
+
+    const handleReservationClick = (HID, HName, HLoc) => {
+        const selectedSalon = { HID, HName, HLoc }; // 선택한 미용실의 정보를 객체로 저장
         onSelectSalon(selectedSalon);
-        setStep(2); // 스텝을 2로 변경하여 DateSelection 컴포넌트로 전환
+        console.log('selectedSalon:', selectedSalon);
+
+        setStep(2);
     };
 
-    const salonData = [
-        { id: '00', name: '00미용실', location: '00미용실 위치' },
-        { id: '01', name: '01미용실', location: '01미용실 위치' },
-        { id: '02', name: '02미용실', location: '02미용실 위치' },
-        { id: '03', name: '03미용실', location: '03미용실 위치' },
-        { id: '04', name: '04미용실', location: '04미용실 위치' },
-        { id: '05', name: '05미용실', location: '05미용실 위치' }
-    ];
+    const uniqueRegions = [...new Set(salonData.map(salon => salon.HRegion))]; // 중복 제거된 지역 목록
+
+    useEffect(() => {
+        const updateSearchResults = () => {
+            const filteredSalons = salonData
+                .filter((salon) => !selectedRegion || salon.HRegion === selectedRegion)
+                .filter((salon) => salon.HName.toLowerCase().includes(searchKeyword.toLowerCase()));
+
+            setSearchResults(filteredSalons);
+        };
+
+        updateSearchResults();
+    }, [selectedRegion, searchKeyword, salonData]);
 
     return (
         <div className='body-container'>
+            <div className='Htop-container'>
+                <div className='region-selector'>
+                    <select onChange={(e) => setSelectedRegion(e.target.value)}>
+                        <option value="">전체</option>
+                        {uniqueRegions.map((region) => (
+                            <option key={region} value={region}>{region}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='search-bar'>
+                    <input
+                        type="text"
+                        placeholder="검색"
+                        value={searchKeyword}
+                        onChange={(e) => setSearchKeyword(e.target.value)}
+                    />
+                </div>
+            </div>
             <div className='salon-box-container'>
-                {salonData.map((salon, index) => (
-                    <React.Fragment key={salon.id}>
-                        {/*{index === 0 && <div className='distance-label'>거리 순</div>}*/}
-                        <div className='salon-box'>
-                            <div className='salon-name'>{salon.name}<div className='salon-location'>{salon.location}</div></div>
+                {searchResults.length === 0 ? (
+                    <div className='no-results-message'>일치하는 검색 결과가 없습니다.</div>
+                ) : (
+                    searchResults.map((salon) => (
+                        <div className='salon-box' key={salon.HID}>
+                            <div className='salon-name'>{salon.HName} <div className='salon-location'>{salon.HLoc}</div></div>
                             {currentStep === 1 ? (
-                                <div className='reservation-button' onClick={() => handleReservationClick(salon.name)}>예약</div>
+                                <div className='reservation-button' onClick={() => {
+                                    handleReservationClick(salon.HID, salon.HName, salon.HLoc);
+                                }}>예약</div>
                             ) : null}
                         </div>
-                    </React.Fragment>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     );

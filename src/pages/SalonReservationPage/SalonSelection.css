@@ -1,3 +1,16 @@
+.Htop-container {
+    display: flex;
+    min-width: 600px;
+    width: 62%;
+    justify-content: space-between;
+    margin: -10px 0 10px 0;
+}
+
+.search-bar,
+.region-selector {
+    font-size: 15px;
+}
+
 .salon-box-container {
     display: flex;
     margin: 0 0 10px 0;
@@ -8,13 +21,10 @@
     gap: 15px;
 }
 
-/* .distance-label {
-    display: flex;
-    font-size: 15px;
-    position: absolute;
-    transform: translateY(-50%);
-    left: 19%;
-} */
+.no-results-message {
+    font-size: 18px;
+    margin-top: 20px;
+}
 
 .salon-box {
     display: flex;

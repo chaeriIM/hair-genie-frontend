@@ -3,29 +3,27 @@ import Nav from '../../components/Nav';
 import Popup from '../../components/Popup';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import axios from 'axios';
 
-// 비밀번호 임시로 지정
 const PasswordChange = () => {
-    const CurrentPassword = "password1234*";
 
-    const [currentPassword, setCurrentPassword] = useState(CurrentPassword);
+    const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
-    const [savePopupOpen, setSavePopupOpen] = useState(false);
     const [saveCompletePopupOpen, setSaveCompletePopupOpen] = useState(false);
+    const [saveErrorPopupOpen, setSaveErrorPopupOpen] = useState(false);
 
     const [passwordValidationStatus, setPasswordValidationStatus] = useState('');
     const [passwordConfirmValidationStatus, setPasswordConfirmValidationStatus] = useState('');
 
     const navigate = useNavigate();
 
-    const handleSaveClick = () => {
-        if (!areAllFieldsFilled) {
-            setSavePopupOpen(true);
-            return;
-        }
+    const handleSaveClick = async () => {
+        // if (!areAllFieldsFilled) {
+        //     return;
+        // }
 
         if (!isValidPassword(password)) {
             setPasswordValidationStatus('error');
@@ -39,20 +37,50 @@ const PasswordChange = () => {
         }
         setPasswordConfirmValidationStatus('success');
 
-        if (currentPassword !== password) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const updatedUserPw = {
+                current_password: currentPassword,
+                new_password: password,
+            };
+            const response = await axios.put('http://127.0.0.1:8000/user/change_password/',
+                updatedUserPw,
+                {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                    },
+                  }
+                );
+                
+            console.log("비밀번호 변경 성공", response.data);
             setIsPasswordChanged(true);
+            setSaveCompletePopupOpen(true);
+
+            setTimeout(() => {
+                navigate('/mypage');
+            }, 800);
+
+        } catch (error) {
+            console.error("비밀번호 변경 실패", error);
+
+            if (error.response) {
+                if(error.response.status === 400) {
+                    console.error("비밀번호 변경 실패: ", error.response.data.message);
+                    setSaveErrorPopupOpen(true);
+
+                    setCurrentPassword('');
+                    setPassword('');
+                    setPasswordConfirm('');
+                    setPasswordValidationStatus('');
+                    setPasswordConfirmValidationStatus('');
+
+                    setTimeout(() => {
+                        setSaveErrorPopupOpen(false);
+                    }, 1200);
+                }
+            }
+            
         }
-
-        setSavePopupOpen(true);
-    };
-
-    const handleSaveConfirm = () => {
-        setSavePopupOpen(false);
-        setSaveCompletePopupOpen(true);
-
-        setTimeout(() => {
-            navigate('/mypage');
-        }, 800);
     };
 
     const areAllFieldsFilled = currentPassword && password && passwordConfirm;
@@ -70,7 +98,7 @@ const PasswordChange = () => {
             <div className='body-container'>
                 <div className='info-container'>
                     <p className='password-C-description'>
-                    <img src="/images/password_icon.svg" alt="lock icon" class="lock-icon" />
+                    <img src="/images/password_icon.svg" alt="lock icon" className="lock-icon" />
                     현재 비밀번호를 입력한 후 <br/>새로 사용할 비밀번호를 입력해주세요.</p>
                     <div className={`info-row ${passwordValidationStatus === 'error' ? 'has-error' : ''}`}>
                         <div className="info-input-container">
@@ -81,6 +109,7 @@ const PasswordChange = () => {
                                 onChange={(e) => {
                                     const inputValue = e.target.value;
                                     setCurrentPassword(inputValue);
+                                    setIsPasswordChanged(password !== inputValue);
                                 }}
                             />
                         </div>
@@ -135,16 +164,16 @@ const PasswordChange = () => {
                 </div>
             </div>
             <Popup
-                isOpen={savePopupOpen}
-                message="비밀번호를 변경하시겠어요?"
-                onConfirm={handleSaveConfirm}
-                onCancel={() => setSavePopupOpen(false)}
-            />
-            <Popup
                 isOpen={saveCompletePopupOpen}
                 message="비밀번호가 변경되었습니다."
                 isCompleted={true}
                 onCancel={() => setSaveCompletePopupOpen(false)}
+            />
+            <Popup
+                isOpen={saveErrorPopupOpen}
+                message="기존 비밀번호가 일치하지 않습니다."
+                isCompleted={true}
+                onCancel={() => setSaveErrorPopupOpen(false)}
             />
         </div>
     );

@@ -3,6 +3,7 @@ import Nav from '../../components/Nav';
 import './SalonLocatorPage.css';
 import '../../App.css';
 import Kakaomap from '../../components/Kakaomap';
+// import Map from '../../components/Map';
 
 const SalonLocatorPage = () => {
   return (
@@ -11,6 +12,7 @@ const SalonLocatorPage = () => {
       <p className='main-title'>주변 미용실 찾기</p>
       <hr />
       <Kakaomap />
+      {/* <Map /> */}
     </div>
     
   )

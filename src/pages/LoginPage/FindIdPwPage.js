@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './FindIdPwPage.css';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 const FindIdPwPage = () => {
 
@@ -8,13 +9,18 @@ const FindIdPwPage = () => {
   const [name, setName] = useState('');
   const [id, setId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
 
   const [nameError, setNameError] = useState('');
   const [idError, setIdError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const [idModalOpen, setIdModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
+  const [foundUserId, setFoundUserId] = useState('');
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -26,12 +32,14 @@ const FindIdPwPage = () => {
     setNameError('');
     setIdError('');
     setPhoneNumberError('');
+    setEmailError('');
   };
 
   const clearInputs = () => {
     setName('');
     setId('');
     setPhoneNumber('');
+    setEmail('');
   };
 
   //휴대전화 하이픈 생성
@@ -50,9 +58,9 @@ const FindIdPwPage = () => {
     const formattedValue = formatPhoneNumber(value);
     setPhoneNumber(formattedValue);
   };
-
+  
   //다음 버튼 클릭
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
     clearErrors();
     
     let hasError = false;
@@ -79,21 +87,46 @@ const FindIdPwPage = () => {
         setIdError('아이디를 입력해주세요.');
         hasError = true;
       }
-      if (!phoneNumber) {
-        setPhoneNumberError('전화번호를 입력해주세요.');
+      if (!email) {
+        setEmailError('이메일 입력해주세요.');
         hasError = true;
-      } else if (phoneNumber.replace(/\D/g, '').length !== 11) {
-        setPhoneNumberError('올바른 전화번호를 입력해주세요.');
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        setEmailError('올바른 이메일을 입력해주세요.');
         hasError = true;
       }
     }
 
     if (!hasError) {
-      if (activeTab === 'id') {
-        setIdModalOpen(true);
+      if (activeTab === 'id'){
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/user/find-userid/', {
+            params: { uname: name, uphone: phoneNumber }
+          });
+          const { uid } = response.data;
+          setFoundUserId(uid); // 아이디 값을 상태에 설정
+          setIdModalOpen(true); // 모달에서 값 보여주기
+        } catch (error) {
+          console.error('서버에서 에러 발생:', error.response.data.error);
+          setErrorModalOpen(true);
+        }
+        
       } else if (activeTab === 'password') {
-        setPasswordModalOpen(true);
+        try {
+          const response = await axios.post('http://127.0.0.1:8000/user/password_reset/', {
+            uname: name,
+            uid: id,
+            email: email,
+          });
+          console.log(response.data);
+          setPasswordModalOpen(true);
+
+        } catch (error) {
+            console.error('오류가 발생했습니다:', error);
+            setErrorModalOpen(true);
+        }
+
       }
+      
     }
   };
 
@@ -130,7 +163,7 @@ const FindIdPwPage = () => {
 
                   <label htmlFor='name'>이름</label>
                   <input
-                    id='이름'
+                    id='name'
                     type='text'
                     placeholder='이름을 입력하세요.'
                     value={name}
@@ -155,7 +188,7 @@ const FindIdPwPage = () => {
 
                   <label htmlFor='name'>이름</label>
                   <input
-                    id='이름'
+                    id='name'
                     type='text'
                     placeholder='이름을 입력하세요.'
                     value={name}
@@ -173,15 +206,19 @@ const FindIdPwPage = () => {
                   />
                   {idError && <p className='error-msg'>{idError}</p>}
 
-                  <label htmlFor='phoneNumber'>전화번호</label>
+                  <label htmlFor='email'>이메일</label>
                   <input
-                    id='phoneNumber'
-                    type='text'
-                    placeholder='전화번호를 입력하세요.'
-                    value={phoneNumber}
-                    onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                    id='email'
+                    type='email'
+                    placeholder='이메일을 입력하세요.'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  {phoneNumberError && <p className='error-msg'>{phoneNumberError}</p>}
+                  {emailError ? (
+                  <p className='error-msg'>{emailError}</p>
+                  ) : (
+                    <p className='guide-msg'>새로운 비밀번호를 설정하는 절차를 이메일로 보내드리겠습니다.</p>
+                  )}
 
                 </div>
               )}
@@ -210,7 +247,7 @@ const FindIdPwPage = () => {
             </button>
           </div>
           <div className="modal-content">
-            <p>아이디는 #####입니다.</p>
+            <p>아이디는 {foundUserId}입니다.</p>
           </div>
         </Modal>
 
@@ -224,15 +261,39 @@ const FindIdPwPage = () => {
           ariaHideApp={false}
         >
           <div className="modal-header">
-            <h2>비밀번호</h2>
+            <h2>💡 비밀번호 재설정 메일 발송 완료</h2>
             <button className="close-button" onClick={() => setPasswordModalOpen(false)}>
               X
             </button>
           </div>
           <div className="modal-content">
-            <p>비밀번호는 ******입니다.</p>
+            <p>
+              비밀번호 재설정을 위한 메일이 발송되었습니다.<br/>
+              만약 메일이 오지 않는다면, 이메일 주소를 다시 확인하거나 스팸 메일함을 확인해 주세요.
+            </p>
           </div>
         </Modal>
+
+        {/* 에러 모달 */}
+        <Modal
+          isOpen={errorModalOpen}
+          onRequestClose={() => setErrorModalOpen(false)}
+          contentLabel="에러 모달"
+          className="modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="modal-header">
+            <h2>🚫 에러</h2>
+            <button className="close-button" onClick={() => setErrorModalOpen(false)}>
+              X
+            </button>
+          </div>
+          <div className="modal-content">
+            <p>사용자를 찾을 수 없습니다.</p>
+          </div>
+        </Modal>
+
       </div>
     </div>
   )

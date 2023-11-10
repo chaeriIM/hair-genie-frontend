@@ -1,114 +1,123 @@
 .mypage-m {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .mypage-container {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 0 10px 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 10px 0;
 }
 
 .mypage-profile {
-    display: flex;
-    padding: 10px;
-    cursor: auto;
-    flex-direction: row;
-    border: 1px solid rgba(0, 0, 0, .08);
-    min-width: 560px;
-    width: 60%;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 1px 5px 8px 0 rgba(0, 0, 0, .06);
+  display: flex;
+  padding: 15px;
+  cursor: auto;
+  flex-direction: row;
+  border-radius: 12px;
+  box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
+  border: solid 1px #e3e9ed;
+  background-color: #fff;
+  min-width: 560px;
+  width: 60%;
+  align-items: center;
+}
+
+.mypage-profile img {
+  object-fit: cover;
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;
 }
 
 .profile-section {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .mypage-profile-image {
-    position: relative;
-    text-align: center;
-    cursor: auto;
-    margin-right: 10px;
+  position: relative;
+  text-align: center;
+  cursor: auto;
+  margin-right: 10px;
 }
 
 .mypage-profile-image img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 2px dashed #ccc;
-    transition: transform 0.2s ease-in-out;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px dashed #ccc;
+  transition: transform 0.2s ease-in-out;
 }
 
 .nickname {
-    font-size: 24px;
-    margin: 0 0 0 10px;
+  margin: 0 0 0 15px;
+  font-size: 24px;
+  color: #82b1ff;
 }
 
 .nickname-text {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .mypage-button-section {
-    display: flex;
-    gap: 20px;
-    margin: 30px auto;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    min-width: 580px;
-    width: 62%;
+  display: flex;
+  gap: 20px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-width: 580px;
+  width: 62%;
 }
 
 .mypage-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 30%;
-    min-width: 180PX;
-    height: 120px;
-    padding: 17px;
-    border-radius: 12px;
-    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
-    border: solid 1px #e3e9ed;
-    background-color: #fff;
-    box-sizing: border-box;
-    font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 30%;
+  min-width: 180px;
+  height: 120px;
+  padding: 17px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
+  border: solid 1px #e3e9ed;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
 .mypage-menu-button {
-    display: flex;
-    transition: 0.4s;
-    cursor: pointer;
+  display: flex;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 .mypage-menu-button:hover,
 .bottom-button:hover,
 .withdrawal-button:hover {
-    color: #8D99ED;
+  color: #8d99ed;
 }
 
 .bottom-button {
-    display: flex;
-    cursor: pointer;
-    transition: 0.4s;
-    color: #a6a6a6;
-    align-items: baseline;
-    font-size: 14px;
+  display: flex;
+  cursor: pointer;
+  transition: 0.4s;
+  color: #a6a6a6;
+  align-items: baseline;
+  font-size: 14px;
 }
 
 /* 비밀번호 변경 */
 .password-C-description {
-    font-size: 18px;
-    margin-top: -10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-size: 18px;
+  margin-top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lock-icon {
-    height:100px;
+  height: 100px;
 }
