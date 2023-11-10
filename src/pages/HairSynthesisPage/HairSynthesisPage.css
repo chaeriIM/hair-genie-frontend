@@ -1,0 +1,29 @@
+.img-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.img-notice {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+  font-size: 20px;
+  color: #82B1FF;
+}
+
+.down-btn {
+  width: 130px;
+  padding: 8px 15px;
+  border: 1px solid #82b1ff;
+  border-radius: 60px;
+  transition: .4s;
+  cursor: pointer;
+  margin: 20px 10px;
+  background-color: #82b1ff;
+  color: white;
+}
+
+.down-btn:hover {
+  background-color: #92c1ff;
+  border: 1px solid #92c1ff;
+}

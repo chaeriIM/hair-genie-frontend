@@ -17,7 +17,7 @@ function ImageUpload(props) {
   return (
     <div className='imageupload'>
       <div className='container'>
-        <label htmlFor="upload-button" className="upload-label">
+        <label htmlFor={props.inputId} className="upload-label">
           <div className='image-container'>
             {selectedImage ? (
               <img src={selectedImage} alt="Uploaded" className="uploaded-image" />
@@ -27,7 +27,7 @@ function ImageUpload(props) {
           </div>
         </label>
 
-        <input id='upload-button' type='file' accept='image/*' onChange={handleImageUpload} />
+        <input id={props.inputId} type='file' accept='image/*' onChange={handleImageUpload} />
       </div>
     </div>
   )

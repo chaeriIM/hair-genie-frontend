@@ -194,7 +194,7 @@ const FaceResultPage = () => {
         <div className='container'>
           {renderFaceResult()}
           <button className='result-btn' onClick={navigateToPrevious}>
-            이전
+            다시 하기
           </button>
         </div>
       </div>

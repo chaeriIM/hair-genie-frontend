@@ -17,9 +17,9 @@
   margin: 20px 0;
 }
 .shoot-btn:hover {
-  background-color: #8D99ED; /* #b4d1ed */
+  background-color: #82b1ff; /* #b4d1ed */
   color: white;
-  border: .9px solid #8D99ED;
+  border: .9px solid #82b1ff;
 }
 
 .shoot-btn:disabled,
