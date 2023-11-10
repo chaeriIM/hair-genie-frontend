@@ -133,9 +133,15 @@ const ReservationDetails = () => {
         );
     }
 
-    /* const handlePopupCancel = () => {
-        setPopupOpen(false);
-    }; */
+    //리뷰 작성
+    const handleReviewClick = () => {
+        window.location.href = `/review/${reservation.id}`;
+    };
+
+    // 리뷰 수정
+    const handleReviewEditClick = () => {
+        window.location.href = `/review/${reservation.id}/edit`;
+    };
 
     return (
         <div>
@@ -146,7 +152,7 @@ const ReservationDetails = () => {
                 <div className='reservation-details-container'>
                     <div className={`D-reservation-box ${reservation?.status === '예약 취소' ? 'cancelled' : ''}`}>
                         {reservation?.status === '예약 취소' && <p className="DDR-title">취소된 예약</p>}
-                        {reservation?.status === '이용 완료' && <p className="DDR-title">이용 완료</p>}
+                        {(reservation?.status === '이용 완료' || reservation?.status === '리뷰 작성 완료') && <p className="DDR-title">이용 완료</p>}
                         <p className="D-RNum">No.{reservation?.id}</p>
                         <hr className="mypage-separator" />
                         <p className="D-menu">일정{' '} <span className="D-info">{reservation?.date} {moment(reservation?.time, 'HH:mm').format('a h:mm')}</span></p>
@@ -156,6 +162,12 @@ const ReservationDetails = () => {
                         )}
                         {reservation?.status === '예약 중' && isReservationTimeInPast() && (
                             <button className="Rstatus-button" onClick={handleCompleteClick}>이용 완료</button>
+                        )}
+                        {reservation?.status === '이용 완료' && (
+                            <button className="Rstatus-button" onClick={handleReviewClick}>리뷰 쓰기</button>
+                        )}
+                        {reservation?.status === '리뷰 작성 완료' && (
+                            <button className="Rstatus-button" onClick={handleReviewEditClick}>내가 작성한 리뷰</button>
                         )}
                         <hr className="mypage-separator" />
                         <p className="D-title">오시는 길</p>
@@ -178,7 +190,7 @@ const ReservationDetails = () => {
                             isOpen={completePopupOpen}
                             message={
                                 reservationCompleted
-                                    ? '이용 완료 되었습니다.'
+                                    ? '이용 완료되었습니다.'
                                     : '서비스를 받아보셨다면 이용 완료해 주세요.'
                             }
                             onConfirm={handleCompleteConfirmation}

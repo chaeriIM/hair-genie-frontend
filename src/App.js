@@ -14,6 +14,8 @@ import FaceTypeInfo from './pages/MyPage/FaceTypeInfo';
 import MyFaceType from './pages/MyPage/MyFaceType';
 import ReservationInfo from './pages/MyPage/ReservationInfo';
 import ReservationDetails from './pages/MyPage/ReservationDetails';
+import ReviewWrite from "./pages/MyPage/ReviewWrite.js";
+import EditReview from "./pages/MyPage/EditReview.js";
 import Withdrawal from './pages/MyPage/Withdrawal';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage'
@@ -82,6 +84,8 @@ const App = () => {
             <Route path="my-face-type" element={<MyFaceType />} />
             <Route path="reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation/:id" element={<ReservationDetails />} />
+            <Route path="/review/:id" element={<ReviewWrite />} />
+            <Route path="/review/:id/edit" element={<EditReview />} />
             <Route path="withdrawal" element={<Withdrawal />} />
             <Route path="faceresult" element={<FaceResultPage />} />
             <Route path="face-uploadpage" element={<FaceUploadPage />} />
@@ -91,7 +95,7 @@ const App = () => {
             <Route path="hair-webcampage" element={<HairWebcamPage />} />
           </>
         ) : (
-          // 로그인이 필요한 페이지에 접근할 때 표시할 팝업
+          // 로그인이 필요한 페이지에 접근할 때
           <Route path="*" element={<Navigate to="/login" />} />
         )}
       </Routes>
