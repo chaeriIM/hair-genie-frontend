@@ -50,7 +50,7 @@ const UploadPage = () => {
           <Loading message='얼굴형 분석 중' />
         ) : (
           <>
-            <ImageUpload setValue={setValue}/>
+            <ImageUpload setValue={setValue} inputId="FaceImage"/>
             <div className='container'>
               <button className='result-btn' onClick={handleanalyze}>분석</button>
             </div>
