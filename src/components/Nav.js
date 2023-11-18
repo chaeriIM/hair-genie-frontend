@@ -5,7 +5,7 @@ const Nav = () => {
 
   const accessToken = localStorage.getItem('accessToken');
 
-  const handleLogout = () => {
+    const handleLogout = () => {
     // 로그아웃 시 로컬 스토리지에서 토큰 삭제
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
