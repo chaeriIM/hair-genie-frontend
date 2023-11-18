@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Alert from '../../components/Alert';
 import './MyPage.css';
 import '../../App.css';
 import axios from 'axios';
