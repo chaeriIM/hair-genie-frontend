@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import '../../App.css';
 import axios from 'axios';
 import './ReviewWrite.css';
@@ -100,6 +101,7 @@ const ReviewWrite = () => {
         <div className='review-write'>
             <Nav />
             <p className='main-title'>리뷰 쓰기</p>
+            <Alert />
             <hr />
             <div className='body-container'>
                 <div className='mypage-review-container'>

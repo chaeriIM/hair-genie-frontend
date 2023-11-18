@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
 import '../../App.css';
 import './ReservationDetails.css'
@@ -147,6 +148,7 @@ const ReservationDetails = () => {
         <div>
             <Nav />
             <p className='main-title'>{reservation?.HName}</p>
+            <Alert />
             <hr />
             <div className='body-container'>
                 <div className='reservation-details-container'>

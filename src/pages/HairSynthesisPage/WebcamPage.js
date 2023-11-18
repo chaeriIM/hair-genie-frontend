@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import Webcam from '../../components/Webcam';
 import ImageUpload from '../../components/ImageUpload';
 import axios from 'axios';
@@ -52,6 +53,7 @@ const UploadPage = () => {
     <div className='hairsynthesis'>
       <Nav />
       <p className='main-title'>헤어스타일 합성</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Webcam from '../../components/Webcam';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import axios from 'axios';
@@ -42,6 +43,7 @@ const WebcamPage = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>

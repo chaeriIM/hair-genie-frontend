@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import '../../App.css';
 import axios from 'axios';
 import './ReviewWrite.css';
 import Popup from '../../components/Popup';
 
 const EditReview = () => {
-    const minReviewLength = 10; // 최소 리뷰 길이
-    const maxReviewLength = 400; // 리뷰 최대 길이
+    const minReviewLength = 10; 
+    const maxReviewLength = 400;
 
     const { id } = useParams();
     const [reviewId, setReviewId] = useState(null);
@@ -24,7 +25,6 @@ const EditReview = () => {
 
     const [UpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const [DeletePopupOpen, setDeletePopupOpen] = useState(false);
-
 
     // 경고 시간
     useEffect(() => {
@@ -69,7 +69,7 @@ const EditReview = () => {
                                     setLoading(false);
                                 });
                         } else {
-                            // 리뷰가 없는 경우에 대한 처리 추가
+                            // 리뷰가 없는 경우
                         }
                     })
                     .catch((error) => {
@@ -153,6 +153,7 @@ const EditReview = () => {
         <div className='review-edit'>
             <Nav />
             <p className='main-title'>내가 작성한 리뷰</p>
+            <Alert />
             <hr />
             <div className='body-container'>
                 <div className='mypage-review-container'>
