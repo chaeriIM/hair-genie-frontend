@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import ImageUpload from '../../components/ImageUpload';
 import './FaceShapePage.css';
 import '../../App.css';
@@ -43,6 +44,7 @@ const UploadPage = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>

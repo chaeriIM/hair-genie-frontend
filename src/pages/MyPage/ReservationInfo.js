@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import '../../App.css';
 import './ReservationInfo.css';
 import moment from 'moment';
@@ -91,6 +92,7 @@ const ReservationInfo = () => {
         <div>
             <Nav />
             <p className='main-title'>미용실 예약 정보</p>
+            <Alert />
             <hr />
             <div className='body-container'>
                 <div className='my-reservation-container'>

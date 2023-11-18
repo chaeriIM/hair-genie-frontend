@@ -37,6 +37,10 @@ input {
   font-weight: 300;
 }
 
+.text-center {
+  text-align: center !important;
+}
+
 /* 폰트 */
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 /* body에서 적용 중 */

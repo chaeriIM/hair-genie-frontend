@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './HairSynthesisPage.css';
@@ -42,6 +43,7 @@ const HairResultPage = () => {
     <div className='hairsynthesis'>
       <Nav />
       <p className='main-title'>헤어스타일 합성</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>
