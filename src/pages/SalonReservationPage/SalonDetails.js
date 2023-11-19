@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/*global kakao*/
+import React, { useCallback, useEffect, useState } from 'react';
 import './SalonDetails.css';
 import Pagination from 'react-js-pagination';
 
@@ -11,6 +12,50 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
     };
+
+    // 지도
+    const initializeMap = useCallback(() => {
+        const mapContainer = document.getElementById('map');
+        const mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+        };
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+        const zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+        const geocoder = new kakao.maps.services.Geocoder();
+
+        geocoder.addressSearch(salon.HLoc, (result, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+                const salonLatLng = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                const markerImage = new kakao.maps.MarkerImage(
+                    '/images/salonicon.png', new kakao.maps.Size(48, 48));
+      
+                const marker = new kakao.maps.Marker({
+                    position: salonLatLng,
+                    map: map,
+                    title: salon.HName,
+                    image: markerImage
+                });
+                
+                const infowindow = new kakao.maps.InfoWindow({
+                    content:
+                        `<div style="width:150px;text-align:center;padding:6px 0;font-size:14px">
+                            <strong>${salon.HName}</strong>
+                        </div>`
+                });
+                infowindow.open(map, marker);
+
+                map.setCenter(salonLatLng);
+            }
+        })
+    }, [salon.HLoc, salon.HName]);
 
     useEffect(() => {
         const fetchReviewData = async () => {
@@ -56,7 +101,9 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
         };
 
         fetchReviewData();
-    }, [salon.HID]);
+        initializeMap();
+        
+    }, [initializeMap, salon.HID]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -69,7 +116,7 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
     const indexOfLastReview = activePage * itemsPerPage;
     const indexOfFirstReview = indexOfLastReview - itemsPerPage;
     const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-
+    
     return (
         <div className='body-container'>
             <div className='Dtop-container'>
@@ -99,7 +146,6 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
                                 </div>
                                 <div className='review-content'>
                                     <p>{review.content}</p>
-                                    <hr className='mypage-separator' />
                                 </div>
                             </div>
                         )))}
@@ -117,6 +163,11 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
                         />
                     </div>
                 )}
+                <hr className='mypage-separator' />
+                <div className='map-container'>
+                    <p className='review-title'>찾아 오는 길</p>
+                    <div id="map" style={{ width: '100%', height: '350px' }}></div>
+                </div>
             </div>
         </div>
     );

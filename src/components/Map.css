@@ -17,6 +17,19 @@
   color: #76a1e6;
 }
 
+.salon-info .tel {
+  color: #8a8a8a;
+}
+
+.salon-info a {
+  color: #89aad1;
+  text-decoration: none;
+  transition: .3s;
+}
+.salon-info a:hover {
+  color: #cdcdcd;
+}
+
 /* 나의 위치 버튼 */
 button.current-btn {
   padding: 10px;

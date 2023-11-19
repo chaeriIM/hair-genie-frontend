@@ -1,3 +1,4 @@
+/*global kakao*/
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -18,6 +19,9 @@ const ReservationDetails = () => {
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const [completePopupOpen, setCompletePopupOpen] = useState(false);
 
+    const [name, setName] = useState(null);
+    const [loc, setLoc] = useState(null);
+
     useEffect(() => {
         // 서버에서 예약 정보 가져오기
         axios.get(`http://127.0.0.1:8000/reservation/${id}`)
@@ -29,7 +33,9 @@ const ReservationDetails = () => {
                 // 예약에 관련된 미용실 정보 가져오기
                 const salonResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/${reservationData.salon}`);
                 const HName = salonResponse.data.HName;
+                setName(HName);
                 const HLoc = salonResponse.data.HLoc;
+                setLoc(HLoc);
 
                 // 예약에 관련된 서비스 정보 가져오기
                 const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
@@ -52,7 +58,55 @@ const ReservationDetails = () => {
                 console.error('예약 정보를 불러오는 중 오류 발생:', error);
                 setLoading(false);
             });
-    }, [id]); // id가 변경될 때마다 호출
+    
+        const initializeMap = () => {
+            const geocoder = new kakao.maps.services.Geocoder();
+    
+            if (loc) {
+                geocoder.addressSearch(loc, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        const salonLatLng = new kakao.maps.LatLng(result[0].y, result[0].x);
+    
+                        const mapContainer = document.getElementById('map');
+                        const mapOption = {
+                            center: salonLatLng,
+                            level: 3
+                        };
+                        const map = new kakao.maps.Map(mapContainer, mapOption);
+                        
+                        const mapTypeControl = new kakao.maps.MapTypeControl();
+                        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    
+                        const zoomControl = new kakao.maps.ZoomControl();
+                        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);  
+    
+                        const markerImage = new kakao.maps.MarkerImage(
+                            '/images/salonicon.png', new kakao.maps.Size(48, 48));
+    
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: salonLatLng,
+                            image: markerImage
+                        });
+    
+                        const infowindow = new kakao.maps.InfoWindow({
+                            content:
+                                `<div style="width:150px;text-align:center;padding:6px 0;font-size:14px">
+                                    <strong>${name}</strong>
+                                </div>`
+                        });
+                        infowindow.open(map, marker);
+    
+                        map.setCenter(salonLatLng);
+                    }
+                });
+            }
+        }
+
+        initializeMap();
+
+            
+    }, [id, loc, name]); // id가 변경될 때마다 호출
 
     const isReservationTimeInPast = () => {
         if (reservation) {
@@ -172,7 +226,10 @@ const ReservationDetails = () => {
                             <button className="Rstatus-button" onClick={handleReviewEditClick}>내가 작성한 리뷰</button>
                         )}
                         <hr className="mypage-separator" />
-                        <p className="D-title">오시는 길</p>
+                        <div className='map-container'>
+                            <p className='D-title'>찾아 오는 길</p>
+                            <div id="map" style={{ width: '100%', height: '350px' }}></div>
+                        </div>
                         <p className="L-info">
                             <img src="/images/location_icon.svg" alt="location icon" className="location_icon" />
                             {reservation?.HLoc}
