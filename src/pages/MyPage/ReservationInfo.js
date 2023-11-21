@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Loading from '../../components/Loading';
 import '../../App.css';
 import './ReservationInfo.css';
 import moment from 'moment';
@@ -14,6 +15,13 @@ const ReservationInfo = () => {
     const [reservations, setReservations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = (path) => {
+        navigate(path);
+    };
+
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -95,9 +103,12 @@ const ReservationInfo = () => {
             <Alert />
             <hr />
             <div className='body-container'>
+                <div className='Mtop-container'>
+                    <button className='cricle-button' onClick={() => handleButtonClick('/mypage')}>&#xE000;</button>
+                </div>
                 <div className='my-reservation-container'>
                     {loading ? (
-                        <p> </p>
+                        <Loading message='로딩 중' />
                     ) : reservations.length === 0 ? (
                         <div className='no-reservation-container'>
                             <img src="/images/shopping_cart_icon.svg" alt="shopping cart icon" className="shopping_cart_icon" />
