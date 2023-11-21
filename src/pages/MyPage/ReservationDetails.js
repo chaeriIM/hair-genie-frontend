@@ -1,7 +1,7 @@
 /*global kakao*/
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
@@ -18,6 +18,12 @@ const ReservationDetails = () => {
 
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const [completePopupOpen, setCompletePopupOpen] = useState(false);
+    
+    const navigate = useNavigate();
+
+    const handleButtonClick = (path) => {
+        navigate(path);
+    };
 
     const [name, setName] = useState(null);
     const [loc, setLoc] = useState(null);
@@ -205,6 +211,9 @@ const ReservationDetails = () => {
             <Alert />
             <hr />
             <div className='body-container'>
+                <div className='Mtop-container'>
+                    <button className='cricle-button' onClick={() => handleButtonClick('/reservation-info')}>&#xE000;</button>
+                </div>
                 <div className='reservation-details-container'>
                     <div className={`D-reservation-box ${reservation?.status === '예약 취소' ? 'cancelled' : ''}`}>
                         {reservation?.status === '예약 취소' && <p className="DDR-title">취소된 예약</p>}

@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import '../../App.css';
 import axios from 'axios';
 import './ReviewWrite.css';
-import Popup from '../../components/Popup'; 
+import Popup from '../../components/Popup';
 
 const ReviewWrite = () => {
     const { id } = useParams();
     const minReviewLength = 10;
-    const maxReviewLength = 400; 
+    const maxReviewLength = 400;
 
     const [reviewText, setReviewText] = useState('');
-    const [charCount, setCharCount] = useState(0); 
-    const [isReviewSubmitted, setIsReviewSubmitted] = useState(false); 
+    const [charCount, setCharCount] = useState(0);
+    const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
     const [SubmitPopupOpen, setSubmitPopupOpen] = useState(false);
-    const [warningMessage, setWarningMessage] = useState(''); 
+    const [warningMessage, setWarningMessage] = useState('');
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate(`/reservation/${id}`);
+    };
 
     // 경고 시간
     useEffect(() => {
@@ -69,7 +75,7 @@ const ReviewWrite = () => {
                 if (reviewResponse.status === 201) {
                     // 리뷰 작성이 성공하면 예약 상태를 업데이트
                     await axios.put(`http://127.0.0.1:8000/reservation/${id}/review/`);
-                    setIsReviewSubmitted(true); 
+                    setIsReviewSubmitted(true);
                     setTimeout(() => {
                         setSubmitPopupOpen(false);
                         window.location.href = `/reservation/${id}`;
@@ -104,6 +110,9 @@ const ReviewWrite = () => {
             <Alert />
             <hr />
             <div className='body-container'>
+                <div className='Mtop-container'>
+                    <button className='cricle-button' onClick={handleButtonClick}>&#xE000;</button>
+                </div>
                 <div className='mypage-review-container'>
                     <textarea
                         className='review-textarea'

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './SalonSelection.css';
 import SalonDetails from './SalonDetails';
 import Pagination from 'react-js-pagination';
+import Loading from '../../components/Loading';
 
 const itemsPerPage = 10; // 페이지당 아이템 수
 
@@ -12,6 +13,7 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
     const [searchResults, setSearchResults] = useState([]);
     const [selectedSalonDetails, setSelectedSalonDetails] = useState(null);
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSalonData = async () => {
@@ -21,9 +23,11 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                     const data = await response.json();
                     const sortedData = data.sort((a, b) => a.HName.localeCompare(b.HName));
                     setSalonData(sortedData);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error(error);
+                setLoading(false);
             }
         };
 
@@ -96,29 +100,32 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                 />
             ) : (
                 <div className='salon-box-container'>
-                    {currentSalons.length === 0 ? (
-                        <div className='no-results-message'>일치하는 검색 결과가 없습니다.</div>
-                    ) : (
-                        currentSalons.map((salon) => (
-                            <div
-                                className='salon-box'
-                                key={salon.HID}
-                                onClick={() => handleSalonBoxClick(salon)}
-                            >
-                                <div className='salon-name'>
-                                    {salon.HName} <div className='salon-location'>{salon.HLoc}</div>
+                    {loading ? (
+                        <Loading message='로딩 중' />
+                    ) :
+                        currentSalons.length === 0 ? (
+                            <div className='no-results-message'>일치하는 검색 결과가 없습니다.</div>
+                        ) : (
+                            currentSalons.map((salon) => (
+                                <div
+                                    className='salon-box'
+                                    key={salon.HID}
+                                    onClick={() => handleSalonBoxClick(salon)}
+                                >
+                                    <div className='salon-name'>
+                                        {salon.HName} <div className='salon-location'>{salon.HLoc}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    )}
+                            ))
+                        )}
                     <div className='pagination-container'>
                         <Pagination
                             activePage={activePage}
                             itemsCountPerPage={itemsPerPage}
                             totalItemsCount={searchResults.length}
                             pageRangeDisplayed={5} // paginator의 페이지 범위
-                            prevPageText={"‹"} 
-                            nextPageText={"›"} 
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
                             onChange={handlePageChange}
                         />
                     </div>
