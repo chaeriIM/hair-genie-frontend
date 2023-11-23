@@ -4,6 +4,7 @@ import Alert from '../../components/Alert';
 import './FaceShapePage.css';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const FaceShapePage = () => {
 
@@ -37,6 +38,8 @@ const FaceShapePage = () => {
           </button>
         </div>
       </div>
+
+      <Chatbot />
     </div>
   )
 }

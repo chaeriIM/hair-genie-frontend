@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Loading from '../../components/Loading';
+import Chatbot from '../../components/Chatbot';
 
 const UploadPage = () => {
 
@@ -78,7 +79,8 @@ const UploadPage = () => {
             <p>얼굴형이 잘 보이는 정면 사진을 업로드해 주세요.</p>
           </div>
         </Modal>
-
+        
+      <Chatbot />
     </div>
     
   )

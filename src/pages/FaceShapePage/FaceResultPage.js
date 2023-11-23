@@ -3,6 +3,7 @@ import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const FaceResultPage = () => {
 
@@ -200,6 +201,7 @@ const FaceResultPage = () => {
           </button>
         </div>
       </div>
+      <Chatbot />
     </div>
   );
 }
