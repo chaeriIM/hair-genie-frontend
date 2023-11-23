@@ -17,11 +17,17 @@ const ReviewWrite = () => {
     const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
     const [SubmitPopupOpen, setSubmitPopupOpen] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
+    const [rating, setRating] = useState(0);
 
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
         navigate(`/reservation/${id}`);
+    };
+
+    //별점
+    const handleRatingChange = (value) => {
+        setRating(value);
     };
 
     // 경고 시간
@@ -43,6 +49,8 @@ const ReviewWrite = () => {
             setWarningMessage('10글자 이상 작성해 주세요.');
         } else if (charCount > maxReviewLength) {
             setWarningMessage('400글자 이하로 작성해 주세요.');
+        } else if (rating === 0) {
+            setWarningMessage('별점을 선택해 주세요.');
         } else {
             setSubmitPopupOpen(true);
         }
@@ -67,6 +75,7 @@ const ReviewWrite = () => {
                     salon: salonId,
                     customer: userId,
                     reservation: id,
+                    rating: rating,
                     content: reviewText,
                 };
 
@@ -114,6 +123,26 @@ const ReviewWrite = () => {
                     <button className='cricle-button' onClick={handleButtonClick}>&#xE000;</button>
                 </div>
                 <div className='mypage-review-container'>
+                    <div className='star-rating'>
+                        {[...Array(5)].map((_, index) => {
+                            const value = index + 1;
+                            return (
+                                <React.Fragment key={index}>
+                                    <input
+                                        type="radio"
+                                        id={`rate${value}`}
+                                        name="reviewStar"
+                                        value={value}
+                                        checked={rating === value}
+                                        onChange={() => handleRatingChange(value)}
+                                    />
+                                    <label htmlFor={`rate${value}`} className="star-label" title={value}>
+                                        {rating >= value ? <span className="star">&#9733;</span> : <span className="star">&#9734;</span>}
+                                    </label>
+                                </React.Fragment>
+                            );
+                        })}
+                    </div>
                     <textarea
                         className='review-textarea'
                         placeholder="10글자 이상 작성해주세요."

@@ -42,6 +42,8 @@ const ReservationDetails = () => {
                 setName(HName);
                 const HLoc = salonResponse.data.HLoc;
                 setLoc(HLoc);
+                const HPhone = salonResponse.data.HPhone;
+                setLoc(HPhone);
 
                 // 예약에 관련된 서비스 정보 가져오기
                 const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
@@ -52,6 +54,7 @@ const ReservationDetails = () => {
                     ...reservationData,
                     HName,
                     HLoc,
+                    HPhone,
                     serviceName,
                     price,
                     status,
@@ -242,6 +245,10 @@ const ReservationDetails = () => {
                         <p className="L-info">
                             <img src="/images/location_icon.svg" alt="location icon" className="location_icon" />
                             {reservation?.HLoc}
+                        </p>
+                        <p className='L-info'>
+                            <img src='/images/phone.svg' alt='phone icon' className='phone_icon' />
+                            {reservation?.HPhone}
                         </p>
                         <Popup
                             isOpen={cancelPopupOpen}

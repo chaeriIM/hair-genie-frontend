@@ -9,7 +9,7 @@ const Map = () => {
   const [initialPosition, setInitialPosition] = useState(null);
   const [mapInstance, setMapInstance] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   // 사용자의 현재 위치
   const fetchUserLocation = () => {
     if (navigator.geolocation) {
@@ -41,7 +41,7 @@ const Map = () => {
         console.error('Error fetching salon data:', error);
       });
 
-      fetchUserLocation();
+    fetchUserLocation();
   }, []);
 
   const createMarkers = useCallback(async (map, bounds) => {
@@ -79,10 +79,13 @@ const Map = () => {
                             </div>
                             <br />
                             <div class="salon-loc">
-                              주소: ${salon.HLoc}
+                              ${salon.HLoc}
+                            </div>
+                            <div class="salon-tel">
+                              ${salon.HPhone}
                             </div>
                           </div>`
-            
+
             infowindow.setContent(content);
             infowindow.open(map, marker);
           });
@@ -91,7 +94,7 @@ const Map = () => {
           const listItem = document.createElement('li');
           listItem.innerHTML = `
             <strong>${salon.HName}</strong>
-            <div class="salon-loc">주소: ${salon.HLoc}</div>
+            <div class="salon-loc">${salon.HLoc}</div>
           `;
           // 목록 클릭
           listItem.addEventListener('click', () => {
@@ -103,10 +106,13 @@ const Map = () => {
                             </div>
                             <br />
                             <div class="salon-loc">
-                              주소: ${salon.HLoc}
+                              ${salon.HLoc}
+                            </div>
+                            <div class="salon-tel">
+                              ${salon.HPhone}
                             </div>
                           </div>`
-            
+
             infowindow.setContent(content);
             infowindow.open(map, marker);
           });
@@ -141,10 +147,10 @@ const Map = () => {
         location: center,
         radius: 10000,
         sort: kakao.maps.services.SortBy.DISTANCE,
-    };
+      };
       ps.keywordSearch(keyword, placesSearchCB, options);
     }
-    
+
     // 장소검색 완료됐을 때 호출되는 콜백함수
     function placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
@@ -162,16 +168,16 @@ const Map = () => {
 
     // 검색 결과 목록 마커 표출 함수
     function displayPlaces(places) {
-      const fragment = document.createDocumentFragment(), 
-            bounds = new kakao.maps.LatLngBounds();
+      const fragment = document.createDocumentFragment(),
+        bounds = new kakao.maps.LatLngBounds();
 
       removeMarker();
 
-      for (let i=0; i<places.length; i++) {
+      for (let i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
         let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-        marker = addMarker(placePosition, i), 
-        itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+          marker = addMarker(placePosition, i),
+          itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
         let title = places[i].place_name;
         let address = places[i].road_address_name;
         let phone = places[i].phone;
@@ -182,14 +188,14 @@ const Map = () => {
         bounds.extend(placePosition);
 
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        (function(marker, title, address, phone, url) {
-            kakao.maps.event.addListener(marker, 'click', function() {
-                displayInfowindow(marker, title, address, phone, url);
-            });
+        (function (marker, title, address, phone, url) {
+          kakao.maps.event.addListener(marker, 'click', function () {
+            displayInfowindow(marker, title, address, phone, url);
+          });
 
-            itemEl.addEventListener('click', function () {
-              displayInfowindow(marker, title, address, phone, url);
-            });
+          itemEl.addEventListener('click', function () {
+            displayInfowindow(marker, title, address, phone, url);
+          });
 
         })(marker, title, address, phone, url);
 
@@ -201,19 +207,19 @@ const Map = () => {
     function getListItem(index, places) {
 
       let el = document.createElement('li'),
-      itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                  '<div class="info">' +
-                  '   <h5>' + places.place_name + '</h5>';
+        itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+          '<div class="info">' +
+          '   <h5>' + places.place_name + '</h5>';
 
       if (places.road_address_name) {
-          itemStr += '    <span>' + places.road_address_name + '</span>' +
-                      '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        itemStr += '    <span>' + places.road_address_name + '</span>' +
+          '   <span class="jibun gray">' + places.address_name + '</span>';
       } else {
-          itemStr += '    <span>' +  places.address_name  + '</span>'; 
+        itemStr += '    <span>' + places.address_name + '</span>';
       }
-                  
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                  '</div>';           
+
+      itemStr += '  <span class="tel">' + places.phone + '</span>' +
+        '</div>';
 
       el.innerHTML = itemStr;
       el.className = 'item';
@@ -225,9 +231,9 @@ const Map = () => {
       var imageSrc = '/images/salonicon.png',
         imageSize = new kakao.maps.Size(48, 48),
         markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
-            marker = new kakao.maps.Marker({
-            position: position,
-            image: markerImage 
+        marker = new kakao.maps.Marker({
+          position: position,
+          image: markerImage
         });
 
       marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -239,30 +245,30 @@ const Map = () => {
     // 지도 위에 표시되고 있는 마커를 모두 제거합니다
     function removeMarker() {
       for (let i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-      }   
+        markers[i].setMap(null);
+      }
       markers = [];
     }
 
     function displayInfowindow(marker, title, address, phone, url) {
       let content = '<div class="salon-info" style="width: 350px";>' +
-                        '<div class="salon-name">' + 
-                          '<strong>' +
-                            title +
-                          '</strong>' + 
-                        '</div>' +
-                        '<br />' +
-                        '<div class="salon-loc">' +
-                          address + 
-                        '</div>';
+        '<div class="salon-name">' +
+        '<strong>' +
+        title +
+        '</strong>' +
+        '</div>' +
+        '<br />' +
+        '<div class="salon-loc">' +
+        address +
+        '</div>';
       if (phone) {
         content += '<div class="tel">' + phone + '</div>';
       }
 
-      content += '<a href="' + url + '" target="_blank">' + 
-                  '자세히 보기' + 
-                '</a>' +
-              '</div>';
+      content += '<a href="' + url + '" target="_blank">' +
+        '자세히 보기' +
+        '</a>' +
+        '</div>';
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
@@ -296,7 +302,7 @@ const Map = () => {
 
     createMarkers(map, bounds);
     realSalon(map, center);
-    
+
     kakao.maps.event.addListener(map, 'dragend', function () {
       const newCenter = map.getCenter();
       const newBounds = new kakao.maps.LatLngBounds(
@@ -340,7 +346,7 @@ const Map = () => {
         new kakao.maps.LatLng(initialPosition.getLat() - 0.01, initialPosition.getLng() - 0.01),
         new kakao.maps.LatLng(initialPosition.getLat() + 0.01, initialPosition.getLng() + 0.01)
       );
-      
+
       // setNewPosition(initialPosition);
       createMarkers(mapInstance, newBounds);
     }
@@ -363,7 +369,7 @@ const Map = () => {
           </div>
         </div>
       )}
-    </> 
+    </>
   );
 };
 

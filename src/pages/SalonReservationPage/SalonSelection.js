@@ -34,6 +34,37 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
         fetchSalonData();
     }, []);
 
+    // SalonSelection 컴포넌트 내부에 useEffect 추가하여 미용실의 평균 별점 계산
+    useEffect(() => {
+        const fetchReviewDataForSalons = async () => {
+            try {
+                const salonsWithAvgRatings = await Promise.all(
+                    salonData.map(async (salon) => {
+                        const reviewResponse = await fetch(`http://127.0.0.1:8000/reservation/${salon.HID}/review`);
+                        if (reviewResponse.ok) {
+                            const reviewData = await reviewResponse.json();
+                            const reviewCount = reviewData.length;
+                            if (reviewCount > 0) {
+                                const sum = reviewData.reduce((total, review) => total + review.rating, 0);
+                                const averageRating = sum / reviewCount;
+                                const roundedAvgRating = Math.round(averageRating * 10) / 10; // 소숫점 첫째 자리까지 반올림
+                                return { ...salon, averageRating: roundedAvgRating, reviewCount };
+                            }
+                        }
+                        return { ...salon, averageRating: 0, reviewCount: 0 }; // 리뷰가 없을 경우 기본값으로 0 설정 및 리뷰 개수 0으로 설정
+                    })
+                );
+                setSalonData(salonsWithAvgRatings); // salonsWithAvgRatings로 설정
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
+            }
+        };
+
+        fetchReviewDataForSalons();
+    }, [salonData]);
+
     const handleSalonBoxClick = (salon) => {
         setSelectedSalonDetails(salon);
     };
@@ -107,13 +138,22 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                             <div className='no-results-message'>일치하는 검색 결과가 없습니다.</div>
                         ) : (
                             currentSalons.map((salon) => (
-                                <div
-                                    className='salon-box'
-                                    key={salon.HID}
-                                    onClick={() => handleSalonBoxClick(salon)}
-                                >
-                                    <div className='salon-name'>
-                                        {salon.HName} <div className='salon-location'>{salon.HLoc}</div>
+                                <div className='salon-box' key={salon.HID} onClick={() => handleSalonBoxClick(salon)}>
+                                    <div className='salon-name'>{salon.HName}
+                                        <div className='salon-selection-info'>
+                                            {salon.reviewCount === 0 ? '등록된 리뷰가 없습니다.' : (
+                                                <div className="star-rating">
+                                                    {salon.averageRating !== undefined ? (
+                                                        <>
+                                                            <span>별점 {salon.averageRating.toFixed(1)}</span>
+                                                            <span class="date-separator" style={{ color: "#e2e2e2" }}>|</span>
+                                                            <span>리뷰 {salon.reviewCount}</span>
+                                                        </>
+                                                    ) : ''}
+                                                </div>
+                                            )}
+                                            <div className='salon-selection-info'>{salon.HLoc}</div>
+                                        </div>
                                     </div>
                                 </div>
                             ))
