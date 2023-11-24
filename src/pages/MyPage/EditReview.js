@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import '../../App.css';
@@ -8,13 +8,14 @@ import './ReviewWrite.css';
 import Popup from '../../components/Popup';
 
 const EditReview = () => {
-    const minReviewLength = 10; 
+    const minReviewLength = 10;
     const maxReviewLength = 400;
 
     const { id } = useParams();
     const [reviewId, setReviewId] = useState(null);
     const [review, setReview] = useState(null);
     const [reviewText, setReviewText] = useState('');
+    const [rating, setRating] = useState(0);
 
     const [loading, setLoading] = useState(true);
     const [warningMessage, setWarningMessage] = useState('');
@@ -25,6 +26,12 @@ const EditReview = () => {
 
     const [UpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const [DeletePopupOpen, setDeletePopupOpen] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate(`/reservation/${id}`);
+    };
 
     // 경고 시간
     useEffect(() => {
@@ -62,6 +69,7 @@ const EditReview = () => {
                                 .then((reviewResponse) => {
                                     setReview(reviewResponse.data);
                                     setReviewText(reviewResponse.data.content);
+                                    setRating(reviewResponse.data.rating);
                                     setLoading(false);
                                 })
                                 .catch((error) => {
@@ -102,7 +110,7 @@ const EditReview = () => {
 
     const confirmReviewUpdate = async () => {
         try {
-            const response = await axios.put(`http://127.0.0.1:8000/reservation/review/${reviewId}/update/`, { content: reviewText });
+            const response = await axios.put(`http://127.0.0.1:8000/reservation/review/${reviewId}/update/`, { rating: rating, content: reviewText });
 
             if (response.status === 200) {
                 setIsReviewUpdated(true);
@@ -156,7 +164,30 @@ const EditReview = () => {
             <Alert />
             <hr />
             <div className='body-container'>
+                <div className='Mtop-container'>
+                    <button className='cricle-button' onClick={handleButtonClick}>&#xE000;</button>
+                </div>
                 <div className='mypage-review-container'>
+                    <div className='star-rating'>
+                        {[...Array(5)].map((_, index) => {
+                            const value = index + 1;
+                            return (
+                                <React.Fragment key={index}>
+                                    <input
+                                        type="radio"
+                                        id={`edit-rate${value}`}
+                                        name="editReviewStar"
+                                        value={value}
+                                        checked={rating === value}
+                                        onChange={() => setRating(value)}
+                                    />
+                                    <label htmlFor={`edit-rate${value}`} className="star-label" title={value}>
+                                        {rating >= value ? <span className="star">&#9733;</span> : <span className="star">&#9734;</span>}
+                                    </label>
+                                </React.Fragment>
+                            );
+                        })}
+                    </div>
                     <textarea
                         className='review-textarea'
                         placeholder="10글자 이상 작성해주세요."

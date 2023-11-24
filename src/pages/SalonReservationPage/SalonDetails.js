@@ -17,8 +17,8 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
     const initializeMap = useCallback(() => {
         const mapContainer = document.getElementById('map');
         const mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
         };
         const map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -36,14 +36,14 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
 
                 const markerImage = new kakao.maps.MarkerImage(
                     '/images/salonicon.png', new kakao.maps.Size(48, 48));
-      
+
                 const marker = new kakao.maps.Marker({
                     position: salonLatLng,
                     map: map,
                     title: salon.HName,
                     image: markerImage
                 });
-                
+
                 const infowindow = new kakao.maps.InfoWindow({
                     content:
                         `<div style="width:150px;text-align:center;padding:6px 0;font-size:14px">
@@ -63,6 +63,9 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
                 const reviewResponse = await fetch(`http://127.0.0.1:8000/reservation/${salon.HID}/review`);
                 if (reviewResponse.ok) {
                     const reviewData = await reviewResponse.json();
+                    
+                    // 리뷰 데이터를 날짜 기준으로 최신순으로 정렬
+                    reviewData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
                     // 리뷰 데이터로 상태 업데이트
                     setReviews(reviewData);
@@ -102,7 +105,7 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
 
         fetchReviewData();
         initializeMap();
-        
+
     }, [initializeMap, salon.HID]);
 
     const formatDate = (dateString) => {
@@ -116,7 +119,7 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
     const indexOfLastReview = activePage * itemsPerPage;
     const indexOfFirstReview = indexOfLastReview - itemsPerPage;
     const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-    
+
     return (
         <div className='body-container'>
             <div className='Dtop-container'>
@@ -128,9 +131,13 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
                     <button className='mini-button' onClick={onNext}>예약</button>
                 </div>
                 <hr className='mypage-separator' />
-                <p className='salon-loc'>
+                <p className='salon-detail-info'>
                     <img src='/images/location_icon.svg' alt='location icon' className='location_icon' />
                     {salon.HLoc}
+                </p>
+                <p className='salon-detail-info'>
+                    <img src='/images/phone.svg' alt='phone icon' className='phone_icon' />
+                    {salon.HPhone}
                 </p>
                 <hr className='mypage-separator' />
                 <p className='review-title'>리뷰 ({reviews.length})</p>
@@ -144,8 +151,22 @@ const SalonDetails = ({ salon, onPrevious, onNext }) => {
                                     <img src={review.customer.profile_image} alt='Profile' />
                                     <p className='reviewer-info'>{review.customer.unickname}<br />{formatDate(review.created_at)}</p>
                                 </div>
-                                <div className='review-content'>
-                                    <p>{review.content}</p>
+                                <div className='review-rating'>
+                                    <div className='star-rating' style={{ height: '36px', display: 'flex', alignItems: 'center'}}>
+                                        {[...Array(5)].map((_, index) => {
+                                            const value = index + 1;
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    <label htmlFor={`edit-rate${value}`} className="star-label" title={value}>
+                                                        {review.rating >= value ? <span className="star" style={{ fontSize: '22px' }}>&#9733;</span> : <span className="star" style={{ fontSize: '22px' }}>&#9734;</span>}
+                                                    </label>
+                                                </React.Fragment>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                                <div className='salon-review-content'>
+                                    <p className='salon-review-content'>{review.content}</p>
                                 </div>
                             </div>
                         )))}

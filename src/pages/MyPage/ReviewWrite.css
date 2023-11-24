@@ -27,7 +27,7 @@
 
 .review-textarea:focus {
     border: 1px solid #88A5F6;
-    outline: none; 
+    outline: none;
     background: #ffffff;
 }
 
@@ -52,4 +52,22 @@
     min-width: 560px;
     width: 63%;
     justify-content: flex-end;
+}
+
+/* 별점 */
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2em;
+    cursor: pointer;
+    transition: color 200ms;
+    color: #ffd700;
+}
+
+.star-rating label span {
+    display: inline-block;
+    transition: color 200ms;
+    color: #ffd700;
 }
