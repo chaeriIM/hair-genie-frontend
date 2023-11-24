@@ -6,6 +6,7 @@ import DateSelection from './DateSelection';
 import ServiceMenuSelection from './ServiceMenuSelection';
 import './SalonReservationPage.css';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const SalonReservationPage = () => {
   const [step, setStep] = useState(1);
@@ -68,6 +69,8 @@ const SalonReservationPage = () => {
         </div>
       </div>
       {renderStepContent()}
+      
+      <Chatbot />
     </div>
   );
 }

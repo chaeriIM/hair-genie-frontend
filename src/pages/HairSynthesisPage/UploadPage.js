@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import Loading from '../../components/Loading';
 import './HairSynthesisPage.css';
+import Chatbot from '../../components/Chatbot';
 
 const UploadPage = () => {
   const [faceImage, setFaceImage] = useState(null);
@@ -95,6 +96,8 @@ const UploadPage = () => {
           <p>헤어스타일 합성에 실패했습니다. 다시 시도해 주세요.</p>
         </div>
       </Modal>
+
+      <Chatbot />
     </div>
   );
 };

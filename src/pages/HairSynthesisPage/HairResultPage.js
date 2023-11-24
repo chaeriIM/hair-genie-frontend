@@ -4,6 +4,7 @@ import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './HairSynthesisPage.css';
+import Chatbot from '../../components/Chatbot';
 
 const HairResultPage = () => {
 
@@ -64,6 +65,8 @@ const HairResultPage = () => {
 
         </div>
       </div>
+
+      <Chatbot />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import '../../App.css';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loading from '../../components/Loading';
+import Chatbot from '../../components/Chatbot';
 
 const WebcamPage = () => {
 
@@ -80,6 +81,7 @@ const WebcamPage = () => {
           </div>
         </Modal>
 
+        <Chatbot />
     </div>
   )
 }
