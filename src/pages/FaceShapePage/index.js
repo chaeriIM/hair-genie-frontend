@@ -1,8 +1,10 @@
 import React from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import './FaceShapePage.css';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const FaceShapePage = () => {
 
@@ -20,6 +22,7 @@ const FaceShapePage = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
+      <Alert />
       <hr />
       
       <div className='body-container'>
@@ -35,6 +38,8 @@ const FaceShapePage = () => {
           </button>
         </div>
       </div>
+
+      <Chatbot />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
@@ -94,6 +95,7 @@ const PasswordChange = () => {
         <div>
             <Nav />
             <p className='main-title'>비밀번호 변경</p>
+            <Alert />
             <hr />
             <div className='body-container'>
                 <div className='info-container'>

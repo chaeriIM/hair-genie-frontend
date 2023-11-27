@@ -1,6 +1,7 @@
 .total_wrap {
   margin: 0 80px;
   position: relative;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 
 /* infowindow */
@@ -8,13 +9,32 @@
   padding: 10px;
   font-size: 13px;
   line-height: 1.5;
+  width: 200px;
   max-width: 200px;
   /* word-wrap: break-word; */
+}
+
+.salon-tel {
+  color: #8a8a8a;
 }
 
 .salon-name strong {
   font-size: 15px;
   color: #76a1e6;
+}
+
+.salon-info .tel {
+  color: #8a8a8a;
+}
+
+.salon-info a {
+  color: #89aad1;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.salon-info a:hover {
+  color: #cdcdcd;
 }
 
 /* 나의 위치 버튼 */
@@ -65,10 +85,9 @@ button.current-btn:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: 50px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: #efefef;
+  border: 1px solid #d9d9d9;
   margin-bottom: 10px;
   color: #76a1e6;
   font-size: 20px;
@@ -91,7 +110,7 @@ button.current-btn:hover {
   margin-bottom: 10px;
   padding: 10px;
   width: 100%;
-  height: 100px;
+  height: 120px;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -107,7 +126,9 @@ button.current-btn:hover {
   margin-bottom: 5px;
 }
 
-#salon-list li .salon-loc {
+#salon-list li .salon-loc/* ,
+#salon-list li .salon-tel */ {
   font-size: 14px;
   color: #666;
+  /* margin-bottom: 2px; */
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import Webcam from '../../components/Webcam';
 import ImageUpload from '../../components/ImageUpload';
 import axios from 'axios';
@@ -8,6 +9,7 @@ import './HairSynthesisPage.css';
 import '../../App.css';
 import Modal from 'react-modal';
 import Loading from '../../components/Loading';
+import Chatbot from '../../components/Chatbot';
 
 const UploadPage = () => {
   const [faceImage, setFaceImage] = useState('');
@@ -52,6 +54,7 @@ const UploadPage = () => {
     <div className='hairsynthesis'>
       <Nav />
       <p className='main-title'>헤어스타일 합성</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>
@@ -92,6 +95,8 @@ const UploadPage = () => {
           <p>헤어스타일 합성에 실패했습니다. 다시 시도해 주세요.</p>
         </div>
       </Modal>
+
+      <Chatbot />
     </div>
   )
 }

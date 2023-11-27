@@ -1,3 +1,11 @@
+.Mtop-container {
+    display: flex;
+    min-width: 600px;
+    margin: -88px 0 0px 0;
+    position: absolute;
+    left: 30px;
+}
+
 .no-reservation-container {
     display: flex;
     align-items: center;
@@ -81,7 +89,7 @@
     margin: 10px 0;
     background-color: #ecf0f2;
     min-width: 580px;
-    width: 62%;
+    width: 100%;
 }
 
 .my-reservation-service {

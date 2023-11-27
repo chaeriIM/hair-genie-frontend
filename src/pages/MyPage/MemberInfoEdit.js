@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Nav from "../../components/Nav";
+import Alert from '../../components/Alert';
 import Popup from "../../components/Popup";
 import { useNavigate } from "react-router-dom";
 import "./MemberInfoEdit.css";
@@ -73,7 +74,7 @@ const MemberInfoEdit = () => {
           },
         }
       );
-      
+
       console.log("사용자 정보가 성공적으로 업데이트되었습니다:", response.data);
 
     } catch (error) {
@@ -98,7 +99,7 @@ const MemberInfoEdit = () => {
         }
       );
       console.log("사용자 사진이 성공적으로 업데이트되었습니다:", response.data);
-      
+
     } catch (error) {
       console.error("사용자 사진 업데이트 실패:", error);
     }
@@ -123,10 +124,10 @@ const MemberInfoEdit = () => {
     setSavePopupOpen(false);
     setSaveCompletePopupOpen(true);
     updateUserInfo();
-    if(profileImage){
+    if (profileImage) {
       updateUserImage();
     }
-    
+
     setTimeout(() => {
       navigate('/mypage');
     }, 1300);
@@ -183,6 +184,7 @@ const MemberInfoEdit = () => {
     <div>
       <Nav />
       <p className="main-title">회원 정보 수정</p>
+      <Alert />
       <hr />
       <div className="body-container">
 
@@ -216,9 +218,8 @@ const MemberInfoEdit = () => {
           </div>
 
           <div
-            className={`info-row ${
-              nameValidationStatus === "error" ? "has-error" : ""
-            }`}
+            className={`info-row ${nameValidationStatus === "error" ? "has-error" : ""
+              }`}
           >
             <div className="info-input-container">
               <label htmlFor="name">이름</label>
@@ -244,9 +245,8 @@ const MemberInfoEdit = () => {
           </div>
 
           <div
-            className={`info-row ${
-              nicknameValidationStatus === "error" ? "has-error" : ""
-            }`}
+            className={`info-row ${nicknameValidationStatus === "error" ? "has-error" : ""
+              }`}
           >
             <div className="info-input-container">
               <label htmlFor="nickname">별명</label>
@@ -272,9 +272,8 @@ const MemberInfoEdit = () => {
           </div>
 
           <div
-            className={`info-row ${
-              phoneNumberValidationStatus === "error" ? "has-error" : ""
-            }`}
+            className={`info-row ${phoneNumberValidationStatus === "error" ? "has-error" : ""
+              }`}
           >
             <div className="info-input-container">
               <label htmlFor="tel">전화번호</label>
@@ -301,9 +300,8 @@ const MemberInfoEdit = () => {
           </div>
 
           <div
-            className={`info-row ${
-              emailValidationStatus === "error" ? "has-error" : ""
-            }`}
+            className={`info-row ${emailValidationStatus === "error" ? "has-error" : ""
+              }`}
           >
             <div className="info-input-container">
               <label htmlFor="email">이메일</label>

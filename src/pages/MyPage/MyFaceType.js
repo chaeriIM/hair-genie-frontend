@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import { useLocation } from 'react-router-dom';
 import '../../App.css';
 
@@ -110,17 +111,17 @@ const MyFaceType = () => {
           어울리는 헤어스타일 사진 보러가기
         </button>
         <div className="MFT-description">
-            <div className="recommendation">
-              <span>👍🏻 추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
-            </div>
-            <div className="decommendation">
-              <span>👎🏻 비추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
-            </div>
+          <div className="recommendation">
+            <span>👍🏻 추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
           </div>
+          <div className="decommendation">
+            <span>👎🏻 비추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
+          </div>
+        </div>
       </div>
     );
   } else if (selectedType === "Oval") { // 계란형
@@ -135,17 +136,17 @@ const MyFaceType = () => {
           어울리는 헤어스타일 사진 보러가기
         </button>
         <div className="MFT-description">
-            <div className="recommendation">
-              <span>👍🏻 추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
-            </div>
-            <div className="decommendation">
-              <span>👎🏻 비추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
-            </div>
+          <div className="recommendation">
+            <span>👍🏻 추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
           </div>
+          <div className="decommendation">
+            <span>👎🏻 비추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
+          </div>
+        </div>
       </div>
     );
   } else if (selectedType === "Round") { // 둥근형
@@ -160,17 +161,17 @@ const MyFaceType = () => {
           어울리는 헤어스타일 사진 보러가기
         </button>
         <div className="MFT-description">
-            <div className="recommendation">
-              <span>👍🏻 추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
-            </div>
-            <div className="decommendation">
-              <span>👎🏻 비추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
-            </div>
+          <div className="recommendation">
+            <span>👍🏻 추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
           </div>
+          <div className="decommendation">
+            <span>👎🏻 비추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
+          </div>
+        </div>
       </div>
     );
   } else if (selectedType === "Square") { // 각진형
@@ -185,17 +186,17 @@ const MyFaceType = () => {
           어울리는 헤어스타일 사진 보러가기
         </button>
         <div className="MFT-description">
-            <div className="recommendation">
-              <span>👍🏻 추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
-            </div>
-            <div className="decommendation">
-              <span>👎🏻 비추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
-            </div>
+          <div className="recommendation">
+            <span>👍🏻 추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
           </div>
+          <div className="decommendation">
+            <span>👎🏻 비추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
+          </div>
+        </div>
       </div>
     );
   } else if (selectedType === "Oblong") { // 긴얼굴형
@@ -210,17 +211,17 @@ const MyFaceType = () => {
           어울리는 헤어스타일 사진 보러가기
         </button>
         <div className="MFT-description">
-            <div className="recommendation">
-              <span>👍🏻 추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
-            </div>
-            <div className="decommendation">
-              <span>👎🏻 비추천</span>
-              <br /><br /><br />
-              {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
-            </div>
+          <div className="recommendation">
+            <span>👍🏻 추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.recommendations || [])}
           </div>
+          <div className="decommendation">
+            <span>👎🏻 비추천</span>
+            <br /><br /><br />
+            {renderRecommendation(recommendationData[selectedType]?.disrecommendations || [])}
+          </div>
+        </div>
       </div>
     );
   }
@@ -229,9 +230,10 @@ const MyFaceType = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>{selectedType} </p>
+      <Alert />
       <hr />
       <div className='body-container'>
-          <div>{dataToShow}</div>
+        <div>{dataToShow}</div>
       </div>
     </div>
   )

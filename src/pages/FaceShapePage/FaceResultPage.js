@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const FaceResultPage = () => {
 
@@ -189,6 +191,7 @@ const FaceResultPage = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
+      <Alert />
       <hr />
       <div className='body-container'>
         <div className='container'>
@@ -198,6 +201,7 @@ const FaceResultPage = () => {
           </button>
         </div>
       </div>
+      <Chatbot />
     </div>
   );
 }
