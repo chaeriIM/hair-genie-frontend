@@ -16,9 +16,11 @@ import ReservationInfo from './pages/MyPage/ReservationInfo';
 import ReservationDetails from './pages/MyPage/ReservationDetails';
 import ReviewWrite from "./pages/MyPage/ReviewWrite.js";
 import EditReview from "./pages/MyPage/EditReview.js";
+import NoticeBoard from "./pages/NoticeBoardPage/NoticeBoard.js";
+import BoardWrite from "./pages/NoticeBoardPage/BoardWrite.js";
 import Withdrawal from './pages/MyPage/Withdrawal';
 import JoinPage from './pages/JoinPage';
-import LoginPage from './pages/LoginPage'
+import LoginPage from './pages/LoginPage';
 import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
 import HairResultPage from './pages/HairSynthesisPage/HairResultPage';
 import FaceUploadPage from './pages/FaceShapePage/UploadPage';
@@ -93,6 +95,8 @@ const App = () => {
             <Route path="hairresult" element={<HairResultPage />} />
             <Route path="hair-uploadpage" element={<HairUploadPage />} />
             <Route path="hair-webcampage" element={<HairWebcamPage />} />
+            <Route path="noticeboard" element={<NoticeBoard />} />
+            <Route path="boardwrite" element={<BoardWrite />} />
           </>
         ) : (
           // 로그인이 필요한 페이지에 접근할 때
