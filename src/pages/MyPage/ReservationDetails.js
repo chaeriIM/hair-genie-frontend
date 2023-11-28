@@ -1,7 +1,9 @@
+/*global kakao*/
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
 import '../../App.css';
 import './ReservationDetails.css'
@@ -16,6 +18,15 @@ const ReservationDetails = () => {
 
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const [completePopupOpen, setCompletePopupOpen] = useState(false);
+    
+    const navigate = useNavigate();
+
+    const handleButtonClick = (path) => {
+        navigate(path);
+    };
+
+    const [name, setName] = useState(null);
+    const [loc, setLoc] = useState(null);
 
     useEffect(() => {
         // 서버에서 예약 정보 가져오기
@@ -28,7 +39,11 @@ const ReservationDetails = () => {
                 // 예약에 관련된 미용실 정보 가져오기
                 const salonResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/${reservationData.salon}`);
                 const HName = salonResponse.data.HName;
+                setName(HName);
                 const HLoc = salonResponse.data.HLoc;
+                setLoc(HLoc);
+                const HPhone = salonResponse.data.HPhone;
+                setLoc(HPhone);
 
                 // 예약에 관련된 서비스 정보 가져오기
                 const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
@@ -39,6 +54,7 @@ const ReservationDetails = () => {
                     ...reservationData,
                     HName,
                     HLoc,
+                    HPhone,
                     serviceName,
                     price,
                     status,
@@ -51,7 +67,55 @@ const ReservationDetails = () => {
                 console.error('예약 정보를 불러오는 중 오류 발생:', error);
                 setLoading(false);
             });
-    }, [id]); // id가 변경될 때마다 호출
+    
+        const initializeMap = () => {
+            const geocoder = new kakao.maps.services.Geocoder();
+    
+            if (loc) {
+                geocoder.addressSearch(loc, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        const salonLatLng = new kakao.maps.LatLng(result[0].y, result[0].x);
+    
+                        const mapContainer = document.getElementById('map');
+                        const mapOption = {
+                            center: salonLatLng,
+                            level: 3
+                        };
+                        const map = new kakao.maps.Map(mapContainer, mapOption);
+                        
+                        const mapTypeControl = new kakao.maps.MapTypeControl();
+                        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    
+                        const zoomControl = new kakao.maps.ZoomControl();
+                        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);  
+    
+                        const markerImage = new kakao.maps.MarkerImage(
+                            '/images/salonicon.png', new kakao.maps.Size(48, 48));
+    
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: salonLatLng,
+                            image: markerImage
+                        });
+    
+                        const infowindow = new kakao.maps.InfoWindow({
+                            content:
+                                `<div style="width:150px;text-align:center;padding:6px 0;font-size:14px">
+                                    <strong>${name}</strong>
+                                </div>`
+                        });
+                        infowindow.open(map, marker);
+    
+                        map.setCenter(salonLatLng);
+                    }
+                });
+            }
+        }
+
+        initializeMap();
+
+            
+    }, [id, loc, name]); // id가 변경될 때마다 호출
 
     const isReservationTimeInPast = () => {
         if (reservation) {
@@ -133,20 +197,30 @@ const ReservationDetails = () => {
         );
     }
 
-    /* const handlePopupCancel = () => {
-        setPopupOpen(false);
-    }; */
+    //리뷰 작성
+    const handleReviewClick = () => {
+        window.location.href = `/review/${reservation.id}`;
+    };
+
+    // 리뷰 수정
+    const handleReviewEditClick = () => {
+        window.location.href = `/review/${reservation.id}/edit`;
+    };
 
     return (
         <div>
             <Nav />
             <p className='main-title'>{reservation?.HName}</p>
+            <Alert />
             <hr />
             <div className='body-container'>
+                <div className='Mtop-container'>
+                    <button className='cricle-button' onClick={() => handleButtonClick('/reservation-info')}>&#xE000;</button>
+                </div>
                 <div className='reservation-details-container'>
                     <div className={`D-reservation-box ${reservation?.status === '예약 취소' ? 'cancelled' : ''}`}>
                         {reservation?.status === '예약 취소' && <p className="DDR-title">취소된 예약</p>}
-                        {reservation?.status === '이용 완료' && <p className="DDR-title">이용 완료</p>}
+                        {(reservation?.status === '이용 완료' || reservation?.status === '리뷰 작성 완료') && <p className="DDR-title">이용 완료</p>}
                         <p className="D-RNum">No.{reservation?.id}</p>
                         <hr className="mypage-separator" />
                         <p className="D-menu">일정{' '} <span className="D-info">{reservation?.date} {moment(reservation?.time, 'HH:mm').format('a h:mm')}</span></p>
@@ -157,11 +231,24 @@ const ReservationDetails = () => {
                         {reservation?.status === '예약 중' && isReservationTimeInPast() && (
                             <button className="Rstatus-button" onClick={handleCompleteClick}>이용 완료</button>
                         )}
+                        {reservation?.status === '이용 완료' && (
+                            <button className="Rstatus-button" onClick={handleReviewClick}>리뷰 쓰기</button>
+                        )}
+                        {reservation?.status === '리뷰 작성 완료' && (
+                            <button className="Rstatus-button" onClick={handleReviewEditClick}>내가 작성한 리뷰</button>
+                        )}
                         <hr className="mypage-separator" />
-                        <p className="D-title">오시는 길</p>
+                        <div className='map-container'>
+                            <p className='D-title'>찾아 오는 길</p>
+                            <div id="map" style={{ width: '100%', height: '350px' }}></div>
+                        </div>
                         <p className="L-info">
                             <img src="/images/location_icon.svg" alt="location icon" className="location_icon" />
                             {reservation?.HLoc}
+                        </p>
+                        <p className='L-info'>
+                            <img src='/images/phone.svg' alt='phone icon' className='phone_icon' />
+                            {reservation?.HPhone}
                         </p>
                         <Popup
                             isOpen={cancelPopupOpen}
@@ -178,7 +265,7 @@ const ReservationDetails = () => {
                             isOpen={completePopupOpen}
                             message={
                                 reservationCompleted
-                                    ? '이용 완료 되었습니다.'
+                                    ? '이용 완료되었습니다.'
                                     : '서비스를 받아보셨다면 이용 완료해 주세요.'
                             }
                             onConfirm={handleCompleteConfirmation}

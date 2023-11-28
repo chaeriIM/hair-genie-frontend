@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
+import Alert from '../../components/Alert';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../App.css";
@@ -374,6 +375,7 @@ const FaceTypeInfo = () => {
     <div>
       <Nav />
       <p className="main-title">나의 얼굴형 타입</p>
+      <Alert />
       <hr />
       <div className="myfacetype">
         <div className="body-container">

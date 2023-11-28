@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import SalonSelection from './SalonSelection';
 import DateSelection from './DateSelection';
 import ServiceMenuSelection from './ServiceMenuSelection';
 import './SalonReservationPage.css';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const SalonReservationPage = () => {
   const [step, setStep] = useState(1);
@@ -15,7 +17,7 @@ const SalonReservationPage = () => {
   const handleSelectSalon = (selectedSalon) => {
     setSelectedSalon(selectedSalon);
     setStep(2);
-};
+  };
 
   const renderStepContent = () => {
     switch (step) {
@@ -48,6 +50,7 @@ const SalonReservationPage = () => {
     <div className='salonreservation'>
       <Nav />
       <p className='main-title'>미용실 예약</p>
+      <Alert />
       <hr />
       <div className='step-indicator'>
         <div className={`step ${step === 1 ? 'active' : ''}`} onClick={() => setStep(1)}>
@@ -66,6 +69,8 @@ const SalonReservationPage = () => {
         </div>
       </div>
       {renderStepContent()}
+      
+      <Chatbot />
     </div>
   );
 }

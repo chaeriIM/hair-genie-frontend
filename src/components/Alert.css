@@ -1,0 +1,176 @@
+.alarm-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: -40px 0 0 0;
+    position: relative;
+}
+
+.alarm {
+    position: relative;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 80px;
+    filter: invert(9%) sepia(1%) saturate(5128%) hue-rotate(290deg) brightness(92%) contrast(98%);
+    transition: color .4s ease-in-out;
+}
+
+.alarm:hover {
+    filter: invert(75%) sepia(44%) saturate(3662%) hue-rotate(189deg) brightness(102%) contrast(102%);
+
+}
+
+/* 알림 아이콘과 읽지 않은 알림 수를 나타내는 동그라미 스타일 */
+.notification-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.unread-count {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    position: absolute;
+    top: -5px; 
+    right: 80px; 
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.review-icon,
+.scissors-icon,
+.arrive-icon {
+    display: flex;
+    width: 35px;
+    height: 35px;
+    margin: 10px 10px 0 -20px;
+}
+
+.review-icon,
+.arrive-icon {
+    filter: invert(9%) sepia(1%) saturate(5128%) hue-rotate(290deg) brightness(92%) contrast(98%);
+}
+
+/* 알림 모달 */
+.alarm-modal {
+    box-sizing: border-box;
+    position: absolute;
+    top: 215px;
+    bottom: auto;
+    left: auto;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    transition: none;
+    width: 480px;
+    height: calc(100% - 76px);
+    max-height: 480px;
+    right: calc(50% - 690px);
+    z-index: 1050;
+    visibility: visible;
+    transform: none;
+    display: block;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    overflow-y: auto;
+}
+
+.alarm-navbar {
+    visibility: visible;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 49px;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    font-weight: 500;
+}
+
+.alert-content ul {
+    list-style-type: none;
+    position: relative;
+    margin: 0;
+    font-size: 15px;
+    line-height: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alarm-content {
+    position: absolute;
+    top: 49px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    font-weight: 300;
+    overflow-y: auto;
+}
+
+.alarm-item {
+    display: flex;
+}
+
+.blue-alarm {
+    color: #82b1ff;
+    font-weight: 400;
+}
+
+.alarm-salon-name {
+    font-weight: 500;
+}
+
+.alarm-daysAgo {
+    font-size: 13px;
+    color: #a6a6a6;
+}
+
+.alarm-source {
+    line-height: 10px;
+    color: #888;
+}
+
+.link-style {
+    text-decoration: none;
+    color: #1F1F1F;
+    display: flex;
+    flex-direction: row;
+}
+
+/* 더보기 버튼 */
+.show-more-btn {
+    border: 1px solid #ddd;
+    margin: 4px 0 20px;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #1F1F1F;
+    line-height: 24px;
+    border-radius: 4px;
+    padding: 3px 10px;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    transition: color .15s ease-in-out, background .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+.show-more-btn:hover {
+    border: 1px solid #82b1ff;
+    color: #82b1ff;
+}

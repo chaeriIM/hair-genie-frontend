@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Webcam from '../../components/Webcam';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loading from '../../components/Loading';
+import Chatbot from '../../components/Chatbot';
 
 const WebcamPage = () => {
 
@@ -42,6 +44,7 @@ const WebcamPage = () => {
     <div className='faceshape'>
       <Nav />
       <p className='main-title'>얼굴형 분석</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>
@@ -78,6 +81,7 @@ const WebcamPage = () => {
           </div>
         </Modal>
 
+        <Chatbot />
     </div>
   )
 }

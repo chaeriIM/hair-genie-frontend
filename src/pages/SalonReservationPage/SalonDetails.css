@@ -1,0 +1,125 @@
+.Dtop-container {
+    display: flex;
+    min-width: 600px;
+    width: 62%;
+    justify-content: space-between;
+    margin: -44px 0 10px 0;
+}
+
+.cricle-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid #dce0e2;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+}
+
+.cricle-button:hover {
+    background-color: #f7f7f9;
+}
+
+.salon-details-box {
+    display: flex;
+    background-color: #ffffff;
+    border: 1px solid #dce0e2;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
+    padding: 15px;
+    min-width: 560px;
+    width: 60%;
+    flex-direction: column;
+    transition: .5s;
+}
+
+.salon-details-box-top {
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    align-items: center;
+}
+
+.mini-button {
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid #dce0e2;
+    font-size: 15px;
+    height: 35px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 10px;
+    transition: .4s;
+}
+
+.phone_icon {
+    height: 14px;
+    margin: 0 4px -2px 3px;
+    filter: invert(4%) sepia(25%) saturate(72%) hue-rotate(314deg) brightness(97%) contrast(83%);
+}
+
+.salon-detail-info {
+    margin: 5px 0;
+}
+
+/* 지도 */
+.salon-map {
+    min-width: 600px;
+    width: 100%
+}
+
+/* 리뷰 */
+.review-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 5px 0 10px 0;
+}
+
+.review-list-box,
+.review-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-list-box {
+    gap: 15px;
+}
+
+.review-profile {
+    display: flex;
+    align-items: center;
+}
+
+.review-profile img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .08);
+    margin: 0 10px 0 0;
+}
+
+.reviewer-info {
+    display: flex;
+    margin: 0;
+}
+
+.salon-review-content {
+    margin: 0px 0 10px;
+}
+
+.no-review-text {
+    text-align: center;
+}

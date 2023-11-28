@@ -46,7 +46,7 @@
 }
 
 /* 컴포넌트 버튼 */
-.reservation-button:hover,
+.mini-button:hover,
 .time-options button:hover,
 .time-options button.selected,
 .confirm-button:hover {

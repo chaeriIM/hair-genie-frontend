@@ -1,8 +1,10 @@
 import React from 'react';
 import Nav from '../../components/Nav';
+import Alert from '../../components/Alert';
 import './HairSynthesisPage.css';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
+import Chatbot from '../../components/Chatbot';
 
 const HairSynthesisPage = () => {
 
@@ -20,6 +22,7 @@ const HairSynthesisPage = () => {
     <div className='hairsynthesis'>
       <Nav />
       <p className='main-title'>헤어스타일 합성</p>
+      <Alert />
       <hr />
 
       <div className='body-container'>
@@ -35,6 +38,8 @@ const HairSynthesisPage = () => {
           </button>
         </div>
       </div>
+      
+      <Chatbot />
     </div>
   )
 }
