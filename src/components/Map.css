@@ -18,6 +18,12 @@
   color: #8a8a8a;
 }
 
+.salon-tel-mini {
+  color: #89aad1;
+  margin-top: 2px;
+  font-size: 14px;
+}
+
 .salon-name strong {
   font-size: 15px;
   color: #76a1e6;
