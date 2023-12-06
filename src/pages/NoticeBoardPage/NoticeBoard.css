@@ -1,0 +1,65 @@
+.board-top-container {
+    display: flex;
+    min-width: 800px;
+    width: 60%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.board-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.board-separator {
+    margin: 0;
+    background-color: #a3a3a3;
+    min-width: 800px;
+    width: 60%;
+}
+
+.board-list-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* display: flex;
+    margin: 0 0 10px 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+}
+
+.board-table {
+    border-collapse: collapse;
+    width: 60%;
+    min-width: 800px;
+}
+
+/* .board-item-container {}
+ */
+.board-item {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    text-align: center;
+}
+
+/* .board-detail-container {} */
+
+.board-detail {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px;
+    text-align: center;
+}
+
+/* 테이블 선 */
+.board-table thead,
+.board-table tbody tr {
+    border-bottom: 1px solid #ecf0f2;
+}
+
+.board-table tbody tr:last-child {
+    border-bottom: none;
+}
