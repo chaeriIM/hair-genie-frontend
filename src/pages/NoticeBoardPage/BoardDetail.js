@@ -10,6 +10,8 @@ const BoardDetail = () => {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
+    const [comments, setComments] = useState([]);
+    // const [newComment, setNewComment] = useState('');
 
     const currentUserId = localStorage.getItem('userId');
 
@@ -22,15 +24,29 @@ const BoardDetail = () => {
                 axios.get(`http://127.0.0.1:8000/user/${response.data.customer}/`)
                     .then(userResponse => {
                         setUser(userResponse.data);
+                        
                     })
                     .catch(error => {
                         console.error('Error fetching user:', error);
                     });
+                
+                // 댓글 불러오기
+                axios.get(`http://127.0.0.1:8000/board/${postId}/comments/`)
+                    .then(response => {
+                        setComments(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching comments:', error);
+                    });
+                
             })
             .catch(error => {
                 console.error('Error fetching post:', error);
             });
     }, [postId]);
+    console.log('post', post);
+    console.log('user', user);
+    console.log('comments', comments);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -79,6 +95,26 @@ const BoardDetail = () => {
                             )}
                         </div>
                         <hr className="post-separator" />
+                    
+                        {/* 댓글 */}
+                        <div className='comment'>
+                            <p className='comment-title'>댓글</p>
+                            <div className='comment-list'>
+                                {comments.map(comment => (
+                                    <div key={comment.id} className='comment-item'>
+                                        <div className='writer-profile'>
+                                            <img src={`http://127.0.0.1:8000/media/${comment.user_profile_image}`} alt='Profile' />
+                                            <div className='comment-info'>
+                                                <p className='user-name'>{comment.user_name}</p>
+                                                <p className='comment-content'>{comment.comment}</p>
+                                                <p className='created-at'>{formatDate(comment.created_at)}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

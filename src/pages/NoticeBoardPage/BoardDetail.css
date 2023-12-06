@@ -62,3 +62,43 @@
     margin: 0;
     font-size: 15px;
 }
+
+/* 댓글 */
+.comment-title {
+    font-weight: 450;
+}
+
+.comment-list {
+    margin-top: 20px;
+}
+  
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ecf0f2;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+  
+.comment-item p {
+    margin: 0;
+}
+
+.comment-item .user-name {
+    font-weight: 450;
+    font-size: 15px;
+}
+  
+.comment-item .comment-content {
+    margin: 3px 0;
+    font-size: 14px;
+}
+  
+.comment-item .created-at {
+    font-size: 12px;
+    color: #888;
+}
