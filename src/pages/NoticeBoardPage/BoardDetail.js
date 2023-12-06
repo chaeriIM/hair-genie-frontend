@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Popup from '../../components/Popup';
 import './BoardDetail.css';
 import '../../App.css';
 
@@ -12,6 +13,11 @@ const BoardDetail = () => {
     const [user, setUser] = useState(null);
 
     const currentUserId = localStorage.getItem('userId');
+
+    const [isPostDeleted, setIsPostDeleted] = useState(false);
+    const [PostDeletePopupOpen, setPostDeletePopupOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/board/${postId}/`)
@@ -42,6 +48,29 @@ const BoardDetail = () => {
         return `${year}.${month}.${day}.  ${hours}:${minutes}`;
     };
 
+    /* 삭제 */
+    const handlePostDelete = () => {
+        setPostDeletePopupOpen(true);
+    };
+
+    const confirmPostDelete = async () => {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8000/board/${postId}/`);
+            if (response.status === 204) {
+                setIsPostDeleted(true);
+
+                setTimeout(() => {
+                    setPostDeletePopupOpen(false);
+                    navigate(`/noticeboard/`);
+                }, 1000);
+            } else {
+                console.error('게시글 삭제에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('서버와의 통신 중 오류 발생:', error);
+        }
+    };
+
     return (
         <div className='noticeboard'>
             <Nav />
@@ -57,12 +86,14 @@ const BoardDetail = () => {
                         {/* 내가 작성한 글인 경우에만 보이는 항목 */}
                         {currentUserId === user?.uid && (
                             <div className='right-btn'>
-                                <button className='gray-btn' style={{ width: '50px' }}>수정</button>
-                                <button className='gray-btn' style={{ width: '50px' }}>삭제</button>
-                            </div>
+                                <Link to={`/noticeboard/${post.id}/edit`}>
+                                    <button className='gray-btn' style={{ width: '50px' }}>수정</button>
+                                </Link>
+                                <button className='gray-btn' style={{ width: '50px' }} onClick={handlePostDelete}>삭제</button>                            </div>
                         )}
                     </div>
                     <div className='board-box'>
+                        <p className='board-detail-category'>{post?.category}</p>
                         <p className='board-detail-title'>{post?.title}</p>
                         <div className='post-writer-details'>
                             <div className='writer-profile'>
@@ -80,9 +111,16 @@ const BoardDetail = () => {
                         </div>
                         <hr className="post-separator" />
                     </div>
+                    <Popup
+                        isOpen={PostDeletePopupOpen}
+                        message={isPostDeleted ? '게시글이 삭제되었습니다.' : '게시글을 삭제하시겠습니까?'}
+                        onConfirm={confirmPostDelete}
+                        onCancel={() => setPostDeletePopupOpen(false)}
+                        isCompleted={isPostDeleted}
+                    />
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

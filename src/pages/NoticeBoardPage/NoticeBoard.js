@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Pagination from 'react-js-pagination';
 import './NoticeBoard.css';
 import '../../App.css';
+
+const itemsPerPage = 15;
 
 const NoticeBoard = () => {
     const [posts, setPosts] = useState([]);
@@ -14,6 +17,8 @@ const NoticeBoard = () => {
     const [selectedCategory, setSelectedCategory] = useState('전체');
     const [boardTitle, setBoardTitle] = useState('전체 글 보기');
     const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
+
+    const [activePage, setActivePage] = useState(1);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/board/')
@@ -25,6 +30,14 @@ const NoticeBoard = () => {
                 });
                 setPosts(sortedPosts);
                 setFilteredPosts(sortedPosts);
+
+                // 공지를 상단에 고정시키기
+                const noticePosts = sortedPosts.filter(post => post.category === '공지');
+                const otherPosts = sortedPosts.filter(post => post.category !== '공지');
+                const combinedPosts = [...noticePosts, ...otherPosts];
+
+                setPosts(combinedPosts);
+                setFilteredPosts(combinedPosts);
 
                 // user 정보 가져오기
                 const userIds = response.data.map(post => post.customer);
@@ -85,6 +98,18 @@ const NoticeBoard = () => {
         setBoardTitle(title);
     };
 
+    // 페이지네이션 로직
+    useEffect(() => {
+        const startIndex = (activePage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const slicedPosts = filteredPosts.slice(startIndex, endIndex);
+        setPosts(slicedPosts);
+    }, [activePage, filteredPosts]);
+
+    const handlePageChange = (pageNumber) => {
+        setActivePage(pageNumber);
+    };
+
     return (
         <div className='noticeboard'>
             <Nav />
@@ -127,7 +152,7 @@ const NoticeBoard = () => {
                                     {filteredPosts.map((post, index) => (
                                         <tr className='board-detail-container' key={post.id}>
                                             {selectedCategory === '전체' ? (
-                                                <td className='board-detail'>{post.category}</td>
+                                                <td className={`board-detail ${post.category === '공지' ? 'notice-category' : ''}`}>{post.category}</td>
                                             ) : (
                                                 <td className='board-detail'>{post.id}</td>
                                             )}
@@ -150,6 +175,18 @@ const NoticeBoard = () => {
                         )}
                     </div>
                 </div>
+                <div className='pagination-container'>
+                    <Pagination
+                        activePage={activePage}
+                        itemsCountPerPage={itemsPerPage}
+                        totalItemsCount={filteredPosts.length}
+                        pageRangeDisplayed={5} // paginator의 페이지 범위
+                        prevPageText={"‹"}
+                        nextPageText={"›"}
+                        onChange={handlePageChange}
+                    />
+                </div>
+
             </div>
         </div>
     );

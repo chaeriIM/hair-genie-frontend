@@ -19,6 +19,13 @@
     justify-content: space-between;
 }
 
+.board-detail-category {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 10px 0 0 0;
+    color: #8d99ed;
+}
+
 .board-detail-title {
     font-size: 26px;
     font-weight: 400;
