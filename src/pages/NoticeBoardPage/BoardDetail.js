@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-/* import { Link } from 'react-router-dom'; */
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
@@ -11,6 +10,8 @@ const BoardDetail = () => {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
+
+    const currentUserId = localStorage.getItem('userId');
 
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/board/${postId}/`)
@@ -38,7 +39,7 @@ const BoardDetail = () => {
         const day = String(date.getDate()).padStart(2, '0');
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${year}.${month}.${day} ${hours}:${minutes}`;
+        return `${year}.${month}.${day}.  ${hours}:${minutes}`;
     };
 
     return (
@@ -49,25 +50,37 @@ const BoardDetail = () => {
             <hr />
             <div className='body-container'>
                 <div className='board-detail-top-container'>
-                    {/* <button className='login-btn' style={{ width: '80px' }}>수정</button>
-                    <button className='login-btn' style={{ width: '80px' }}>삭제</button> */}
-                    <p className='board-detail-title'>{post?.title}</p>
-                    <div className='post-writer-details'>
-                        <div className='writer-profile'>
-                            <img src={user?.profile_image} alt='Profile' />
-                            <p className='writer-info'>{user?.unickname}<br />{formatDate(post?.created_at)} 조회 {post?.views_count}</p>
+                    <div className='board-detail-top-btn-container'>
+                        <Link to="/noticeboard" className='left-btn' style={{ textDecoration: 'none' }}>
+                            <button className='gray-btn' style={{ width: '50px' }} >목록 </button>
+                        </Link>
+                        {/* 내가 작성한 글인 경우에만 보이는 항목 */}
+                        {currentUserId === user?.uid && (
+                            <div className='right-btn'>
+                                <button className='gray-btn' style={{ width: '50px' }}>수정</button>
+                                <button className='gray-btn' style={{ width: '50px' }}>삭제</button>
+                            </div>
+                        )}
+                    </div>
+                    <div className='board-box'>
+                        <p className='board-detail-title'>{post?.title}</p>
+                        <div className='post-writer-details'>
+                            <div className='writer-profile'>
+                                <img src={user?.profile_image} alt='Profile' />
+                                <p className='writer-info'>{user?.unickname}<br />{formatDate(post?.created_at)}&nbsp;&nbsp;&nbsp;조회 {post?.views_count}</p>
+                            </div>
                         </div>
+                        <hr className="post-separator" />
+                        <div className='post-content-container'>
+                            {post ? (
+                                <p>{post.content}</p>
+                            ) : (
+                                <p>Loading...</p>
+                            )}
+                        </div>
+                        <hr className="post-separator" />
                     </div>
                 </div>
-                <hr className="post-separator" />
-                <div className='post-content-container'>
-                    {post ? (
-                        <p>{post.content}</p>
-                    ) : (
-                        <p>Loading...</p>
-                    )}
-                </div>
-                <hr className="post-separator" />
             </div>
         </div>
     );

@@ -4,10 +4,11 @@
     width: 60%;
     justify-content: space-between;
     align-items: flex-end;
+    margin-top: -20px;
 }
 
 .board-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
 }
 
@@ -18,26 +19,40 @@
     width: 60%;
 }
 
+.category-filter {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-wrap: nowrap;
+
+  }
+  
+  .board-title-container:hover .category-filter {
+    display: flex;
+  }
+
+.board-body-container {
+    display: flex;
+    flex-direction: row;
+    min-width: 800px;
+    width: 60%;
+}
+
 .board-list-container {
     display: flex;
     justify-content: center;
     width: 100%;
-    /* display: flex;
-    margin: 0 0 10px 0;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
 }
 
 .board-table {
     border-collapse: collapse;
-    width: 60%;
+    width: 100%;
     min-width: 800px;
 }
 
-/* .board-item-container {}
- */
 .board-item {
     font-size: 16px;
     font-weight: 500;
@@ -45,13 +60,20 @@
     text-align: center;
 }
 
-/* .board-detail-container {} */
-
 .board-detail {
     font-size: 15px;
     font-weight: 400;
     padding: 10px;
     text-align: center;
+}
+
+.board-list-title {
+    text-decoration: none;
+    color: #1F1F1F;
+}
+
+.board-list-title:hover {
+    text-decoration: underline;
 }
 
 /* 테이블 선 */

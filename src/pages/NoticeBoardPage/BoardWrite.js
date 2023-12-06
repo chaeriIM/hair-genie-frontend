@@ -8,6 +8,7 @@ import './BoardWrite.css'
 import '../../App.css';
 
 const BoardWrite = () => {
+    const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [SubmitPopupOpen, setSubmitPopupOpen] = useState(false);
@@ -40,6 +41,10 @@ const BoardWrite = () => {
         fetchLoggedInUser();
     }, []);
 
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+    };
+
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     };
@@ -52,6 +57,7 @@ const BoardWrite = () => {
         try {
             // 요청 데이터
             const requestData = {
+                category: category,
                 title: title,
                 content: content,
                 customer: customerId,
@@ -90,6 +96,15 @@ const BoardWrite = () => {
             <div className='body-container'>
                 <div className='board-write-container'>
                     <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="category"></label>
+                            <select className='category-container' id="category" value={category} onChange={handleCategoryChange}>
+                                <option value="">게시판을 선택해주세요.</option>
+                                <option value="공지">공지</option>
+                                <option value="자유">자유</option>
+                                <option value="미용실 등록 요청">미용실 등록 요청</option>
+                            </select>
+                        </div>
                         <div>
                             <label htmlFor="title"></label>
                             <input className="title-input" placeholder="제목을 입력해주세요." type="text" id="title" value={title} onChange={handleTitleChange} />
