@@ -11,7 +11,8 @@ const BoardDetail = () => {
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
     const [comments, setComments] = useState([]);
-    // const [newComment, setNewComment] = useState('');
+    const [newComment, setNewComment] = useState('');
+    const [customerId, setCustomerId] = useState('');
 
     const currentUserId = localStorage.getItem('userId');
 
@@ -24,7 +25,6 @@ const BoardDetail = () => {
                 axios.get(`http://127.0.0.1:8000/user/${response.data.customer}/`)
                     .then(userResponse => {
                         setUser(userResponse.data);
-                        
                     })
                     .catch(error => {
                         console.error('Error fetching user:', error);
@@ -44,9 +44,51 @@ const BoardDetail = () => {
                 console.error('Error fetching post:', error);
             });
     }, [postId]);
-    console.log('post', post);
-    console.log('user', user);
-    console.log('comments', comments);
+    // console.log('post', post);
+    // console.log('user', user);
+    // console.log('comments', comments);
+
+    const handleCommentSubmit = () => {
+        // 새 댓글 작성 및 댓글 목록 갱신
+        axios.post(`http://127.0.0.1:8000/board/${postId}/comments/`, 
+            { 
+                comment: newComment,
+                board: postId,
+                customer: customerId,
+            })
+            .then(response => {
+                setComments([...comments, response.data]);
+                setNewComment('');
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+    };
+
+    // 로그인한 유저
+    useEffect(() => {
+        const fetchLoggedInUser = async () => {
+            try {
+                const userId = localStorage.getItem('userId');
+                if (userId) {
+                    const response = await axios.get(`http://127.0.0.1:8000/user/`);
+                    const userData = response.data;
+
+                    const matchedUser = userData.find((user) => user.uid === userId);
+
+                    if (matchedUser) {
+                        // 일치하는 사용자가 있을 경우 해당 ID를 customerId로 설정
+                        setCustomerId(matchedUser.id);
+                    }
+                } else {
+                    console.error('사용자 ID가 없습니다.');
+                }
+            } catch (error) {
+                console.error('사용자 정보를 가져오는 중 오류 발생:', error);
+            }
+        };
+        fetchLoggedInUser();
+    }, []);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -112,6 +154,15 @@ const BoardDetail = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                            <div className='comment-input'>
+                                <textarea
+                                    rows='4'
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    placeholder='댓글을 입력해주세요.'
+                                />
+                                <button onClick={handleCommentSubmit}>등록</button>
                             </div>
 
                         </div>

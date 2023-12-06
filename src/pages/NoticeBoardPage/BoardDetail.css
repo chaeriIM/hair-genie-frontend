@@ -63,6 +63,7 @@
     font-size: 15px;
 }
 
+
 /* 댓글 */
 .comment-title {
     font-weight: 450;
@@ -101,4 +102,41 @@
 .comment-item .created-at {
     font-size: 12px;
     color: #888;
+}
+
+.comment-input {
+    display: flex;
+    flex-direction: column;
+}
+  
+.comment-input textarea {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ecf0f2;
+    border-radius: 4px;
+    resize: none;
+    transition: border-color 0.3s;
+}
+
+.comment-input textarea:focus {
+    border-color: #b4d1ff;
+    outline: none;
+  }
+  
+.comment-input button {
+    width: 60px;
+    margin: 10px 0 20px 0;
+    padding: 8px 15px;
+    background-color: #82b1ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .4s;
+    margin-left: auto;
+}
+  
+.comment-input button:hover {
+    background-color: #467dc6;
 }
