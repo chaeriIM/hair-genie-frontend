@@ -95,6 +95,7 @@ const Map = () => {
           listItem.innerHTML = `
             <strong>${salon.HName}</strong>
             <div class="salon-loc">${salon.HLoc}</div>
+            <div class="salon-tel-mini">${salon.HPhone}</div>
           `;
           // 목록 클릭
           listItem.addEventListener('click', () => {

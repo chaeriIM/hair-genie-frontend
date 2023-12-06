@@ -26,6 +26,7 @@ const Nav = () => {
         <a href='/faceshape' className='navbarMenu'>얼굴형 분석</a>
         <a href='/salonlocator' className='navbarMenu'>미용실 찾기</a>
         <a href='/salonreservation' className='navbarMenu'>미용실 예약</a>
+        <a href='/noticeboard' className='navbarMenu'>게시판</a>
         <a href='/mypage' className='navbarMenu'>마이페이지</a>
 
         {/* 로그인 여부에 따라 버튼 표시 */}
