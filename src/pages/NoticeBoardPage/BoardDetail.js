@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Popup from '../../components/Popup';
 import './BoardDetail.css';
 import '../../App.css';
 
@@ -10,9 +11,14 @@ const BoardDetail = () => {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
+
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [customerId, setCustomerId] = useState('');
+    const [editCommentContent, setEditCommentContent] = useState('');
+    const [isCommentDeleted, setIsCommentDeleted] = useState(false);
+    const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
+    const [selectedCommentId, setSelectedCommentId] = useState(null);
 
     const currentUserId = localStorage.getItem('userId');
 
@@ -44,9 +50,6 @@ const BoardDetail = () => {
                 console.error('Error fetching post:', error);
             });
     }, [postId]);
-    // console.log('post', post);
-    // console.log('user', user);
-    // console.log('comments', comments);
 
     const handleCommentSubmit = () => {
         // 새 댓글 작성 및 댓글 목록 갱신
@@ -63,6 +66,64 @@ const BoardDetail = () => {
             .catch(error => {
                 console.error('Error submitting comment:', error);
             });
+    };
+
+    // 수정 버튼 클릭 시 편집 모드 전환
+    const handleEditClick = (commentId, currentContent) => {
+        // 편집 모드로 변경
+        setComments(comments.map(comment =>
+            comment.id === commentId ? { ...comment, isEditing: true } : comment
+        ));
+
+        setEditCommentContent(currentContent);
+    };
+
+    // 수정 완료 버튼 클릭 시
+    const handleEditComplete = (commentId) => {
+        // 수정된 내용 서버로 전송
+        axios.put(`http://127.0.0.1:8000/board/${postId}/comments/${commentId}/`, {
+            comment: editCommentContent,
+            board: postId,
+            customer: customerId,
+        })
+        .then(response => {
+            // 편집 모드 해제하고 화면 갱신
+            setComments(comments.map(comment =>
+                comment.id === commentId ? { ...comment, isEditing: false, comment: editCommentContent } : comment
+            ));
+        })
+        .catch(error => {
+            console.error('Error updating comment:', error);
+        });
+    };
+
+    // 취소 버튼 클릭 시 편집 모드 해제
+    const handleCancelEdit = (commentId) => {
+        setComments(comments.map(comment =>
+            comment.id === commentId ? { ...comment, isEditing: false } : comment
+        ));
+    };
+
+    // 삭제 버튼 클릭 시
+    const handleDeleteComment = (commentId) => {
+        axios.delete(`http://127.0.0.1:8000/board/${postId}/comments/${commentId}/`)
+            .then(response => {
+                setIsCommentDeleted(true);
+                // 삭제된 댓글 화면에서 제거
+                setComments(comments.filter(comment => comment.id !== commentId));
+                
+                setTimeout(() => {
+                    setCommentDeletePopupOpen(false);
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('Error deleting comment:', error);
+            });
+    };
+
+    const openCommentDeletePopup = (commentId) => {
+        setSelectedCommentId(commentId);
+        setCommentDeletePopupOpen(true);
     };
 
     // 로그인한 유저
@@ -140,17 +201,44 @@ const BoardDetail = () => {
                     
                         {/* 댓글 */}
                         <div className='comment'>
-                            <p className='comment-title'>댓글</p>
+                            <p className='comment-title'>댓글 {comments.length}</p>
                             <div className='comment-list'>
                                 {comments.map(comment => (
                                     <div key={comment.id} className='comment-item'>
                                         <div className='writer-profile'>
-                                            <img src={`http://127.0.0.1:8000/media/${comment.user_profile_image}`} alt='Profile' />
+                                            {!comment.isEditing && (
+                                                <img src={`http://127.0.0.1:8000/media/${comment.user_profile_image}`} alt='Profile' />
+                                            )}
                                             <div className='comment-info'>
                                                 <p className='user-name'>{comment.user_name}</p>
-                                                <p className='comment-content'>{comment.comment}</p>
-                                                <p className='created-at'>{formatDate(comment.created_at)}</p>
+
+                                                {comment.isEditing ? (
+                                                    <div className='update-input'>
+                                                        <textarea
+                                                            rows='4'
+                                                            value={editCommentContent}
+                                                            onChange={(e) => setEditCommentContent(e.target.value)}
+                                                        />
+                                                        <div className='btn-container'>
+                                                            <button className='btn-cancel' onClick={() => handleCancelEdit(comment.id)}>취소</button>
+                                                            <button className='btn-update' onClick={() => handleEditComplete(comment.id)}>수정</button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <p className='comment-content'>{comment.comment}</p>
+                                                        <p className='created-at'>{formatDate(comment.created_at)}</p>
+                                                    </>
+                                                )}
+                                                
                                             </div>
+                                                
+                                            {comment.customer === customerId && !comment.isEditing && (
+                                                <div className='btn-container'>
+                                                    <button onClick={() => handleEditClick(comment.id, comment.comment)}>수정</button>
+                                                    <button onClick={() => openCommentDeletePopup(comment.id)}>삭제</button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
@@ -166,6 +254,14 @@ const BoardDetail = () => {
                             </div>
 
                         </div>
+
+                        <Popup
+                            isOpen={CommentDeletePopupOpen}
+                            message={isCommentDeleted ? '댓글이 삭제되었습니다.' : '댓글을 삭제하시겠습니까?'}
+                            onConfirm={() => handleDeleteComment(selectedCommentId)}
+                            onCancel={() => setCommentDeletePopupOpen(false)}
+                            isCompleted={isCommentDeleted}
+                        />
                     </div>
                 </div>
             </div>

@@ -47,6 +47,7 @@
 }
 
 .writer-profile img {
+    flex: 0 0 auto;
     width: 45px;
     height: 45px;
     object-fit: cover;
@@ -75,7 +76,6 @@
   
 .comment-item {
     display: flex;
-    align-items: flex-start;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ecf0f2;
@@ -87,6 +87,14 @@
   
 .comment-item p {
     margin: 0;
+}
+
+.comment-item .writer-profile {
+    width: 100%;
+}
+
+.comment-info {
+    width: 100%;
 }
 
 .comment-item .user-name {
@@ -139,4 +147,79 @@
   
 .comment-input button:hover {
     background-color: #467dc6;
+}
+
+.btn-container {
+    display: flex;
+    margin-left: auto;
+}
+
+.btn-container button {
+    width: 40px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #888;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.btn-container button:hover {
+    color: #82b1ff;
+}
+
+
+/* 댓글 수정 모드 */
+.update-input {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    width: 100%;
+}
+  
+.update-input textarea {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ecf0f2;
+    border-radius: 4px;
+    resize: none;
+    transition: border-color 0.3s;
+    border-color: #b4d1ff;
+    outline: none;
+}
+  
+.update-input button.btn-update {
+    width: 55px;
+    margin: 10px 0 10px 10px;
+    padding: 8px 15px;
+    background-color: #82b1ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.update-input button.btn-update:hover {
+    background-color: #467dc6;
+    color: #fff;
+}
+
+.update-input button.btn-cancel {
+    width: 55px;
+    margin: 10px 0 10px 10px;
+    padding: 8px 15px;
+    background-color: #c7c9cb;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.update-input button.btn-cancel:hover {
+    background-color: #a4a5a7;
+    color: #fff;
 }
