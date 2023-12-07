@@ -146,7 +146,7 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                                                     {salon.averageRating !== undefined ? (
                                                         <>
                                                             <span>별점 {salon.averageRating.toFixed(1)}</span>
-                                                            <span class="date-separator" style={{ color: "#e2e2e2" }}>|</span>
+                                                            <span className="date-separator" style={{ color: "#e2e2e2" }}>|</span>
                                                             <span>리뷰 {salon.reviewCount}</span>
                                                         </>
                                                     ) : ''}
