@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Pagination from 'react-js-pagination';
 import './BoardDetail.css';
 import '../../App.css';
 
@@ -19,6 +20,9 @@ const BoardDetail = () => {
     const [isCommentDeleted, setIsCommentDeleted] = useState(false);
     const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
     const [selectedCommentId, setSelectedCommentId] = useState(null);
+
+    const [activePage, setActivePage] = useState(1);
+    const itemsPerPage = 10;
 
     const currentUserId = localStorage.getItem('userId');
 
@@ -161,6 +165,10 @@ const BoardDetail = () => {
         return `${year}.${month}.${day}.  ${hours}:${minutes}`;
     };
 
+    const handlePageChange = (pageNumber) => {
+        setActivePage(pageNumber);
+    };
+
     return (
         <div className='noticeboard'>
             <Nav />
@@ -203,7 +211,9 @@ const BoardDetail = () => {
                         <div className='comment'>
                             <p className='comment-title'>댓글 {comments.length}</p>
                             <div className='comment-list'>
-                                {comments.map(comment => (
+                                {comments
+                                    .slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage)
+                                    .map(comment => (
                                     <div key={comment.id} className='comment-item'>
                                         <div className='writer-profile'>
                                             {!comment.isEditing && (
@@ -243,6 +253,19 @@ const BoardDetail = () => {
                                     </div>
                                 ))}
                             </div>
+
+                            {/* 댓글 페이징 처리 */}
+                            <Pagination
+                                activePage={activePage}
+                                itemsCountPerPage={itemsPerPage}
+                                totalItemsCount={comments.length}
+                                pageRangeDisplayed={5}
+                                prevPageText={"<"}
+                                nextPageText={">"}
+                                onChange={handlePageChange}
+                            />
+
+                            {/* 댓글 입력창 */}
                             <div className='comment-input'>
                                 <textarea
                                     rows='4'
