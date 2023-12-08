@@ -68,11 +68,12 @@ const MyPage = () => {
             </div>
             <div className='mypage-button-section-2'>
               <div className='mypage-menu'>
-                <div className='mypage-menu-button' /* onClick={() => handleButtonClick('/reservation-info')} */>내가 쓴 게시글  &#xE001;</div>
+                <div className='mypage-menu-button' onClick={() => handleButtonClick('/my-posts')}>내가 쓴 게시글  &#xE001;</div>
               </div>
               <div className='mypage-menu'>
                 <div className='mypage-menu-button' /* onClick={() => handleButtonClick('/reservation-info')} */>내가 쓴 댓글  &#xE001;</div>
               </div>
+              <div className='mypage-menu' style={{ border: 'transparent', boxShadow: 'none' }}></div>
             </div>
           </div>
           <div className='withdrawal-button' onClick={() => handleButtonClick('/withdrawal')}>회원 탈퇴  &#xE001;</div>
