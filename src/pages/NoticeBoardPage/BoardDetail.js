@@ -235,11 +235,16 @@ const BoardDetail = () => {
                         </div>
                         <hr className="post-separator" />
                         <div className='post-content-container'>
-                            {post ? (
-                                <p>{post.content}</p>
-                            ) : (
-                                <p>Loading...</p>
-                            )}
+                        {post ? (
+                            <p>{post.content.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}</p>
+                        ) : (
+                            <p>Loading...</p>
+                        )}
                         </div>
                         <hr className="post-separator" />
                     
@@ -272,7 +277,12 @@ const BoardDetail = () => {
                                                     </div>
                                                 ) : (
                                                     <>
-                                                        <p className='comment-content'>{comment.comment}</p>
+                                                        <p className='comment-content'>{comment.comment.split('\n').map((line, index) => (
+                                                            <React.Fragment key={index}>
+                                                                {line}
+                                                                <br />
+                                                            </React.Fragment>
+                                                        ))}</p>
                                                         <p className='created-at'>{formatDate(comment.created_at)}</p>
                                                     </>
                                                 )}
