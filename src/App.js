@@ -18,6 +18,8 @@ import ReservationDetails from './pages/MyPage/ReservationDetails';
 import ReviewWrite from "./pages/MyPage/ReviewWrite.js";
 import EditReview from "./pages/MyPage/EditReview.js";
 
+import MyPosts from "./pages/MyPage/MyPosts.js";
+
 import NoticeBoard from "./pages/NoticeBoardPage/NoticeBoard.js";
 import BoardWrite from "./pages/NoticeBoardPage/BoardWrite.js";
 import BoardDetail from "./pages/NoticeBoardPage/BoardDetail.js";
@@ -93,6 +95,7 @@ const App = () => {
             <Route path="face-type-info" element={<FaceTypeInfo />} />
             <Route path="my-face-type" element={<MyFaceType />} />
             <Route path="withdrawal" element={<Withdrawal />} />
+            <Route path="my-posts" element={<MyPosts />} />
             {/* 미용실 예약 */}
             <Route path="reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation/:id" element={<ReservationDetails />} />
