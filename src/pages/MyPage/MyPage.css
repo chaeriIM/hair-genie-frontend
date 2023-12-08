@@ -73,18 +73,12 @@
   align-items: center;
 }
 
-.mypage-button-section-1 {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
-}
-
+.mypage-button-section-1,
 .mypage-button-section-2 {
   display: flex;
   gap: 20px;
   width: 100%;
-  margin-left: 5%;
+  justify-content: center;
 }
 
 .mypage-menu {
