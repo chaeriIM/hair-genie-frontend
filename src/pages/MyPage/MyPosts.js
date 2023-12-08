@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
@@ -10,10 +10,9 @@ import '../../App.css';
 const itemsPerPage = 15;
 
 const MyPosts = () => {
-    const { postId } = useParams();
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [selectedPosts, setSelectedPosts] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [/* posts */, setPosts] = useState([]);
 
     const userId = localStorage.getItem('userId');
 
@@ -21,8 +20,6 @@ const MyPosts = () => {
     const [PostDeletePopupOpen, setPostDeletePopupOpen] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
