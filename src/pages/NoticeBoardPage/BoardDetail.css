@@ -63,6 +63,7 @@
     transition: transform 0.2s ease-in-out;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .08);
     margin: 0 10px 0 0;
+    align-self: flex-start;
 }
 
 .writer-info {
@@ -159,6 +160,7 @@
 .btn-container {
     display: flex;
     margin-left: auto;
+    align-self: flex-start;
 }
 
 .btn-container button {
