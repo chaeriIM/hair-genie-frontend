@@ -148,7 +148,7 @@ const MyPosts = () => {
                                                     className='board-list-title'
                                                     to={`/noticeboard/${post.id}`}
                                                 >
-                                                    {post.title}
+                                                    {post.title} <span style={{ color: '#82b1ff' }}>[{post.comment_count}]</span>
                                                 </Link>
                                             </td>
                                             <td className='board-detail'>{formatDate(post.created_at)}</td>
