@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Modal from 'react-modal';
 import './BoardWrite.css'
 import '../../App.css';
+
+Modal.setAppElement('#root');
 
 const BoardWrite = () => {
     const [category, setCategory] = useState('');
@@ -15,6 +18,8 @@ const BoardWrite = () => {
     const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
     const [customerId, setCustomerId] = useState('');
 
+    const [showModal, setShowModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -53,6 +58,27 @@ const BoardWrite = () => {
         setContent(e.target.value);
     };
 
+    /* 게시글 등록 요청 */
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (category === '공지') {
+            submitPost();
+        } else {
+            setSubmitPopupOpen(true);
+        }
+    };
+
+    /* 공지 작성 제한 */
+    const submitPost = () => {
+        if (category === '공지' && !localStorage.getItem('isAdmin')) {
+            setErrorMessage('공지는 관리자만 등록할 수 있습니다.');
+            setShowModal(true);
+            return;
+        }
+
+        handleConfirm();
+    };
+
     const handleConfirm = async () => {
         try {
             // 요청 데이터
@@ -80,11 +106,6 @@ const BoardWrite = () => {
         } catch (error) {
             console.error('게시글 생성 중 오류 발생:', error);
         }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSubmitPopupOpen(true);
     };
 
     return (
@@ -117,6 +138,24 @@ const BoardWrite = () => {
                             <button type="submit" className='login-btn' style={{ width: '100px' }}>등록</button>
                         </div>
                     </form>
+                    <Modal
+                        isOpen={showModal}
+                        onRequestClose={() => setShowModal(false)}
+                        contentLabel="에러 모달"
+                        className="modal"
+                        overlayClassName="overlay"
+                        ariaHideApp={false}
+                    >
+                        <div className="modal-header">
+                            <h2>🚫 작성 제한</h2>
+                            <button className="close-button" onClick={() => setShowModal(false)}>
+                                X
+                            </button>
+                        </div>
+                        <div className="modal-content">
+                            <p>{errorMessage}</p>
+                        </div>
+                    </Modal>
                     <Popup
                         isOpen={SubmitPopupOpen}
                         message={isReviewSubmitted ? '게시글 작성 완료!' : '게시글을 등록하시겠습니까?'}

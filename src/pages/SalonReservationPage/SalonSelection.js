@@ -24,6 +24,9 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                     const sortedData = data.sort((a, b) => a.HName.localeCompare(b.HName));
                     setSalonData(sortedData);
                     setLoading(false);
+
+                    // 각 미용실의 리뷰 데이터 가져오기
+                    fetchReviewDataForSalons(sortedData);
                 }
             } catch (error) {
                 console.error(error);
@@ -34,36 +37,29 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
         fetchSalonData();
     }, []);
 
-    // SalonSelection 컴포넌트 내부에 useEffect 추가하여 미용실의 평균 별점 계산
-    useEffect(() => {
-        const fetchReviewDataForSalons = async () => {
-            try {
-                const salonsWithAvgRatings = await Promise.all(
-                    salonData.map(async (salon) => {
-                        const reviewResponse = await fetch(`http://127.0.0.1:8000/reservation/${salon.HID}/review`);
-                        if (reviewResponse.ok) {
-                            const reviewData = await reviewResponse.json();
-                            const reviewCount = reviewData.length;
-                            if (reviewCount > 0) {
-                                const sum = reviewData.reduce((total, review) => total + review.rating, 0);
-                                const averageRating = sum / reviewCount;
-                                const roundedAvgRating = Math.round(averageRating * 10) / 10; // 소숫점 첫째 자리까지 반올림
-                                return { ...salon, averageRating: roundedAvgRating, reviewCount };
-                            }
-                        }
-                        return { ...salon, averageRating: 0, reviewCount: 0 }; // 리뷰가 없을 경우 기본값으로 0 설정 및 리뷰 개수 0으로 설정
-                    })
-                );
-                setSalonData(salonsWithAvgRatings); // salonsWithAvgRatings로 설정
-                setLoading(false);
-            } catch (error) {
-                console.error(error);
-                setLoading(false);
-            }
-        };
+    const fetchReviewDataForSalons = async (salonData) => {
+        try {
+            const salonReviewPromises = salonData.map(async (salon) => {
+                const reviewResponse = await fetch(`http://127.0.0.1:8000/reservation/${salon.HID}/review`);
+                if (reviewResponse.ok) {
+                    const reviewData = await reviewResponse.json();
+                    const reviewCount = reviewData.length;
+                    if (reviewCount > 0) {
+                        const sum = reviewData.reduce((total, review) => total + review.rating, 0);
+                        const averageRating = sum / reviewCount;
+                        const roundedAvgRating = Math.round(averageRating * 10) / 10; // 소숫점 첫째 자리까지 반올림
+                        return { ...salon, averageRating: roundedAvgRating, reviewCount };
+                    }
+                }
+                return { ...salon, averageRating: 0, reviewCount: 0 }; // 리뷰가 없을 경우 기본값으로 0 설정 및 리뷰 개수 0으로 설정
+            });
 
-        fetchReviewDataForSalons();
-    }, [salonData]);
+            const salonsWithAvgRatings = await Promise.all(salonReviewPromises);
+            setSalonData(salonsWithAvgRatings); // salonsWithAvgRatings로 설정
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleSalonBoxClick = (salon) => {
         setSelectedSalonDetails(salon);
@@ -146,7 +142,7 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                                                     {salon.averageRating !== undefined ? (
                                                         <>
                                                             <span>별점 {salon.averageRating.toFixed(1)}</span>
-                                                            <span class="date-separator" style={{ color: "#e2e2e2" }}>|</span>
+                                                            <span className="date-separator" style={{ color: "#e2e2e2" }}>|</span>
                                                             <span>리뷰 {salon.reviewCount}</span>
                                                         </>
                                                     ) : ''}

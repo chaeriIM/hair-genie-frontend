@@ -27,12 +27,20 @@
     border: 1px solid #ccc;
     padding: 5px;
     text-wrap: nowrap;
+}
 
-  }
-  
-  .board-title-container:hover .category-filter {
+.category:hover {
+    color: #8d99ed;
+    cursor: pointer;
+}
+
+.board-title:hover {
+    cursor: pointer;
+}
+
+.board-title-container:hover .category-filter {
     display: flex;
-  }
+}
 
 .board-body-container {
     display: flex;
@@ -84,4 +92,10 @@
 
 .board-table tbody tr:last-child {
     border-bottom: none;
+}
+
+/* 공지 */
+.notice-category {
+    color: #8d99ed;
+    font-weight: 500;
 }
