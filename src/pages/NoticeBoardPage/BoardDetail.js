@@ -16,6 +16,8 @@ const BoardDetail = () => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [customerId, setCustomerId] = useState('');
+    const [customerNickname, setCustomerNickname] = useState('');
+    const [customerImg, setCustomerImg] = useState('');
     const [editCommentContent, setEditCommentContent] = useState('');
     const [isCommentDeleted, setIsCommentDeleted] = useState(false);
     const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
@@ -23,10 +25,13 @@ const BoardDetail = () => {
 
     const [activePage, setActivePage] = useState(1);
     const itemsPerPage = 10;
+    const totalCommentPages = Math.ceil(comments.length / itemsPerPage);
 
     const currentUserId = localStorage.getItem('userId');
 
     useEffect(() => {
+        setActivePage(totalCommentPages);
+
         axios.get(`http://127.0.0.1:8000/board/${postId}/`)
             .then(response => {
                 setPost(response.data);
@@ -53,7 +58,7 @@ const BoardDetail = () => {
             .catch(error => {
                 console.error('Error fetching post:', error);
             });
-    }, [postId]);
+    }, [postId, totalCommentPages]);
 
     const handleCommentSubmit = () => {
         // 새 댓글 작성 및 댓글 목록 갱신
@@ -142,8 +147,9 @@ const BoardDetail = () => {
                     const matchedUser = userData.find((user) => user.uid === userId);
 
                     if (matchedUser) {
-                        // 일치하는 사용자가 있을 경우 해당 ID를 customerId로 설정
                         setCustomerId(matchedUser.id);
+                        setCustomerNickname(matchedUser.unickname);
+                        setCustomerImg(matchedUser.profile_image);
                     }
                 } else {
                     console.error('사용자 ID가 없습니다.');
@@ -255,18 +261,24 @@ const BoardDetail = () => {
                             </div>
 
                             {/* 댓글 페이징 처리 */}
-                            <Pagination
-                                activePage={activePage}
-                                itemsCountPerPage={itemsPerPage}
-                                totalItemsCount={comments.length}
-                                pageRangeDisplayed={5}
-                                prevPageText={"<"}
-                                nextPageText={">"}
-                                onChange={handlePageChange}
-                            />
+                            {totalCommentPages > 1 && (
+                                <Pagination
+                                    activePage={activePage}
+                                    itemsCountPerPage={itemsPerPage}
+                                    totalItemsCount={comments.length}
+                                    pageRangeDisplayed={5}
+                                    prevPageText={"<"}
+                                    nextPageText={">"}
+                                    onChange={handlePageChange}
+                                />
+                            )}
 
                             {/* 댓글 입력창 */}
                             <div className='comment-input'>
+                                <div className='writer-profile' style={{ paddingBottom: '10px' }}>
+                                    <img src={`${customerImg}`} alt='Profile' />
+                                    <p className='user-name' style={{ fontWeight: 450, color: '#82b1ff' }}>{customerNickname}</p>
+                                </div>
                                 <textarea
                                     rows='4'
                                     value={newComment}
