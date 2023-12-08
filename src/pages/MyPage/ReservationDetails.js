@@ -27,6 +27,7 @@ const ReservationDetails = () => {
 
     const [name, setName] = useState(null);
     const [loc, setLoc] = useState(null);
+    const mapContainer = document.getElementById('map');
 
     useEffect(() => {
         // 서버에서 예약 정보 가져오기
@@ -43,7 +44,6 @@ const ReservationDetails = () => {
                 const HLoc = salonResponse.data.HLoc;
                 setLoc(HLoc);
                 const HPhone = salonResponse.data.HPhone;
-                setLoc(HPhone);
 
                 // 예약에 관련된 서비스 정보 가져오기
                 const serviceResponse = await axios.get(`http://127.0.0.1:8000/hairsalon/service/${reservationData.service}`);
@@ -76,7 +76,6 @@ const ReservationDetails = () => {
                     if (status === kakao.maps.services.Status.OK) {
                         const salonLatLng = new kakao.maps.LatLng(result[0].y, result[0].x);
     
-                        const mapContainer = document.getElementById('map');
                         const mapOption = {
                             center: salonLatLng,
                             level: 3
@@ -112,10 +111,12 @@ const ReservationDetails = () => {
             }
         }
 
-        initializeMap();
+        if (mapContainer) {
+            initializeMap();
+        }
 
             
-    }, [id, loc, name]); // id가 변경될 때마다 호출
+    }, [id, loc, mapContainer, name]); // id가 변경될 때마다 호출
 
     const isReservationTimeInPast = () => {
         if (reservation) {

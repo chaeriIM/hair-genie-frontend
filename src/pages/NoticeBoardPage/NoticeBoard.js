@@ -47,7 +47,7 @@ const NoticeBoard = () => {
                 console.error('Error fetching data:', error);
             });
     }, []);
-
+    console.log(posts);
     const fetchUsers = (userIds) => {
         axios.get(`http://127.0.0.1:8000/user/?id__in=${userIds.join(',')}`)
             .then(response => {
@@ -162,7 +162,7 @@ const NoticeBoard = () => {
                                                     to={`/noticeboard/${post.id}`}
                                                     onClick={() => handlePostClick(post.id)}
                                                 >
-                                                    {post.title}
+                                                    {post.title} <span style={{color: '#82b1ff'}}>[{post.comment_count}]</span>
                                                 </Link>
                                             </td>
                                             <td className='board-detail'>{users[post.customer]?.unickname}</td>
