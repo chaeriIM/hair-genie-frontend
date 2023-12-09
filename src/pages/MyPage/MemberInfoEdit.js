@@ -190,7 +190,7 @@ const MemberInfoEdit = () => {
 
         <div className='pro-image'>
           <img
-            src={`http://127.0.0.1:8000${user.profile_image}`}
+            src={`${user.profile_image}`}
             alt="ProfileImage"
             id="profileImagePreview"
             onClick={handleProfileImageClick}
