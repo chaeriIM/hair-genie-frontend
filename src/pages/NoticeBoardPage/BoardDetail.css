@@ -84,6 +84,7 @@
   
 .comment-item {
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ecf0f2;
@@ -113,6 +114,10 @@
 .comment-item .comment-content {
     margin: 5px 0;
     font-size: 14px;
+}
+
+.reply-container {
+    display: flex;
 }
   
 .comment-item .created-at {
@@ -231,4 +236,16 @@
 .update-input button.btn-cancel:hover {
     background-color: #a4a5a7;
     color: #fff;
+}
+
+/* 대댓글 */
+.comment-item .replies {
+    margin-left: 55px;
+}
+
+.comment-item .replies .comment-item {
+    padding-top: 20px;
+    margin-bottom: 0;
+    border-top: 1px solid #ecf0f2;
+    border-bottom: none;
 }
