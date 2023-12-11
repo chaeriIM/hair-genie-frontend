@@ -13,16 +13,30 @@ const BoardDetail = () => {
     const [post, setPost] = useState(null);
     const [user, setUser] = useState(null);
 
+    // 댓글
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [customerId, setCustomerId] = useState('');
     const [customerNickname, setCustomerNickname] = useState('');
     const [customerImg, setCustomerImg] = useState('');
+    
     const [editCommentContent, setEditCommentContent] = useState('');
     const [isCommentDeleted, setIsCommentDeleted] = useState(false);
     const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
     const [selectedCommentId, setSelectedCommentId] = useState(null);
 
+    // 대댓글
+    const [newReply, setNewReply] = useState('');
+    const [selectedComment, setSelectedComment] = useState(null);
+    const [replyInputVisible, setReplyInputVisible] = useState(false);
+
+    const [editReplyContent, setEditReplyContent] = useState('');
+    const [isReplyEditing, setIsReplyEditing] = useState(false);
+    const [selectedReplyId, setSelectedReplyId] = useState(null);
+    const [isReplyDeleted, setIsReplyDeleted] = useState(false);
+    const [ReplyDeletePopupOpen, setReplyDeletePopupOpen] = useState(false);
+
+    // 댓글 페이징
     const [activePage, setActivePage] = useState(1);
     const itemsPerPage = 10;
     const totalCommentPages = Math.ceil(comments.length / itemsPerPage);
@@ -65,6 +79,9 @@ const BoardDetail = () => {
             });
     }, [postId, totalCommentPages]);
 
+    /* 
+        댓글
+    */
     const handleCommentSubmit = () => {
         // 새 댓글 작성 및 댓글 목록 갱신
         axios.post(`http://127.0.0.1:8000/board/${postId}/comments/`, 
@@ -140,6 +157,123 @@ const BoardDetail = () => {
         setCommentDeletePopupOpen(true);
     };
 
+
+    /* 
+        대댓글
+    */
+    // 대댓글 입력창 열기
+    const openReplyInput = (comment) => {
+        setSelectedComment(comment);
+        setNewReply('');
+        setReplyInputVisible(true);
+    };
+
+    // 대댓글 작성
+    const handleReplySubmit = () => {
+        axios.post(`http://127.0.0.1:8000/board/${postId}/comments/`, {
+            comment: newReply,
+            board: postId,
+            customer: customerId,
+            parent_comment: selectedComment.id,
+        })
+        .then(response => {
+            // 대댓글 목록 갱신
+            setComments((prevComments) => {
+                const updatedComments = prevComments.map(comment =>
+                    comment.id === selectedComment.id
+                        ? { ...comment, replies: [...comment.replies, response.data] }
+                        : comment
+                );
+                return updatedComments;
+            });
+
+            setNewReply('');
+            setSelectedComment(null);
+            setReplyInputVisible(false);
+        })
+        .catch(error => {
+            console.error('Error submitting reply:', error);
+        });
+    };
+
+    // 대댓글 수정 버튼 클릭 시
+    const handleEditReplyClick = (replyId, currentContent, commentId) => {
+        // 편집 모드로 변경
+        setIsReplyEditing(true);
+        setSelectedReplyId(replyId);
+        setEditReplyContent(currentContent);
+    
+        // 대댓글이 속한 댓글을 선택
+        setSelectedComment(comments.find(comment => comment.id === commentId));
+    };
+
+    // 대댓글 수정 완료 버튼 클릭 시
+    const handleEditReplyComplete = () => {
+        // 수정된 내용 서버로 전송
+        axios.put(`http://127.0.0.1:8000/board/${postId}/comments/${selectedReplyId}/`, {
+            comment: editReplyContent,
+            board: postId,
+            customer: customerId,
+        })
+        .then(response => {
+            // 편집 모드 해제하고 화면 갱신
+            setComments((prevComments) => {
+                const updatedComments = prevComments.map(comment =>
+                    comment.id === selectedComment.id
+                        ? { ...comment, replies: comment.replies.map(reply =>
+                            reply.id === selectedReplyId
+                                ? { ...reply, comment: editReplyContent, isEditing: false }
+                                : reply
+                        )}
+                        : comment
+                );
+                return updatedComments;
+            });
+            setIsReplyEditing(false);
+            setEditReplyContent('');
+        })
+        .catch(error => {
+            console.error('Error updating reply:', error);
+        });
+    };
+
+    // 대댓글 취소 버튼 클릭 시
+    const handleCancelEditReply = () => {
+        setIsReplyEditing(false);
+        setEditReplyContent('');
+    };
+
+    // 대댓글 삭제 버튼 클릭 시
+    const handleDeleteReply = (replyId, commentId) => {
+        axios.delete(`http://127.0.0.1:8000/board/${postId}/comments/${replyId}/`)
+            .then(response => {
+                setIsReplyDeleted(true);
+                // 삭제된 대댓글 화면에서 제거
+                setComments((prevComments) => {
+                    const updatedComments = prevComments.map(comment =>
+                        comment.id === commentId
+                            ? { ...comment, replies: comment.replies.filter(reply => reply.id !== replyId) }
+                            : comment
+                    );
+                    return updatedComments;
+                });
+
+                setTimeout(() => {
+                    setReplyDeletePopupOpen(false);
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('Error deleting reply:', error);
+            });
+    };
+
+    const openReplyDeletePopup = (replyId, commentId) => {
+        setSelectedReplyId(replyId);
+        setSelectedCommentId(commentId);
+        setReplyDeletePopupOpen(true);
+    };
+
+
     // 로그인한 유저
     useEffect(() => {
         const fetchLoggedInUser = async () => {
@@ -203,6 +337,9 @@ const BoardDetail = () => {
         setActivePage(pageNumber);
     };
 
+    // 댓글 + 답글 수
+    const totalComments = comments.reduce((acc, comment) => acc + 1 + comment.replies.length, 0);
+
     return (
         <div className='noticeboard'>
             <Nav />
@@ -250,7 +387,7 @@ const BoardDetail = () => {
                     
                         {/* 댓글 */}
                         <div className='comment'>
-                            <p className='comment-title'>댓글 {comments.length}</p>
+                            <p className='comment-title'>댓글 {totalComments}</p>
                             <div className='comment-list'>
                                 {comments
                                     .slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage)
@@ -258,7 +395,7 @@ const BoardDetail = () => {
                                     <div key={comment.id} className='comment-item'>
                                         <div className='writer-profile'>
                                             {!comment.isEditing && (
-                                                <img src={`http://127.0.0.1:8000/media/${comment.user_profile_image}`} alt='Profile' />
+                                                <img src={`https://hairgenie-bucket.s3.ap-northeast-2.amazonaws.com/${comment.user_profile_image}`} alt='Profile' />
                                             )}
                                             <div className='comment-info'>
                                                 <p className='user-name'>{comment.user_name}</p>
@@ -283,8 +420,27 @@ const BoardDetail = () => {
                                                                 <br />
                                                             </React.Fragment>
                                                         ))}</p>
-                                                        <p className='created-at'>{formatDate(comment.created_at)}</p>
+                                                        <div className='btn-container'>
+                                                            <p className='created-at'>{formatDate(comment.created_at)}</p>
+                                                            <button onClick={() => openReplyInput(comment)} style={{fontSize: '11px'}}>답글</button>
+                                                        </div>
                                                     </>
+                                                )}
+
+                                                {/* 대댓글 입력창 */}
+                                                {replyInputVisible && selectedComment && selectedComment.id === comment.id && (
+                                                    <div className='update-input reply-input' style={{marginTop: '10px'}}>
+                                                        <textarea
+                                                            rows='4'
+                                                            value={newReply}
+                                                            onChange={(e) => setNewReply(e.target.value)}
+                                                            placeholder='답글을 입력해주세요.'
+                                                        />
+                                                        <div className='btn-container'>
+                                                            <button className='btn-cancel' onClick={() => setReplyInputVisible(false)}>취소</button>
+                                                            <button className='btn-update' onClick={handleReplySubmit}>등록</button>
+                                                        </div>
+                                                    </div>
                                                 )}
                                                 
                                             </div>
@@ -296,8 +452,57 @@ const BoardDetail = () => {
                                                 </div>
                                             )}
                                         </div>
+
+                                        {/* 대댓글 표시 */}
+                                        {comment.replies && comment.replies.length > 0 && (
+                                            <div className='replies'>
+                                                {comment.replies.map(reply => (
+                                                    <div key={reply.id} className='comment-item'>
+                                                        <div className='writer-profile'>
+                                                            <img src={`https://hairgenie-bucket.s3.ap-northeast-2.amazonaws.com/${reply.user_profile_image}`} alt='Profile' />
+                                                            <div className='comment-info'>
+                                                            <p className='user-name'>{reply.user_name}</p>
+
+                                                            {isReplyEditing && selectedReplyId === reply.id ? (
+                                                                <div className='update-input'>
+                                                                    <textarea
+                                                                        rows='4'
+                                                                        value={editReplyContent}
+                                                                        onChange={(e) => setEditReplyContent(e.target.value)}
+                                                                    />
+                                                                    <div className='btn-container'>
+                                                                        <button className='btn-cancel' onClick={handleCancelEditReply}>취소</button>
+                                                                        <button className='btn-update' onClick={handleEditReplyComplete}>수정</button>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <>
+                                                                    <p className='comment-content'>{reply.comment.split('\n').map((line, index) => (
+                                                                        <React.Fragment key={index}>
+                                                                            {line}
+                                                                            <br />
+                                                                        </React.Fragment>
+                                                                    ))}</p>
+                                                                    <p className='created-at'>{formatDate(reply.created_at)}</p>
+                                                                </>
+                                                            )}
+
+                                                            </div>
+                                                            {/* 본인이 작성한 대댓글인 경우에만 수정/삭제 버튼 표시 */}
+                                                            {reply.customer === customerId && !isReplyEditing && (
+                                                                <div className='btn-container'>
+                                                                    <button onClick={() => handleEditReplyClick(reply.id, reply.comment, comment.id)}>수정</button>
+                                                                    <button onClick={() => openReplyDeletePopup(reply.id, comment.id)}>삭제</button>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
+                                
                             </div>
 
                             {/* 댓글 페이징 처리 */}
@@ -328,6 +533,8 @@ const BoardDetail = () => {
                                 <button onClick={handleCommentSubmit}>등록</button>
                             </div>
 
+                            
+
                         </div>
 
                         <Popup
@@ -336,6 +543,13 @@ const BoardDetail = () => {
                             onConfirm={() => handleDeleteComment(selectedCommentId)}
                             onCancel={() => setCommentDeletePopupOpen(false)}
                             isCompleted={isCommentDeleted}
+                        />
+                        <Popup
+                            isOpen={ReplyDeletePopupOpen}
+                            message={isReplyDeleted ? '답글이 삭제되었습니다.' : '답글을 삭제하시겠습니까?'}
+                            onConfirm={() => handleDeleteReply(selectedReplyId, selectedCommentId)}
+                            onCancel={() => setReplyDeletePopupOpen(false)}
+                            isCompleted={isReplyDeleted}
                         />
                     </div>
                     <Popup
