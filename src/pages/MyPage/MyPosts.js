@@ -181,8 +181,14 @@ const MyPosts = () => {
                 )}
                 <Popup
                     isOpen={PostDeletePopupOpen}
-                    message={isPostDeleted ? '게시글이 삭제되었습니다.' : '게시글을 삭제하시겠습니까?'}
-                    onConfirm={confirmPostDelete}
+                    message={
+                        isPostDeleted
+                            ? '게시글이 삭제되었습니다.'
+                            : selectedPosts.length === 0
+                                ? '삭제할 게시글을 선택해주세요.'
+                                : '게시글을 삭제하시겠습니까?'
+                    }
+                    onConfirm={selectedPosts.length !== 0 ? confirmPostDelete : () => setPostDeletePopupOpen(false)}
                     onCancel={() => setPostDeletePopupOpen(false)}
                     isCompleted={isPostDeleted}
                 />
