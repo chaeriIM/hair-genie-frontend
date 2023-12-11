@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Chatbot from '../../components/Chatbot';
+import Loading from '../../components/Loading';
 import Pagination from 'react-js-pagination';
 import './NoticeBoard.css';
 import '../../App.css';
@@ -20,6 +21,7 @@ const NoticeBoard = () => {
     const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/board/')
@@ -31,6 +33,7 @@ const NoticeBoard = () => {
                 });
                 setPosts(sortedPosts);
                 setFilteredPosts(sortedPosts);
+                setLoading(false);
 
                 // 공지를 상단에 고정시키기
                 const noticePosts = sortedPosts.filter(post => post.category === '공지');
@@ -39,13 +42,16 @@ const NoticeBoard = () => {
 
                 setPosts(combinedPosts);
                 setFilteredPosts(combinedPosts);
+                setLoading(false);
 
                 // user 정보 가져오기
                 const userIds = response.data.map(post => post.customer);
+                setLoading(false);
                 fetchUsers(userIds);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             });
     }, []);
     console.log(posts);
@@ -133,7 +139,9 @@ const NoticeBoard = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {currentPosts.length === 0 ? (
+                        {loading ? (
+                            <Loading message='로딩 중' />
+                        ) : currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>

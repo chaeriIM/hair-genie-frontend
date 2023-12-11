@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Loading from '../../components/Loading';
 import Pagination from 'react-js-pagination';
 import '../../App.css';
 
@@ -22,6 +23,7 @@ const MyComments = () => {
     const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,8 +55,10 @@ const MyComments = () => {
                 );
 
                 setPostsWithUserComments(userCommentedPosts);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -145,7 +149,9 @@ const MyComments = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {userCommentedPosts.length === 0 ? (
+                        {loading ? (
+                            <Loading message='로딩 중' />
+                        ) : userCommentedPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 댓글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>

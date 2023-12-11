@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Loading from '../../components/Loading';
 import Pagination from 'react-js-pagination';
 import '../../App.css';
 
@@ -19,6 +20,7 @@ const MyPosts = () => {
     const [PostDeletePopupOpen, setPostDeletePopupOpen] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,8 +44,10 @@ const MyPosts = () => {
                 // 게시글 중 현재 사용자의 것만 필터링
                 const userPosts = sortedPosts.filter(post => post.customer === customerId);
                 setFilteredPosts(userPosts);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -115,7 +119,9 @@ const MyPosts = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {currentPosts.length === 0 ? (
+                    {loading ? (
+                        <Loading message='로딩 중' />
+                    ) :currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
