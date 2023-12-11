@@ -7,12 +7,27 @@
 }
 
 .search-container {
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
 .search-container select {
     height: 24px;
+}
+
+.mini-blue-btn {
+    width: 40px;
+    height: 24px;
+    cursor: pointer;
+    background-color: #82B1FF;
+    border: none;
+    border-radius: 0 2px 2px 0;
+    transition: 0.4s;
+    color: #f6f6f6;
+}
+
+.mini-blue-btn:hover {
+    background-color: #467DC6;
 }
 
 .board-title {
