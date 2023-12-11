@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
@@ -25,45 +25,44 @@ const MyComments = () => {
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
 
+    const fetchData = useCallback(async () => {
+        try {
+            const [postsResponse, userDataResponse] = await Promise.all([
+                axios.get('http://127.0.0.1:8000/board/'),
+                axios.get('http://127.0.0.1:8000/user/')
+            ]);
+
+            const posts = postsResponse.data;
+
+            // 사용자 데이터에서 현재 사용자 정보만 가져오기
+            const matchedUser = userDataResponse.data.find((user) => user.uid === userId);
+            const customerId = matchedUser.id;
+
+            // 현재 사용자의 댓글 데이터 가져오기
+            const userCommentsResponse = await axios.get(`http://127.0.0.1:8000/board/comments/${customerId}/`);
+            const userCommentsData = userCommentsResponse.data.sort((a, b) => {
+                const dateA = new Date(a.created_at);
+                const dateB = new Date(b.created_at);
+                return dateB - dateA;
+            });
+
+            // 현재 사용자가 댓글 작성한 게시글 필터링
+            const userCommentedPosts = posts.filter(post =>
+                userCommentsData.some(comment => comment.board === post.id)
+            );
+
+            setUserComments(userCommentsData);
+            setPostsWithUserComments(userCommentedPosts);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    }, [userId]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // 모든 게시글 가져오기
-                const postsResponse = await axios.get('http://127.0.0.1:8000/board/');
-                const posts = postsResponse.data;
-
-                // 사용자 데이터 가져오기
-                const userDataResponse = await axios.get('http://127.0.0.1:8000/user/');
-                const userDataArray = userDataResponse.data;
-
-                // 사용자 데이터에서 ID 찾기
-                const matchedUser = userDataArray.find((user) => user.uid === userId);
-                const customerId = matchedUser.id;
-
-                // 해당 사용자의 모든 댓글을 가져옴
-                const userCommentsResponse = await axios.get(`http://127.0.0.1:8000/board/comments/${customerId}/`);
-                const userCommentsData = userCommentsResponse.data.sort((a, b) => {
-                    const dateA = new Date(a.created_at);
-                    const dateB = new Date(b.created_at);
-                    return dateB - dateA;
-                });
-                setUserComments(userCommentsData); // 사용자가 작성한 댓글 데이터 설정
-
-                // 사용자가 댓글 작성한 게시글 필터링
-                const userCommentedPosts = posts.filter(post =>
-                    userComments.some(comment => comment.board === post.id)
-                );
-
-                setPostsWithUserComments(userCommentedPosts);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            }
-        };
-
         fetchData();
-    }, [userId, userComments]);
+    }, [userId, fetchData]);
 
     // 이전에 가져온 게시글 데이터에서 해당 게시글의 제목과 댓글 수를 가져오기 위한 함수
     const getPostTitleAndCommentCount = (postId) => {
