@@ -97,14 +97,33 @@ const NoticeBoard = () => {
     };
 
     const filterPostsByCategory = (category, title) => {
+        let filtered = [];
         if (category === '전체') {
-            setFilteredPosts(posts);
+            filtered = posts;
         } else {
-            const filtered = posts.filter(post => post.category === category);
-            setFilteredPosts(filtered);
+            filtered = posts.filter(post => post.category === category);
         }
         setSelectedCategory(category);
         setBoardTitle(title);
+
+        // 선택된 카테고리에서만 검색 수행
+        let categoryFilteredPosts = filtered;
+        if (searchTerm !== '') {
+            if (searchCategory === '제목') {
+                categoryFilteredPosts = filtered.filter(post =>
+                    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            } else if (searchCategory === '작성자') {
+                categoryFilteredPosts = filtered.filter(post =>
+                    users[post.customer]?.unickname.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            } else if (searchCategory === '게시글') {
+                categoryFilteredPosts = filtered.filter(post =>
+                    post.content.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+        }
+        setFilteredPosts(categoryFilteredPosts);
     };
 
     //검색
@@ -114,6 +133,10 @@ const NoticeBoard = () => {
 
     const handleSearchCategoryChange = (event) => {
         setSearchCategory(event.target.value);
+    };
+
+    const handleSearchButtonClick = () => {
+        filterPostsByCategory(selectedCategory, boardTitle);
     };
 
     const filterPostsBySearch = () => {
@@ -180,7 +203,7 @@ const NoticeBoard = () => {
                             onChange={handleSearchTermChange}
                             style={{ fontSize: '14px' }}
                         />
-                        {/* <button className='login-btn' onClick={filterPostsBySearch}>검색</button> */}
+                        <button className='mini-blue-btn' onClick={handleSearchButtonClick}>검색</button>
                     </div>
                 </div>
                 <hr className="board-separator" />
@@ -230,7 +253,7 @@ const NoticeBoard = () => {
                 </div>
                 <div className='right-btn' style={{ minWidth: '800px', width: '60%' }}>
                     <Link to="/boardwrite">
-                        <button className='login-btn' style={{ width: '70px' }}>글쓰기</button>
+                        <button className='gray-btn' style={{ width: '70px', margin: '0' }}>글쓰기</button>
                     </Link>
                 </div>
                 <div className='pagination-container'>
