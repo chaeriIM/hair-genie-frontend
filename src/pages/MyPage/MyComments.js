@@ -215,8 +215,14 @@ const MyComments = () => {
                 </div>
                 <Popup
                     isOpen={CommentDeletePopupOpen}
-                    message={isCommentDeleted ? '댓글이 삭제되었습니다.' : '댓글을 삭제하시겠습니까?'}
-                    onConfirm={confirmCommentDelete}
+                    message={
+                        isCommentDeleted
+                            ? '댓글이 삭제되었습니다.'
+                            : selectedComments.length === 0
+                                ? '삭제할 댓글을 선택해주세요.'
+                                : '댓글을 삭제하시겠습니까?'
+                    }
+                    onConfirm={selectedComments.length !== 0 ? confirmCommentDelete : () => setCommentDeletePopupOpen(false)}
                     onCancel={() => setCommentDeletePopupOpen(false)}
                     isCompleted={isCommentDeleted}
                 />
