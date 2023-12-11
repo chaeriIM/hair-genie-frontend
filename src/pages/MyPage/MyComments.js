@@ -17,7 +17,6 @@ const MyComments = () => {
 
     const [userComments, setUserComments] = useState([]);
     const [selectedComments, setSelectedComments] = useState([]);
-    const [/* comments */, setComments] = useState([]);
 
     const [isCommentDeleted, setIsCommentDeleted] = useState(false);
     const [CommentDeletePopupOpen, setCommentDeletePopupOpen] = useState(false);
@@ -80,12 +79,9 @@ const MyComments = () => {
     };
 
     // 페이지네이션 로직
-    useEffect(() => {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const slicedComments = userComments.slice(startIndex, endIndex);
-        setComments(slicedComments);
-    }, [activePage, userComments]);
+    const indexOfLastComment = activePage * itemsPerPage;
+    const indexOfFirstComment = indexOfLastComment - itemsPerPage;
+    const currentComments = userComments.slice(indexOfFirstComment, indexOfLastComment);
 
     // 페이지 변경 핸들러
     const handlePageChange = (pageNumber) => {
@@ -96,19 +92,19 @@ const MyComments = () => {
     const handleCheckboxChange = (commentId, commentBoard) => {
         const isSelected = selectedComments.includes(commentId);
         let updatedSelectedComments = [];
-    
+
         if (isSelected) {
             updatedSelectedComments = selectedComments.filter((selectedId) => selectedId !== commentId);
         } else {
             updatedSelectedComments = [...selectedComments, commentId];
         }
-    
+
         setSelectedComments(updatedSelectedComments);
-    
+
         // 선택된 댓글의 comment.board 값을 selectedBoardId로 저장
         setSelectedBoardId(commentBoard);
     };
-    
+
 
     const handleCommentDelete = () => {
         setCommentDeletePopupOpen(true);
@@ -160,7 +156,7 @@ const MyComments = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {userComments.map((comment) => (
+                                    {currentComments.map((comment) => (
                                         <tr className='board-detail-container' key={comment.id}>
                                             <td className='board-detail'>
                                                 <input

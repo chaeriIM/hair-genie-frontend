@@ -98,13 +98,10 @@ const NoticeBoard = () => {
         setBoardTitle(title);
     };
 
-    // 페이지네이션 로직
-    useEffect(() => {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const slicedPosts = filteredPosts.slice(startIndex, endIndex);
-        setPosts(slicedPosts);
-    }, [activePage, filteredPosts]);
+    // 페이지네이션
+    const indexOfLastPost = activePage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
@@ -135,7 +132,7 @@ const NoticeBoard = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {filteredPosts.length === 0 ? (
+                        {currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
@@ -149,7 +146,7 @@ const NoticeBoard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredPosts.map((post, index) => (
+                                    {currentPosts.map((post, index) => (
                                         <tr className='board-detail-container' key={post.id}>
                                             {selectedCategory === '전체' ? (
                                                 <td className={`board-detail ${post.category === '공지' ? 'notice-category' : ''}`}>{post.category}</td>
@@ -162,7 +159,7 @@ const NoticeBoard = () => {
                                                     to={`/noticeboard/${post.id}`}
                                                     onClick={() => handlePostClick(post.id)}
                                                 >
-                                                    {post.title} <span style={{color: '#82b1ff'}}>[{post.comment_count}]</span>
+                                                    {post.title} <span style={{ color: '#82b1ff' }}>[{post.comment_count}]</span>
                                                 </Link>
                                             </td>
                                             <td className='board-detail'>{users[post.customer]?.unickname}</td>
@@ -176,15 +173,17 @@ const NoticeBoard = () => {
                     </div>
                 </div>
                 <div className='pagination-container'>
-                    <Pagination
-                        activePage={activePage}
-                        itemsCountPerPage={itemsPerPage}
-                        totalItemsCount={filteredPosts.length}
-                        pageRangeDisplayed={5} // paginator의 페이지 범위
-                        prevPageText={"‹"}
-                        nextPageText={"›"}
-                        onChange={handlePageChange}
-                    />
+                    {filteredPosts.length > 1 && (
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={itemsPerPage}
+                            totalItemsCount={filteredPosts.length}
+                            pageRangeDisplayed={5} // paginator의 페이지 범위
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
+                            onChange={handlePageChange}
+                        />
+                    )}
                 </div>
 
             </div>

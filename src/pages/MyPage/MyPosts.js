@@ -12,7 +12,6 @@ const itemsPerPage = 15;
 const MyPosts = () => {
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [selectedPosts, setSelectedPosts] = useState([]);
-    const [/* posts */, setPosts] = useState([]);
 
     const userId = localStorage.getItem('userId');
 
@@ -60,12 +59,9 @@ const MyPosts = () => {
     };
 
     // 페이지네이션 로직
-    useEffect(() => {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const slicedPosts = filteredPosts.slice(startIndex, endIndex);
-        setPosts(slicedPosts);
-    }, [activePage, filteredPosts]);
+    const indexOfLastPost = activePage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
@@ -119,7 +115,7 @@ const MyPosts = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {filteredPosts.length === 0 ? (
+                        {currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
@@ -133,7 +129,7 @@ const MyPosts = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredPosts.map((post, index) => (
+                                    {currentPosts.map((post, index) => (
                                         <tr className='board-detail-container' key={post.id}>
                                             <td className='board-detail'>
                                                 <input
