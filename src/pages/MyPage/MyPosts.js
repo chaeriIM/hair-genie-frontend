@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Loading from '../../components/Loading';
 import Pagination from 'react-js-pagination';
 import '../../App.css';
 
@@ -12,7 +13,6 @@ const itemsPerPage = 15;
 const MyPosts = () => {
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [selectedPosts, setSelectedPosts] = useState([]);
-    const [/* posts */, setPosts] = useState([]);
 
     const userId = localStorage.getItem('userId');
 
@@ -20,6 +20,7 @@ const MyPosts = () => {
     const [PostDeletePopupOpen, setPostDeletePopupOpen] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,8 +44,10 @@ const MyPosts = () => {
                 // 게시글 중 현재 사용자의 것만 필터링
                 const userPosts = sortedPosts.filter(post => post.customer === customerId);
                 setFilteredPosts(userPosts);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
@@ -60,12 +63,9 @@ const MyPosts = () => {
     };
 
     // 페이지네이션 로직
-    useEffect(() => {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const slicedPosts = filteredPosts.slice(startIndex, endIndex);
-        setPosts(slicedPosts);
-    }, [activePage, filteredPosts]);
+    const indexOfLastPost = activePage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
@@ -119,7 +119,9 @@ const MyPosts = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {filteredPosts.length === 0 ? (
+                        {loading ? (
+                            <Loading message='로딩 중' />
+                        ) : currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
@@ -133,7 +135,7 @@ const MyPosts = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredPosts.map((post, index) => (
+                                    {currentPosts.map((post, index) => (
                                         <tr className='board-detail-container' key={post.id}>
                                             <td className='board-detail'>
                                                 <input
@@ -164,17 +166,19 @@ const MyPosts = () => {
                     <Link to="/boardwrite"><button className='gray-btn' style={{ width: '60px' }}>글쓰기</button></Link>
                     <button className='gray-btn' style={{ width: '50px' }} onClick={handlePostDelete}>삭제</button>
                 </div>
-                <div className='pagination-container'>
-                    <Pagination
-                        activePage={activePage}
-                        itemsCountPerPage={itemsPerPage}
-                        totalItemsCount={filteredPosts.length}
-                        pageRangeDisplayed={5} // paginator의 페이지 범위
-                        prevPageText={"‹"}
-                        nextPageText={"›"}
-                        onChange={handlePageChange}
-                    />
-                </div>
+                {filteredPosts.length > itemsPerPage && (
+                    <div className='pagination-container'>
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={itemsPerPage}
+                            totalItemsCount={filteredPosts.length}
+                            pageRangeDisplayed={5} // paginator의 페이지 범위
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
+                            onChange={handlePageChange}
+                        />
+                    </div>
+                )}
                 <Popup
                     isOpen={PostDeletePopupOpen}
                     message={isPostDeleted ? '게시글이 삭제되었습니다.' : '게시글을 삭제하시겠습니까?'}

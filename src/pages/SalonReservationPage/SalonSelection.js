@@ -154,18 +154,19 @@ const SalonSelection = ({ onSelectSalon, currentStep, setStep }) => {
                                 </div>
                             ))
                         )}
-                    <div className='pagination-container'>
-                        <Pagination
-                            activePage={activePage}
-                            itemsCountPerPage={itemsPerPage}
-                            totalItemsCount={searchResults.length}
-                            pageRangeDisplayed={5} // paginator의 페이지 범위
-                            prevPageText={"‹"}
-                            nextPageText={"›"}
-                            onChange={handlePageChange}
-                        />
-                    </div>
-
+                    {searchResults.length > itemsPerPage && (
+                        <div className='pagination-container'>
+                            <Pagination
+                                activePage={activePage}
+                                itemsCountPerPage={itemsPerPage}
+                                totalItemsCount={searchResults.length}
+                                pageRangeDisplayed={5} // paginator의 페이지 범위
+                                prevPageText={"‹"}
+                                nextPageText={"›"}
+                                onChange={handlePageChange}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

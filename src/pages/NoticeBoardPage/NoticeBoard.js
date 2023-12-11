@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Chatbot from '../../components/Chatbot';
+import Loading from '../../components/Loading';
 import Pagination from 'react-js-pagination';
 import './NoticeBoard.css';
 import '../../App.css';
@@ -18,7 +20,12 @@ const NoticeBoard = () => {
     const [boardTitle, setBoardTitle] = useState('전체 글 보기');
     const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
 
+    // 검색 관리
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchCategory, setSearchCategory] = useState('제목');
+
     const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/board/')
@@ -42,9 +49,11 @@ const NoticeBoard = () => {
                 // user 정보 가져오기
                 const userIds = response.data.map(post => post.customer);
                 fetchUsers(userIds);
+                setLoading(false);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             });
     }, []);
     console.log(posts);
@@ -98,13 +107,42 @@ const NoticeBoard = () => {
         setBoardTitle(title);
     };
 
-    // 페이지네이션 로직
+    //검색
+    const handleSearchTermChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleSearchCategoryChange = (event) => {
+        setSearchCategory(event.target.value);
+    };
+
+    const filterPostsBySearch = () => {
+        let filtered = [];
+        if (searchCategory === '제목') {
+            filtered = posts.filter(post =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else if (searchCategory === '작성자') {
+            filtered = posts.filter(post =>
+                users[post.customer]?.unickname.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else if (searchCategory === '게시글') {
+            filtered = posts.filter(post =>
+                post.content.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        setFilteredPosts(filtered);
+    };
+
     useEffect(() => {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const slicedPosts = filteredPosts.slice(startIndex, endIndex);
-        setPosts(slicedPosts);
-    }, [activePage, filteredPosts]);
+        filterPostsBySearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchTerm, searchCategory]);
+
+    // 페이지네이션
+    const indexOfLastPost = activePage * itemsPerPage;
+    const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
@@ -128,14 +166,29 @@ const NoticeBoard = () => {
                             <span className='category' onClick={() => filterPostsByCategory('미용실 등록 요청', '미용실 등록 요청')}>미용실 등록 요청</span>
                         </div>
                     </div>
-                    <Link to="/boardwrite">
-                        <button className='login-btn' style={{ width: '70px' }}>글쓰기</button>
-                    </Link>
+                    <div className='search-container'>
+                        <select value={searchCategory} onChange={handleSearchCategoryChange}>
+                            <option value='제목'>제목</option>
+                            <option value='작성자'>작성자</option>
+                            <option value='게시글'>게시글</option>
+                        </select>
+                        <input
+                            className='search-bar'
+                            type='text'
+                            placeholder='검색어를 입력하세요.'
+                            value={searchTerm}
+                            onChange={handleSearchTermChange}
+                            style={{ fontSize: '14px' }}
+                        />
+                        {/* <button className='login-btn' onClick={filterPostsBySearch}>검색</button> */}
+                    </div>
                 </div>
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                        {filteredPosts.length === 0 ? (
+                        {loading ? (
+                            <Loading message='로딩 중' />
+                        ) : currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
@@ -149,7 +202,7 @@ const NoticeBoard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredPosts.map((post, index) => (
+                                    {currentPosts.map((post, index) => (
                                         <tr className='board-detail-container' key={post.id}>
                                             {selectedCategory === '전체' ? (
                                                 <td className={`board-detail ${post.category === '공지' ? 'notice-category' : ''}`}>{post.category}</td>
@@ -162,7 +215,7 @@ const NoticeBoard = () => {
                                                     to={`/noticeboard/${post.id}`}
                                                     onClick={() => handlePostClick(post.id)}
                                                 >
-                                                    {post.title} <span style={{color: '#82b1ff'}}>[{post.comment_count}]</span>
+                                                    {post.title} <span style={{ color: '#82b1ff' }}>[{post.comment_count}]</span>
                                                 </Link>
                                             </td>
                                             <td className='board-detail'>{users[post.customer]?.unickname}</td>
@@ -175,19 +228,26 @@ const NoticeBoard = () => {
                         )}
                     </div>
                 </div>
-                <div className='pagination-container'>
-                    <Pagination
-                        activePage={activePage}
-                        itemsCountPerPage={itemsPerPage}
-                        totalItemsCount={filteredPosts.length}
-                        pageRangeDisplayed={5} // paginator의 페이지 범위
-                        prevPageText={"‹"}
-                        nextPageText={"›"}
-                        onChange={handlePageChange}
-                    />
+                <div className='right-btn' style={{ minWidth: '800px', width: '60%' }}>
+                    <Link to="/boardwrite">
+                        <button className='login-btn' style={{ width: '70px' }}>글쓰기</button>
+                    </Link>
                 </div>
-
+                <div className='pagination-container'>
+                    {filteredPosts.length > itemsPerPage && (
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={itemsPerPage}
+                            totalItemsCount={filteredPosts.length}
+                            pageRangeDisplayed={5} // paginator의 페이지 범위
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
+                            onChange={handlePageChange}
+                        />
+                    )}
+                </div>
             </div>
+            <Chatbot />
         </div>
     );
 };

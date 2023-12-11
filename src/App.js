@@ -19,6 +19,7 @@ import ReviewWrite from "./pages/MyPage/ReviewWrite.js";
 import EditReview from "./pages/MyPage/EditReview.js";
 
 import MyPosts from "./pages/MyPage/MyPosts.js";
+import MyComments from "./pages/MyPage/MyComments.js";
 
 import NoticeBoard from "./pages/NoticeBoardPage/NoticeBoard.js";
 import BoardWrite from "./pages/NoticeBoardPage/BoardWrite.js";
@@ -96,6 +97,7 @@ const App = () => {
             <Route path="my-face-type" element={<MyFaceType />} />
             <Route path="withdrawal" element={<Withdrawal />} />
             <Route path="my-posts" element={<MyPosts />} />
+            <Route path="my-comments" element={<MyComments />} />
             {/* 미용실 예약 */}
             <Route path="reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation/:id" element={<ReservationDetails />} />

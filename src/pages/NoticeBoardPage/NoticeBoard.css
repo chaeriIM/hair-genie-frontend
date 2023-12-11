@@ -3,8 +3,16 @@
     min-width: 800px;
     width: 60%;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-top: -20px;
+    align-items: center;
+}
+
+.search-container {
+    display:flex;
+    align-items: center;
+}
+
+.search-container select {
+    height: 24px;
 }
 
 .board-title {
