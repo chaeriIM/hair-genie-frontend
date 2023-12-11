@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Chatbot from '../../components/Chatbot';
 import Pagination from 'react-js-pagination';
 import './BoardDetail.css';
 import '../../App.css';
@@ -561,6 +562,7 @@ const BoardDetail = () => {
                     />
                 </div>
             </div>
+            <Chatbot />
         </div >
     );
 };

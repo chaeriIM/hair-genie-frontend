@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
+import Chatbot from '../../components/Chatbot';
 import Pagination from 'react-js-pagination';
 import './NoticeBoard.css';
 import '../../App.css';
@@ -185,8 +186,8 @@ const NoticeBoard = () => {
                         />
                     )}
                 </div>
-
             </div>
+            <Chatbot />
         </div>
     );
 };

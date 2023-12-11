@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Alert from '../../components/Alert';
 import Popup from '../../components/Popup';
+import Chatbot from '../../components/Chatbot';
 import Modal from 'react-modal';
 import './BoardWrite.css'
 import '../../App.css';
@@ -165,6 +166,7 @@ const BoardWrite = () => {
                     />
                 </div>
             </div>
+            <Chatbot />
         </div>
     );
 };
