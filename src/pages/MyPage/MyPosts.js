@@ -119,9 +119,9 @@ const MyPosts = () => {
                 <hr className="board-separator" />
                 <div className='board-body-container'>
                     <div className='board-list-container'>
-                    {loading ? (
-                        <Loading message='로딩 중' />
-                    ) :currentPosts.length === 0 ? (
+                        {loading ? (
+                            <Loading message='로딩 중' />
+                        ) : currentPosts.length === 0 ? (
                             <p className='no-posts-message'>등록된 게시글이 없습니다.</p>
                         ) : (
                             <table className='board-table'>
@@ -166,17 +166,19 @@ const MyPosts = () => {
                     <Link to="/boardwrite"><button className='gray-btn' style={{ width: '60px' }}>글쓰기</button></Link>
                     <button className='gray-btn' style={{ width: '50px' }} onClick={handlePostDelete}>삭제</button>
                 </div>
-                <div className='pagination-container'>
-                    <Pagination
-                        activePage={activePage}
-                        itemsCountPerPage={itemsPerPage}
-                        totalItemsCount={filteredPosts.length}
-                        pageRangeDisplayed={5} // paginator의 페이지 범위
-                        prevPageText={"‹"}
-                        nextPageText={"›"}
-                        onChange={handlePageChange}
-                    />
-                </div>
+                {filteredPosts.length > itemsPerPage && (
+                    <div className='pagination-container'>
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={itemsPerPage}
+                            totalItemsCount={filteredPosts.length}
+                            pageRangeDisplayed={5} // paginator의 페이지 범위
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
+                            onChange={handlePageChange}
+                        />
+                    </div>
+                )}
                 <Popup
                     isOpen={PostDeletePopupOpen}
                     message={isPostDeleted ? '게시글이 삭제되었습니다.' : '게시글을 삭제하시겠습니까?'}

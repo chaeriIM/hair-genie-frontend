@@ -201,7 +201,7 @@ const MyComments = () => {
                     <button className='gray-btn' style={{ width: '50px' }} onClick={handleCommentDelete}>삭제</button>
                 </div>
                 <div className='pagination-container'>
-                    {userComments.length > 1 && (
+                    {userComments.length > itemsPerPage && (
                         <Pagination
                             activePage={activePage}
                             itemsCountPerPage={itemsPerPage}

@@ -182,7 +182,7 @@ const NoticeBoard = () => {
                     </div>
                 </div>
                 <div className='pagination-container'>
-                    {filteredPosts.length > 1 && (
+                    {filteredPosts.length > itemsPerPage && (
                         <Pagination
                             activePage={activePage}
                             itemsCountPerPage={itemsPerPage}
