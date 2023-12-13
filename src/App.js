@@ -7,6 +7,7 @@ import FaceShapePage from './pages/FaceShapePage';
 import HairSynthesisPage from './pages/HairSynthesisPage';
 import SalonLocatorPage from './pages/SalonLocatorPage';
 import SalonReservationPage from './pages/SalonReservationPage/SalonReservationPage';
+
 import MyPage from './pages/MyPage/index.js';
 import MemberInfoEdit from './pages/MyPage/MemberInfoEdit';
 import PasswordChange from './pages/MyPage/PasswordChange';
@@ -16,15 +17,26 @@ import ReservationInfo from './pages/MyPage/ReservationInfo';
 import ReservationDetails from './pages/MyPage/ReservationDetails';
 import ReviewWrite from "./pages/MyPage/ReviewWrite.js";
 import EditReview from "./pages/MyPage/EditReview.js";
+
+import MyPosts from "./pages/MyPage/MyPosts.js";
+import MyComments from "./pages/MyPage/MyComments.js";
+
+import NoticeBoard from "./pages/NoticeBoardPage/NoticeBoard.js";
+import BoardWrite from "./pages/NoticeBoardPage/BoardWrite.js";
+import BoardDetail from "./pages/NoticeBoardPage/BoardDetail.js";
+import EditBoard from "./pages/NoticeBoardPage/EditBoard.js";
+
 import Withdrawal from './pages/MyPage/Withdrawal';
 import JoinPage from './pages/JoinPage';
-import LoginPage from './pages/LoginPage'
+import LoginPage from './pages/LoginPage';
+
 import FaceResultPage from './pages/FaceShapePage/FaceResultPage';
 import HairResultPage from './pages/HairSynthesisPage/HairResultPage';
 import FaceUploadPage from './pages/FaceShapePage/UploadPage';
 import FaceWebcamPage from './pages/FaceShapePage/WebcamPage';
 import HairUploadPage from './pages/HairSynthesisPage/UploadPage';
 import HairWebcamPage from './pages/HairSynthesisPage/WebcamPage';
+
 import FindIdPwPage from './pages/LoginPage/FindIdPwPage';
 import NewPwPage from "./pages/LoginPage/NewPwPage";
 import LogoutNoticePage from "./pages/LoginPage/LogoutNoticePage";
@@ -77,22 +89,32 @@ const App = () => {
             <Route path="faceshape" element={<FaceShapePage />} />
             <Route path="salonlocator" element={<SalonLocatorPage />} />
             <Route path="salonreservation" element={<SalonReservationPage />} />
+            {/* 마이페이지 */}
             <Route path="mypage" element={<MyPage />} />
             <Route path="member-info-edit" element={<MemberInfoEdit />} />
             <Route path="password-change" element={<PasswordChange />} />
             <Route path="face-type-info" element={<FaceTypeInfo />} />
             <Route path="my-face-type" element={<MyFaceType />} />
+            <Route path="withdrawal" element={<Withdrawal />} />
+            <Route path="my-posts" element={<MyPosts />} />
+            <Route path="my-comments" element={<MyComments />} />
+            {/* 미용실 예약 */}
             <Route path="reservation-info" element={<ReservationInfo />} />
             <Route path="/reservation/:id" element={<ReservationDetails />} />
             <Route path="/review/:id" element={<ReviewWrite />} />
             <Route path="/review/:id/edit" element={<EditReview />} />
-            <Route path="withdrawal" element={<Withdrawal />} />
+            {/* 딥러닝 */}
             <Route path="faceresult" element={<FaceResultPage />} />
             <Route path="face-uploadpage" element={<FaceUploadPage />} />
             <Route path="face-webcampage" element={<FaceWebcamPage />} />
             <Route path="hairresult" element={<HairResultPage />} />
             <Route path="hair-uploadpage" element={<HairUploadPage />} />
             <Route path="hair-webcampage" element={<HairWebcamPage />} />
+            {/* 게시판 */}
+            <Route path="noticeboard" element={<NoticeBoard />} />
+            <Route path="boardwrite" element={<BoardWrite />} />
+            <Route path="/noticeboard/:postId" element={<BoardDetail />} />
+            <Route path="/noticeboard/:postId/edit" element={<EditBoard />} />
           </>
         ) : (
           // 로그인이 필요한 페이지에 접근할 때
